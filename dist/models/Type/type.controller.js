@@ -19,11 +19,14 @@ let TypeController = class TypeController {
     constructor(TypeService) {
         this.TypeService = TypeService;
     }
-    createType(Description) {
-        return this.TypeService.createType(Description);
+    async createType(Description) {
+        return await this.TypeService.createType(Description);
     }
-    getTypes() {
-        return this.TypeService.getTypes();
+    async getTypes() {
+        return await this.TypeService.getTypes();
+    }
+    async getType(typeId) {
+        return await this.TypeService.getType(typeId);
     }
 };
 __decorate([
@@ -31,14 +34,21 @@ __decorate([
     __param(0, (0, common_1.Body)('Description')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TypeController.prototype, "createType", null);
 __decorate([
     (0, common_1.Get)('getTypes'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TypeController.prototype, "getTypes", null);
+__decorate([
+    (0, common_1.Get)('getType/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], TypeController.prototype, "getType", null);
 TypeController = __decorate([
     (0, common_1.Controller)('types'),
     __metadata("design:paramtypes", [type_service_1.TypeService])

@@ -30,7 +30,6 @@ export declare class TypeService {
     createType(Description: string): Promise<import("mongoose").Document<unknown, any, Type> & Type & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getTypes(): Promise<(import("mongoose").Document<unknown, any, Type> & Type & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    getTypes(): Promise<Type[]>;
+    getType(_id: string): Promise<Type>;
 }

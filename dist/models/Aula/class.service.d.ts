@@ -1,27 +1,3 @@
-/// <reference types="mongoose/types/aggregate" />
-/// <reference types="mongoose/types/callback" />
-/// <reference types="mongoose/types/collection" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/expressions" />
-/// <reference types="mongoose/types/helpers" />
-/// <reference types="mongoose/types/middlewares" />
-/// <reference types="mongoose/types/indexes" />
-/// <reference types="mongoose/types/models" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/populate" />
-/// <reference types="mongoose/types/query" />
-/// <reference types="mongoose/types/schemaoptions" />
-/// <reference types="mongoose/types/schematypes" />
-/// <reference types="mongoose/types/session" />
-/// <reference types="mongoose/types/types" />
-/// <reference types="mongoose/types/utility" />
-/// <reference types="mongoose/types/validation" />
-/// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Class } from './class.schema';
 import { Subject } from '../Subject/subject.schema';
@@ -29,11 +5,9 @@ import { User } from '../User/user.schema';
 export declare class ClassService {
     private readonly classModel;
     constructor(classModel: Model<Class>);
-    createClass(ClassName: string, Subject: Subject, HeadTeacher: User, AssignedTeacher: User[], Status: boolean): Promise<import("mongoose").Document<unknown, any, Class> & Class & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    getClasses(): Promise<void>;
-    getClass(classId: string): Promise<(import("mongoose").Document<unknown, any, Class> & Class & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    createClass(ClassName: string, Subject: Subject, HeadTeacher: User, AssignedTeacher: User[], Status: boolean): Promise<Class>;
+    getClasses(): Promise<Class[]>;
+    getClass(_id: string): Promise<Class>;
+    updateClass(_id: string, ClassName: string, HeadTeacher: User, AssignedTeachers: User[], Status: boolean): Promise<void>;
+    deleteClass(_id: string): Promise<void>;
 }

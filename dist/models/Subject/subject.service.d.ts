@@ -31,4 +31,8 @@ export declare class SubjectService {
     getSubjects(): Promise<(import("mongoose").Document<unknown, any, Subject> & Subject & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
+    getSubject(_id: string): Promise<import("mongoose").Document<unknown, any, Subject> & Subject & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    deleteSubject(_id: string): Promise<void>;
 }

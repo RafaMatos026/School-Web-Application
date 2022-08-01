@@ -21,18 +21,50 @@ let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async createUser(FName, LName, Email, Password, Birthday, Type) {
+    async createUser(FName, LName, Email, Password, Birthday, AccountType) {
         const newUser = new this.userModel({
             FName: FName,
             LName: LName,
             Email: Email,
             Password: Password,
             Birthday: Birthday,
-            AccountType: Type,
+            AccountType: AccountType,
         });
         const result = await newUser.save();
-        console.log(result);
         return result;
+    }
+    async getUser(_id) {
+        const user = this.userModel.findById(_id);
+        if (user) {
+            return user;
+        }
+        else {
+            throw new common_1.NotFoundException('User not found!');
+        }
+    }
+    async getUsers() {
+        const users = await this.userModel.find({});
+        if (users) {
+            return users;
+        }
+        else {
+            throw new common_1.NotFoundException('No users found!');
+        }
+    }
+    async updateUser(_id, FName, LName, Password) {
+        const user = await this.userModel.findByIdAndUpdate({ _id: _id }, {
+            FName: FName,
+            LName: LName,
+            Password: Password,
+        });
+    }
+    async deleteUser(_id) {
+        await this.userModel.findByIdAndUpdate({
+            _id: _id,
+        }, {
+            Status: false,
+        });
+        return;
     }
 };
 UserService = __decorate([

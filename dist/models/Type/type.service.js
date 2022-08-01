@@ -29,12 +29,21 @@ let TypeService = class TypeService {
         return result;
     }
     async getTypes() {
-        const types = this.typeModel.find({});
+        const types = await this.typeModel.find({});
         if (types) {
             return types;
         }
         else {
             throw new common_1.NotFoundException('No user types found!');
+        }
+    }
+    async getType(_id) {
+        const type = await this.typeModel.findById(_id);
+        if (!type) {
+            throw new common_1.NotFoundException('User account type not found!');
+        }
+        else {
+            return type;
         }
     }
 };
