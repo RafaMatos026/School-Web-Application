@@ -12,50 +12,36 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ClassService = void 0;
+exports.TypeService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
-const class_schema_1 = require("./class.schema");
-let ClassService = class ClassService {
-    constructor(classModel) {
-        this.classModel = classModel;
+const type_schema_1 = require("./type.schema");
+let TypeService = class TypeService {
+    constructor(typeModel) {
+        this.typeModel = typeModel;
     }
-    async createClass(ClassName, Subject, HeadTeacher, AssignedTeacher, Status) {
-        const newClass = new this.classModel({
-            ClassName: ClassName,
-            Subject: Subject,
-            HeadTeacher: HeadTeacher,
-            AssignedTeacher: AssignedTeacher,
-            Status: Status,
+    async createType(Description) {
+        const newType = new this.typeModel({
+            Description: Description,
         });
-        const result = await newClass.save();
-        console.log(result);
+        const result = await newType.save();
         return result;
     }
-    async getClasses() {
-        const result = await this.classModel.find({});
-        if (result) {
-            console.log(result);
+    async getTypes() {
+        const types = this.typeModel.find({});
+        if (types) {
+            return types;
         }
         else {
-            console.log('ERROR');
-        }
-    }
-    async getClass(classId) {
-        const result = this.classModel.find({ _id: classId });
-        if (!result) {
-            throw new common_1.NotFoundException('Could not find class!');
-        }
-        else {
-            return result;
+            throw new common_1.NotFoundException('No user types found!');
         }
     }
 };
-ClassService = __decorate([
+TypeService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_2.InjectModel)(class_schema_1.Class.name)),
+    __param(0, (0, mongoose_2.InjectModel)(type_schema_1.Type.name)),
     __metadata("design:paramtypes", [mongoose_1.Model])
-], ClassService);
-exports.ClassService = ClassService;
-//# sourceMappingURL=class.service.js.map
+], TypeService);
+exports.TypeService = TypeService;
+//# sourceMappingURL=type.service.js.map

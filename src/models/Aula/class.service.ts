@@ -1,14 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Class, ClassDocument } from './class.schema';
+import { Class } from './class.schema';
 import { Subject } from '../Subject/subject.schema';
 import { User } from '../User/user.schema';
 
 @Injectable()
 export class ClassService {
   constructor(
-    @InjectModel(Class.name) private classModel: Model<ClassDocument>,
+    @InjectModel(Class.name) private readonly classModel: Model<Class>,
   ) {}
 
   async createClass(
@@ -26,6 +26,7 @@ export class ClassService {
       Status: Status,
     });
     const result = await newClass.save();
+    console.log(result);
     return result;
   }
 

@@ -36,15 +36,19 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "Birthday", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "Status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "Registered", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Type' }),
+    (0, mongoose_1.Prop)({
+        required: true,
+        type: mongoose_2.default.Schema.Types.ObjectId,
+        ref: 'Type',
+    }),
     __metadata("design:type", type_schema_1.Type)
 ], User.prototype, "AccountType", void 0);
 User = __decorate([

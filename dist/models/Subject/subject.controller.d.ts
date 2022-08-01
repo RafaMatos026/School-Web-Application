@@ -21,19 +21,15 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
+/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
-import { Class } from './class.schema';
-import { Subject } from '../Subject/subject.schema';
-import { User } from '../User/user.schema';
-export declare class ClassService {
-    private readonly classModel;
-    constructor(classModel: Model<Class>);
-    createClass(ClassName: string, Subject: Subject, HeadTeacher: User, AssignedTeacher: User[], Status: boolean): Promise<import("mongoose").Document<unknown, any, Class> & Class & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    getClasses(): Promise<void>;
-    getClass(classId: string): Promise<(import("mongoose").Document<unknown, any, Class> & Class & {
+import { Subject } from './subject.schema';
+import { SubjectService } from './subject.service';
+export declare class SubjectController {
+    private readonly SubjectService;
+    constructor(SubjectService: SubjectService);
+    createSubject(Description: string): Promise<Subject>;
+    getSubjects(): Promise<(import("mongoose").Document<unknown, any, Subject> & Subject & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
 }
