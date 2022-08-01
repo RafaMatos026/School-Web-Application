@@ -7,12 +7,26 @@ export class SubjectController {
   constructor(private readonly SubjectService: SubjectService) {}
 
   @Post('create')
-  createSubject(@Body('Description') Description: string) {
-    return this.SubjectService.createSubject(Description);
+  async createSubject(@Body('Description') Description: string) {
+    const subject = await this.SubjectService.createSubject(Description);
+    return subject;
   }
 
   @Get('getSubjects')
-  getSubjects() {
-    return this.SubjectService.getSubjects();
+  async getSubjects() {
+    const subjects = await this.SubjectService.getSubjects();
+    return subjects;
+  }
+
+  @Get(':id')
+  async getSubject(@Param('id') subjectId: string) {
+    const subject = await this.SubjectService.getSubject(subjectId);
+    return subject;
+  }
+
+  @Put('deleteSubject/:id')
+  async deleteSubject(@Param('id') subjectId: string) {
+    const subject = await this.SubjectService.deleteSubject(subjectId);
+    return subject;
   }
 }
