@@ -9,6 +9,7 @@ export class TypeService {
     @InjectModel(Type.name) private readonly typeModel: Model<Type>,
   ) {}
 
+  //Create user type
   async createType(Description: string) {
     const newType = new this.typeModel({
       Description: Description,
@@ -17,12 +18,23 @@ export class TypeService {
     return result;
   }
 
-  async getTypes() {
-    const types = this.typeModel.find({});
+  //Get all user types
+  async getTypes(): Promise<Type[]> {
+    const types = await this.typeModel.find({});
     if (types) {
       return types;
     } else {
       throw new NotFoundException('No user types found!');
+    }
+  }
+
+  //get user type by id
+  async getType(_id: string): Promise<Type> {
+    const type = await this.typeModel.findById(_id);
+    if (!type) {
+      throw new NotFoundException('User account type not found!');
+    } else {
+      return type;
     }
   }
 }

@@ -21,10 +21,10 @@ export class User {
   @Prop()
   Birthday: Date;
 
-  @Prop({ required: true, default: false })
+  @Prop({ default: false })
   Status: boolean;
 
-  @Prop({ required: true, default: false })
+  @Prop({ default: false })
   Registered: boolean;
 
   @Prop({

@@ -6,13 +6,21 @@ import { TypeService } from './type.service';
 export class TypeController {
   constructor(private readonly TypeService: TypeService) {}
 
+  //Create user type
   @Post('create')
-  createType(@Body('Description') Description: string) {
-    return this.TypeService.createType(Description);
+  async createType(@Body('Description') Description: string) {
+    return await this.TypeService.createType(Description);
   }
 
+  //get all user types
   @Get('getTypes')
-  getTypes() {
-    return this.TypeService.getTypes();
+  async getTypes() {
+    return await this.TypeService.getTypes();
+  }
+
+  //Get user type by ID
+  @Get('getType/:id')
+  async getType(@Param('id') typeId: string) {
+    return await this.TypeService.getType(typeId);
   }
 }
