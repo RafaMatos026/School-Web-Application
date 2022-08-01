@@ -21,13 +21,17 @@ export class User {
   @Prop()
   Birthday: Date;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: false })
   Status: boolean;
 
-  @Prop({ required: true })
+  @Prop({ required: true, default: false })
   Registered: boolean;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Type' })
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Type',
+  })
   AccountType: Type;
 }
 
