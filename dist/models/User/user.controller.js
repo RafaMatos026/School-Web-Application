@@ -20,8 +20,20 @@ let UserController = class UserController {
     constructor(UserService) {
         this.UserService = UserService;
     }
-    createUser(FName, LName, Email, Password, AccountType, Birthday) {
-        return this.UserService.createUser(FName, LName, Email, Password, Birthday, AccountType);
+    async createUser(FName, LName, Email, Password, AccountType, Birthday) {
+        return await this.UserService.createUser(FName, LName, Email, Password, Birthday, AccountType);
+    }
+    async getUser(_id) {
+        return await this.UserService.getUser(_id);
+    }
+    async getUsers() {
+        return await this.UserService.getUsers();
+    }
+    async updateUser(_id, FName, LName, Password) {
+        await this.UserService.updateUser(_id, FName, LName, Password);
+    }
+    async deleteUser(_id) {
+        await this.UserService.deleteUser(_id);
     }
 };
 __decorate([
@@ -35,8 +47,38 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, String, String, type_schema_1.Type,
         Date]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
+__decorate([
+    (0, common_1.Get)('getUser/:id'),
+    __param(0, (0, common_1.Body)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUser", null);
+__decorate([
+    (0, common_1.Get)('getUsers'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUsers", null);
+__decorate([
+    (0, common_1.Put)('updateUser/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)('FName')),
+    __param(2, (0, common_1.Body)('LName')),
+    __param(3, (0, common_1.Body)('Password')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Put)('deleteUser/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "deleteUser", null);
 UserController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [user_service_1.UserService])

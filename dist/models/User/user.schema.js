@@ -36,11 +36,11 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "Birthday", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: false }),
+    (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "Status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: false }),
+    (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "Registered", void 0);
 __decorate([

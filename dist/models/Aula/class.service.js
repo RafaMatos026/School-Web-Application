@@ -30,26 +30,35 @@ let ClassService = class ClassService {
             Status: Status,
         });
         const result = await newClass.save();
-        console.log(result);
         return result;
     }
     async getClasses() {
         const result = await this.classModel.find({});
         if (result) {
-            console.log(result);
+            return result;
         }
         else {
-            console.log('ERROR');
+            throw new common_1.NotFoundException('No classes found!');
         }
     }
-    async getClass(classId) {
-        const result = this.classModel.find({ _id: classId });
+    async getClass(_id) {
+        const result = await this.classModel.findById(_id);
         if (!result) {
             throw new common_1.NotFoundException('Could not find class!');
         }
-        else {
-            return result;
-        }
+        return result;
+    }
+    async updateClass(_id, ClassName, HeadTeacher, AssignedTeachers, Status) {
+        const doc = await this.classModel.findByIdAndUpdate({ _id: _id }, {
+            ClassName: ClassName,
+            HeadTeacher: HeadTeacher,
+            AssignedTeachers: AssignedTeachers,
+            Status: Status,
+        });
+    }
+    async deleteClass(_id) {
+        await this.classModel.deleteOne({ _id: _id });
+        return;
     }
 };
 ClassService = __decorate([

@@ -37,6 +37,19 @@ let SubjectService = class SubjectService {
             throw new common_1.NotFoundException('No class subjects found!');
         }
     }
+    async getSubject(_id) {
+        const subject = await this.subjectModel.findById(_id);
+        if (subject) {
+            return subject;
+        }
+        else {
+            throw new common_1.NotFoundException('Subject not found!');
+        }
+    }
+    async deleteSubject(_id) {
+        await this.subjectModel.deleteOne({ _id: _id });
+        return;
+    }
 };
 SubjectService = __decorate([
     (0, common_1.Injectable)(),

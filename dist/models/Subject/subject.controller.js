@@ -19,11 +19,21 @@ let SubjectController = class SubjectController {
     constructor(SubjectService) {
         this.SubjectService = SubjectService;
     }
-    createSubject(Description) {
-        return this.SubjectService.createSubject(Description);
+    async createSubject(Description) {
+        const subject = await this.SubjectService.createSubject(Description);
+        return subject;
     }
-    getSubjects() {
-        return this.SubjectService.getSubjects();
+    async getSubjects() {
+        const subjects = await this.SubjectService.getSubjects();
+        return subjects;
+    }
+    async getSubject(subjectId) {
+        const subject = await this.SubjectService.getSubject(subjectId);
+        return subject;
+    }
+    async deleteSubject(subjectId) {
+        const subject = await this.SubjectService.deleteSubject(subjectId);
+        return subject;
     }
 };
 __decorate([
@@ -31,14 +41,28 @@ __decorate([
     __param(0, (0, common_1.Body)('Description')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "createSubject", null);
 __decorate([
     (0, common_1.Get)('getSubjects'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "getSubjects", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SubjectController.prototype, "getSubject", null);
+__decorate([
+    (0, common_1.Put)('deleteSubject/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SubjectController.prototype, "deleteSubject", null);
 SubjectController = __decorate([
     (0, common_1.Controller)('subjects'),
     __metadata("design:paramtypes", [subject_service_1.SubjectService])
