@@ -23,16 +23,16 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Summary } from './summary.schema';
+import { CreateSummaryDto } from './dto/createSummary.dto';
 import { SummaryService } from './summary.service';
 export declare class SummaryController {
     private readonly SummaryService;
     constructor(SummaryService: SummaryService);
-    createSummary(Date: Date, Description: string): Promise<Summary>;
-    getSummarys(): Promise<(import("mongoose").Document<unknown, any, Summary> & Summary & {
+    createSummary(CreateSummaryDto: CreateSummaryDto): Promise<import("./summary.schema").Summary>;
+    getSummarys(): Promise<(import("mongoose").Document<unknown, any, import("./summary.schema").Summary> & import("./summary.schema").Summary & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
-    getSummary(_id: string): Promise<import("mongoose").Document<unknown, any, Summary> & Summary & {
+    getSummary(_id: string): Promise<import("mongoose").Document<unknown, any, import("./summary.schema").Summary> & import("./summary.schema").Summary & {
         _id: import("mongoose").Types.ObjectId;
     }>;
 }

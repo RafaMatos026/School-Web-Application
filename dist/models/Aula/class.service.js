@@ -27,6 +27,8 @@ let ClassService = class ClassService {
             Subject: CreateClassDto.Subject,
             HeadTeacher: CreateClassDto.HeadTeacher,
             Status: CreateClassDto.Status,
+            AssignedStudents: CreateClassDto.AssignedStudents,
+            AssignedTeachers: CreateClassDto.AssignedTeachers,
         });
         const result = await newClass.save();
         return result;
@@ -47,13 +49,15 @@ let ClassService = class ClassService {
         }
         return result;
     }
-    async updateClass(_id, ClassName, HeadTeacher, AssignedTeachers, Status) {
-        const doc = await this.classModel.findByIdAndUpdate({ _id: _id }, {
-            ClassName: ClassName,
-            HeadTeacher: HeadTeacher,
-            AssignedTeachers: AssignedTeachers,
-            Status: Status,
-        });
+    async updateClass(_id, UpdateClassDto) {
+        const update = {
+            ClassName: UpdateClassDto.ClassName,
+            HeadTeacher: UpdateClassDto.HeadTeacher,
+            AssignedTeachers: UpdateClassDto.AssignedTeachers,
+            AssignedStudents: UpdateClassDto.AssignedStudents,
+            Subject: UpdateClassDto.Subject,
+        };
+        await this.classModel.findByIdAndUpdate(_id, update);
     }
     async deleteClass(_id) {
         await this.classModel.deleteOne({ _id: _id });

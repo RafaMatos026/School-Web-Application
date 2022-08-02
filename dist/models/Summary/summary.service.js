@@ -21,12 +21,13 @@ let SummaryService = class SummaryService {
     constructor(summaryModel) {
         this.summaryModel = summaryModel;
     }
-    async createSummary(Date, Description) {
+    async createSummary(CreateSummaryDto) {
         const newSummary = new this.summaryModel({
-            Date: Date,
-            Description: Description,
+            Date: CreateSummaryDto.Date,
+            Description: CreateSummaryDto.Description,
+            classId: CreateSummaryDto.classId,
         });
-        const result = await newSummary.save();
+        await newSummary.save();
         return newSummary;
     }
     async getSummarys() {

@@ -4,5 +4,7 @@ export declare class CreateClassDto {
     ClassName: string;
     Subject: Subject;
     HeadTeacher: User;
+    AssignedTeachers: User[];
+    AssignedStudents: User[];
     Status: boolean;
 }

@@ -32,9 +32,13 @@ __decorate([
     __metadata("design:type", user_schema_1.User)
 ], Class.prototype, "HeadTeacher", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Summary' }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", Array)
-], Class.prototype, "Summarys", void 0);
+], Class.prototype, "AssignedStudents", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Array)
+], Class.prototype, "AssignedTeachers", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: true }),
     __metadata("design:type", Boolean)

@@ -24,10 +24,11 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Summary } from './summary.schema';
+import { CreateSummaryDto } from './dto/createSummary.dto';
 export declare class SummaryService {
     private readonly summaryModel;
     constructor(summaryModel: Model<Summary>);
-    createSummary(Date: Date, Description: string): Promise<Summary>;
+    createSummary(CreateSummaryDto: CreateSummaryDto): Promise<Summary>;
     getSummarys(): Promise<(import("mongoose").Document<unknown, any, Summary> & Summary & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;

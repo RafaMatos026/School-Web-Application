@@ -6,6 +6,4 @@ export declare class CreateUserDto {
     Birthday: Date;
     AccountType: ObjectId;
     Password: string;
-    Status: boolean;
-    Registered: boolean;
 }

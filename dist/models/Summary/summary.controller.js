@@ -14,13 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SummaryController = void 0;
 const common_1 = require("@nestjs/common");
+const createSummary_dto_1 = require("./dto/createSummary.dto");
 const summary_service_1 = require("./summary.service");
 let SummaryController = class SummaryController {
     constructor(SummaryService) {
         this.SummaryService = SummaryService;
     }
-    async createSummary(Date, Description) {
-        const summary = await this.SummaryService.createSummary(Date, Description);
+    async createSummary(CreateSummaryDto) {
+        const summary = await this.SummaryService.createSummary(CreateSummaryDto);
         return summary;
     }
     async getSummarys() {
@@ -34,14 +35,13 @@ let SummaryController = class SummaryController {
 };
 __decorate([
     (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)('Date')),
-    __param(1, (0, common_1.Body)('Description')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Date, String]),
+    __metadata("design:paramtypes", [createSummary_dto_1.CreateSummaryDto]),
     __metadata("design:returntype", Promise)
 ], SummaryController.prototype, "createSummary", null);
 __decorate([
-    (0, common_1.Get)('getSummarys'),
+    (0, common_1.Get)('getSummaries'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SummaryController.prototype, "getSummary", null);
 SummaryController = __decorate([
-    (0, common_1.Controller)('summarys'),
+    (0, common_1.Controller)('summaries'),
     __metadata("design:paramtypes", [summary_service_1.SummaryService])
 ], SummaryController);
 exports.SummaryController = SummaryController;

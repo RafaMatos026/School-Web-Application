@@ -16,6 +16,7 @@ exports.ClassController = void 0;
 const common_1 = require("@nestjs/common");
 const class_service_1 = require("./class.service");
 const createClass_dto_1 = require("./dto/createClass.dto");
+const updateClass_dto_1 = require("./dto/updateClass.dto");
 let ClassController = class ClassController {
     constructor(ClassService) {
         this.ClassService = ClassService;
@@ -31,9 +32,8 @@ let ClassController = class ClassController {
         const clas = await this.ClassService.getClass(classId);
         return clas;
     }
-    async updateClass(classId) {
-        const clas = await this.updateClass(classId);
-        return clas;
+    async updateClass(_id, UpdateClassDto) {
+        await this.ClassService.updateClass(_id, UpdateClassDto);
     }
     async deleteClass(classId) {
         await this.ClassService.deleteClass(classId);
@@ -62,8 +62,9 @@ __decorate([
 __decorate([
     (0, common_1.Put)('updateClass/:id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, updateClass_dto_1.UpdateClassDto]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "updateClass", null);
 __decorate([
