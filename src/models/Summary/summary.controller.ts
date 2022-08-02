@@ -1,23 +1,20 @@
 import { Controller, Post, Get, Body, Param } from '@nestjs/common';
-import { Summary } from './summary.schema';
+import { CreateSummaryDto } from './dto/createSummary.dto';
 import { SummaryService } from './summary.service';
 
-@Controller('summarys')
+@Controller('summaries')
 export class SummaryController {
   constructor(private readonly SummaryService: SummaryService) {}
 
   //Create summary
   @Post('create')
-  async createSummary(
-    @Body('Date') Date: Date,
-    @Body('Description') Description: string,
-  ) {
-    const summary = await this.SummaryService.createSummary(Date, Description);
+  async createSummary(@Body() CreateSummaryDto: CreateSummaryDto) {
+    const summary = await this.SummaryService.createSummary(CreateSummaryDto);
     return summary;
   }
 
   //Get all summarys
-  @Get('getSummarys')
+  @Get('getSummaries')
   async getSummarys() {
     const summarys = await this.SummaryService.getSummarys();
     return summarys;

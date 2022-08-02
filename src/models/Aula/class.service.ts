@@ -1,11 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Class, ClassDocument } from './class.schema';
-import { Subject } from '../Subject/subject.schema';
+import { Class } from './class.schema';
 import { User } from '../User/user.schema';
-import { doc } from 'prettier';
 import { CreateClassDto } from './dto/createClass.dto';
+import { UpdateClassDto } from './dto/updateClass.dto';
 
 @Injectable()
 export class ClassService {
@@ -20,6 +19,8 @@ export class ClassService {
       Subject: CreateClassDto.Subject,
       HeadTeacher: CreateClassDto.HeadTeacher,
       Status: CreateClassDto.Status,
+      AssignedStudents: CreateClassDto.AssignedStudents,
+      AssignedTeachers: CreateClassDto.AssignedTeachers,
     });
     const result = await newClass.save();
     return result;
@@ -47,22 +48,15 @@ export class ClassService {
   }
 
   //Update class
-  async updateClass(
-    _id: string,
-    ClassName: string,
-    HeadTeacher: User,
-    AssignedTeachers: User[],
-    Status: boolean,
-  ) {
-    const doc = await this.classModel.findByIdAndUpdate(
-      { _id: _id },
-      {
-        ClassName: ClassName,
-        HeadTeacher: HeadTeacher,
-        AssignedTeachers: AssignedTeachers,
-        Status: Status,
-      },
-    );
+  async updateClass(_id: string, UpdateClassDto: UpdateClassDto) {
+    const update = {
+      ClassName: UpdateClassDto.ClassName,
+      HeadTeacher: UpdateClassDto.HeadTeacher,
+      AssignedTeachers: UpdateClassDto.AssignedTeachers,
+      AssignedStudents: UpdateClassDto.AssignedStudents,
+      Subject: UpdateClassDto.Subject,
+    };
+    await this.classModel.findByIdAndUpdate(_id, update);
   }
 
   //Delete class

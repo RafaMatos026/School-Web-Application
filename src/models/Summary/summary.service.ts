@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Summary } from './summary.schema';
+import { CreateSummaryDto } from './dto/createSummary.dto';
 
 @Injectable()
 export class SummaryService {
@@ -10,12 +11,13 @@ export class SummaryService {
   ) {}
 
   //Create summary
-  async createSummary(Date: Date, Description: string): Promise<Summary> {
+  async createSummary(CreateSummaryDto: CreateSummaryDto): Promise<Summary> {
     const newSummary = new this.summaryModel({
-      Date: Date,
-      Description: Description,
+      Date: CreateSummaryDto.Date,
+      Description: CreateSummaryDto.Description,
+      classId: CreateSummaryDto.classId,
     });
-    const result = await newSummary.save();
+    await newSummary.save();
     return newSummary;
   }
 

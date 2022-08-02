@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { ClassService } from './class.service';
 import { CreateClassDto } from './dto/createClass.dto';
+import { UpdateClassDto } from './dto/updateClass.dto';
 
 @Controller('classes')
 export class ClassController {
@@ -28,9 +29,11 @@ export class ClassController {
 
   //Update class
   @Put('updateClass/:id')
-  async updateClass(@Param('id') classId: string) {
-    const clas = await this.updateClass(classId);
-    return clas;
+  async updateClass(
+    @Param('id') _id: string,
+    @Body() UpdateClassDto: UpdateClassDto,
+  ) {
+    await this.ClassService.updateClass(_id, UpdateClassDto);
   }
 
   //Delete class
