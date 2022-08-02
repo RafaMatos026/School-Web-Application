@@ -5,6 +5,7 @@ import { Class, ClassDocument } from './class.schema';
 import { Subject } from '../Subject/subject.schema';
 import { User } from '../User/user.schema';
 import { doc } from 'prettier';
+import { CreateClassDto } from './dto/createClass.dto';
 
 @Injectable()
 export class ClassService {
@@ -13,19 +14,12 @@ export class ClassService {
   ) {}
 
   //Create a class
-  async createClass(
-    ClassName: string,
-    Subject: Subject,
-    HeadTeacher: User,
-    AssignedTeacher: User[],
-    Status: boolean,
-  ): Promise<Class> {
+  async createClass(CreateClassDto: CreateClassDto): Promise<Class> {
     const newClass = new this.classModel({
-      ClassName: ClassName,
-      Subject: Subject,
-      HeadTeacher: HeadTeacher,
-      AssignedTeacher: AssignedTeacher,
-      Status: Status,
+      ClassName: CreateClassDto.ClassName,
+      Subject: CreateClassDto.Subject,
+      HeadTeacher: CreateClassDto.HeadTeacher,
+      Status: CreateClassDto.Status,
     });
     const result = await newClass.save();
     return result;

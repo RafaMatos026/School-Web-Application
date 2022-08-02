@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
-import { Subject } from '../Subject/subject.schema';
-import { User } from '../User/user.schema';
 import { ClassService } from './class.service';
+import { CreateClassDto } from './dto/createClass.dto';
 
 @Controller('classes')
 export class ClassController {
@@ -9,20 +8,8 @@ export class ClassController {
 
   //Create class
   @Post('create')
-  async createClass(
-    @Body('ClassName') ClassName: string,
-    @Body('Subject') Subject: Subject,
-    @Body('HeadTeacher') HeadTeacher: User,
-    @Body('AssignedTeachers') AssignedTeachers: User[],
-    @Body('Status') Status: boolean,
-  ) {
-    return await this.ClassService.createClass(
-      ClassName,
-      Subject,
-      HeadTeacher,
-      AssignedTeachers,
-      Status,
-    );
+  async createClass(@Body() createClassDto: CreateClassDto) {
+    return await this.ClassService.createClass(createClassDto);
   }
 
   //Get all classes

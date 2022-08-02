@@ -1,6 +1,16 @@
-import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
-import { Type } from '../Type/type.schema';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
+import type { CreateUserDto } from './dto/createUser.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Controller('users')
 export class UserController {
@@ -8,27 +18,14 @@ export class UserController {
 
   //Create User
   @Post('create')
-  async createUser(
-    @Body('FName') FName: string,
-    @Body('LName') LName: string,
-    @Body('Email') Email: string,
-    @Body('Password') Password: string,
-    @Body('AccountType') AccountType: Type,
-    @Body('Birthday') Birthday: Date,
-  ) {
-    return await this.UserService.createUser(
-      FName,
-      LName,
-      Email,
-      Password,
-      Birthday,
-      AccountType,
-    );
+  @UsePipes(ValidationPipe)
+  async createUser(@Body() CreateUserDto: CreateUserDto) {
+    return await this.UserService.createUser(CreateUserDto);
   }
 
   //Get user by id
   @Get('getUser/:id')
-  async getUser(@Body('id') _id: string) {
+  async getUser(@Param('id') _id: string) {
     return await this.UserService.getUser(_id);
   }
 
@@ -42,16 +39,14 @@ export class UserController {
   @Put('updateUser/:id')
   async updateUser(
     @Param('id') _id: string,
-    @Body('FName') FName: string,
-    @Body('LName') LName: string,
-    @Body('Password') Password: string,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    await this.UserService.updateUser(_id, FName, LName, Password);
+    await this.UserService.updateUser(_id, updateUserDto);
   }
 
   //Disable User
-  @Put('deleteUser/:id')
+  @Put('disableUser/:id')
   async deleteUser(@Param('id') _id: string) {
-    await this.UserService.deleteUser(_id);
+    await this.UserService.disableUser(_id);
   }
 }

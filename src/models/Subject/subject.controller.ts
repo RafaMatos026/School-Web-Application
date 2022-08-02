@@ -18,7 +18,7 @@ export class SubjectController {
     return subjects;
   }
 
-  @Get(':id')
+  @Get('getSubject/:id')
   async getSubject(@Param('id') subjectId: string) {
     const subject = await this.SubjectService.getSubject(subjectId);
     return subject;
