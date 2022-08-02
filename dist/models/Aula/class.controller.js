@@ -14,15 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClassController = void 0;
 const common_1 = require("@nestjs/common");
-const subject_schema_1 = require("../Subject/subject.schema");
-const user_schema_1 = require("../User/user.schema");
 const class_service_1 = require("./class.service");
+const createClass_dto_1 = require("./dto/createClass.dto");
 let ClassController = class ClassController {
     constructor(ClassService) {
         this.ClassService = ClassService;
     }
-    async createClass(ClassName, Subject, HeadTeacher, AssignedTeachers, Status) {
-        return await this.ClassService.createClass(ClassName, Subject, HeadTeacher, AssignedTeachers, Status);
+    async createClass(createClassDto) {
+        return await this.ClassService.createClass(createClassDto);
     }
     async getClasses() {
         const classes = await this.ClassService.getClasses();
@@ -42,14 +41,9 @@ let ClassController = class ClassController {
 };
 __decorate([
     (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)('ClassName')),
-    __param(1, (0, common_1.Body)('Subject')),
-    __param(2, (0, common_1.Body)('HeadTeacher')),
-    __param(3, (0, common_1.Body)('AssignedTeachers')),
-    __param(4, (0, common_1.Body)('Status')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, subject_schema_1.Subject,
-        user_schema_1.User, Array, Boolean]),
+    __metadata("design:paramtypes", [createClass_dto_1.CreateClassDto]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "createClass", null);
 __decorate([

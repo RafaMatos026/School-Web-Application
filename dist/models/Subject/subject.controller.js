@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "getSubjects", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('getSubject/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

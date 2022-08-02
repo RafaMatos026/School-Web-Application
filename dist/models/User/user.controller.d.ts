@@ -1,11 +1,12 @@
-import { Type } from '../Type/type.schema';
 import { UserService } from './user.service';
+import type { CreateUserDto } from './dto/createUser.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
 export declare class UserController {
     private readonly UserService;
     constructor(UserService: UserService);
-    createUser(FName: string, LName: string, Email: string, Password: string, AccountType: Type, Birthday: Date): Promise<import("./user.schema").User>;
+    createUser(CreateUserDto: CreateUserDto): Promise<import("./user.schema").User>;
     getUser(_id: string): Promise<import("./user.schema").User>;
     getUsers(): Promise<import("./user.schema").User[]>;
-    updateUser(_id: string, FName: string, LName: string, Password: string): Promise<void>;
+    updateUser(_id: string, updateUserDto: UpdateUserDto): Promise<void>;
     deleteUser(_id: string): Promise<void>;
 }

@@ -21,14 +21,14 @@ let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    async createUser(FName, LName, Email, Password, Birthday, AccountType) {
+    async createUser(CreateUserDto) {
         const newUser = new this.userModel({
-            FName: FName,
-            LName: LName,
-            Email: Email,
-            Password: Password,
-            Birthday: Birthday,
-            AccountType: AccountType,
+            FName: CreateUserDto.FName,
+            LName: CreateUserDto.LName,
+            Email: CreateUserDto.Email,
+            Password: CreateUserDto.Password,
+            Birthday: CreateUserDto.Birthday,
+            AccountType: CreateUserDto.AccountType,
         });
         const result = await newUser.save();
         return result;
@@ -51,14 +51,15 @@ let UserService = class UserService {
             throw new common_1.NotFoundException('No users found!');
         }
     }
-    async updateUser(_id, FName, LName, Password) {
+    async updateUser(_id, updateUserDto) {
         const user = await this.userModel.findByIdAndUpdate({ _id: _id }, {
-            FName: FName,
-            LName: LName,
-            Password: Password,
+            FName: updateUserDto.FName,
+            LName: updateUserDto.LName,
+            Password: updateUserDto.Password,
         });
+        return user;
     }
-    async deleteUser(_id) {
+    async disableUser(_id) {
         await this.userModel.findByIdAndUpdate({
             _id: _id,
         }, {

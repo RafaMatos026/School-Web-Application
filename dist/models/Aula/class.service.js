@@ -21,13 +21,12 @@ let ClassService = class ClassService {
     constructor(classModel) {
         this.classModel = classModel;
     }
-    async createClass(ClassName, Subject, HeadTeacher, AssignedTeacher, Status) {
+    async createClass(CreateClassDto) {
         const newClass = new this.classModel({
-            ClassName: ClassName,
-            Subject: Subject,
-            HeadTeacher: HeadTeacher,
-            AssignedTeacher: AssignedTeacher,
-            Status: Status,
+            ClassName: CreateClassDto.ClassName,
+            Subject: CreateClassDto.Subject,
+            HeadTeacher: CreateClassDto.HeadTeacher,
+            Status: CreateClassDto.Status,
         });
         const result = await newClass.save();
         return result;

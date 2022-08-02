@@ -14,14 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const type_schema_1 = require("../Type/type.schema");
 const user_service_1 = require("./user.service");
+const updateUser_dto_1 = require("./dto/updateUser.dto");
 let UserController = class UserController {
     constructor(UserService) {
         this.UserService = UserService;
     }
-    async createUser(FName, LName, Email, Password, AccountType, Birthday) {
-        return await this.UserService.createUser(FName, LName, Email, Password, Birthday, AccountType);
+    async createUser(CreateUserDto) {
+        return await this.UserService.createUser(CreateUserDto);
     }
     async getUser(_id) {
         return await this.UserService.getUser(_id);
@@ -29,29 +29,24 @@ let UserController = class UserController {
     async getUsers() {
         return await this.UserService.getUsers();
     }
-    async updateUser(_id, FName, LName, Password) {
-        await this.UserService.updateUser(_id, FName, LName, Password);
+    async updateUser(_id, updateUserDto) {
+        await this.UserService.updateUser(_id, updateUserDto);
     }
     async deleteUser(_id) {
-        await this.UserService.deleteUser(_id);
+        await this.UserService.disableUser(_id);
     }
 };
 __decorate([
     (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)('FName')),
-    __param(1, (0, common_1.Body)('LName')),
-    __param(2, (0, common_1.Body)('Email')),
-    __param(3, (0, common_1.Body)('Password')),
-    __param(4, (0, common_1.Body)('AccountType')),
-    __param(5, (0, common_1.Body)('Birthday')),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String, type_schema_1.Type,
-        Date]),
+    __metadata("design:paramtypes", [Function]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
     (0, common_1.Get)('getUser/:id'),
-    __param(0, (0, common_1.Body)('id')),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
@@ -65,15 +60,13 @@ __decorate([
 __decorate([
     (0, common_1.Put)('updateUser/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)('FName')),
-    __param(2, (0, common_1.Body)('LName')),
-    __param(3, (0, common_1.Body)('Password')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, String, String]),
+    __metadata("design:paramtypes", [String, updateUser_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
-    (0, common_1.Put)('deleteUser/:id'),
+    (0, common_1.Put)('disableUser/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

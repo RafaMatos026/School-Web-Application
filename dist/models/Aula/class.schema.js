@@ -17,27 +17,26 @@ const user_schema_1 = require("../User/user.schema");
 let Class = class Class {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], Class.prototype, "ClassName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
-        required: true,
         type: mongoose_2.default.Schema.Types.ObjectId,
         ref: 'Subject',
     }),
     __metadata("design:type", subject_schema_1.Subject)
 ], Class.prototype, "Subject", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", user_schema_1.User)
 ], Class.prototype, "HeadTeacher", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Summary' }),
     __metadata("design:type", Array)
-], Class.prototype, "AssignedTeacher", void 0);
+], Class.prototype, "Summarys", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ default: true }),
     __metadata("design:type", Boolean)
 ], Class.prototype, "Status", void 0);
 Class = __decorate([

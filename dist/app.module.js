@@ -13,6 +13,7 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const class_module_1 = require("./models/Aula/class.module");
 const subject_module_1 = require("./models/Subject/subject.module");
+const summary_module_1 = require("./models/Summary/summary.module");
 const type_module_1 = require("./models/Type/type.module");
 const user_module_1 = require("./models/User/user.module");
 let AppModule = class AppModule {
@@ -24,6 +25,7 @@ AppModule = __decorate([
             type_module_1.TypeModule,
             user_module_1.UserModule,
             class_module_1.ClassModule,
+            summary_module_1.SummaryModule,
             mongoose_1.MongooseModule.forRoot('mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority'),
         ],
         controllers: [app_controller_1.AppController],
