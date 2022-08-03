@@ -16,19 +16,19 @@ const mongoose_2 = require("mongoose");
 let User = class User {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "FName", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "LName", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "Email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "Password", void 0);
 __decorate([
