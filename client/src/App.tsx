@@ -1,10 +1,11 @@
-import React from 'react';
-import Structure from './views/Admin/Structure';
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './routes';
+
 function App() {
   return (
-    <div>
-      <Structure />
-    </div>
+    <BrowserRouter>
+      <AppRoutes/>
+    </BrowserRouter>
   );
 }
 
