@@ -1,22 +1,17 @@
-import Grid from "@mui/material/Grid";
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import Grid from '@mui/material/Grid';
 
-
-
-export default function Register() {
-
+export default function CreateStudent() {
     return (
         <>
             <form noValidate autoComplete="false">
                 <Box width={'100%'} display={'flex'} justifyContent='center' flexDirection={'column'} alignItems='center' marginTop={5}>
-                    <Typography variant="h3" textAlign='center' gutterBottom>Sing Up</Typography>
                     <Box width={'30%'} display={'flex'} flexDirection='column' justifyContent={'center'}>
                         <Typography textAlign={'start'}>First Name</Typography>
-                        <TextField  size="small" type='text' variant="outlined" />
+                        <TextField size="small" type='text' variant="outlined" />
                     </Box>
                     <Box width={'30%'} marginTop={3}>
                         <Typography textAlign={'start'}>Last Name</Typography>
@@ -27,17 +22,8 @@ export default function Register() {
                         <TextField sx={{ width: '100%' }} size="small" type='email' variant="outlined" />
                     </Box>
                     <Box width={'30%'} marginTop={3}>
-                        <Typography textAlign={'start'}>Password</Typography>
-                        <TextField sx={{ width: '100%' }} size="small" type='password' variant="outlined" />
-                    </Box>
-                    <Box width={'30%'} marginTop={3}>
                         <Typography textAlign={'start'}>Birthday</Typography>
                         <TextField sx={{ width: '100%' }} size="small" type='date' variant="outlined" />
-                    </Box>
-                    <Box width={'30%'}>
-                        <Typography variant="caption" textAlign='start'>Registered Already?&nbsp;
-                            <Typography variant="caption" sx={{textDecoration: 'underline'}}>Sing In</Typography>
-                        </Typography>
                     </Box>
                 </Box>
             </form>
@@ -52,7 +38,7 @@ export default function Register() {
                     <Button variant="contained" color="error">Cancel</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained">Sign In</Button>
+                    <Button variant="contained">Create</Button>
                 </Grid>
             </Grid>
         </>
