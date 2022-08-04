@@ -6,12 +6,13 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -20,7 +21,7 @@ interface Props {
   child?: React.ReactNode;
 }
 
-export default function ResponsiveDrawer (props: Props) {
+export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const { child } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -48,12 +49,16 @@ export default function ResponsiveDrawer (props: Props) {
           Classes
         </Typography>
         <List>
-          <ListItemButton>
-            Create Class
-          </ListItemButton>
-          <ListItemButton>
-            Class List
-          </ListItemButton>
+          <ListItemText>
+            <Link to={'/admin/create-class'} >
+              Create Class
+            </Link>
+          </ListItemText>
+          <ListItemText>
+            <Link to={'/admin/class-list'}>
+              Class List
+            </Link>
+          </ListItemText>
         </List>
       </Container>
       <Container>
@@ -61,12 +66,16 @@ export default function ResponsiveDrawer (props: Props) {
           Students
         </Typography>
         <List>
-          <ListItemButton>
-            Create Student
-          </ListItemButton>
-          <ListItemButton>
-            Student List
-          </ListItemButton>
+          <ListItemText>
+            <Link to={'/admin/create-student'}>
+                Create Student
+            </Link>
+          </ListItemText>
+          <ListItemText>
+            <Link to={'/admin/student-list'}>
+              Student List
+            </Link>
+          </ListItemText>
         </List>
       </Container>
       <Container>
@@ -74,15 +83,19 @@ export default function ResponsiveDrawer (props: Props) {
           Teachers
         </Typography>
         <List>
-          <ListItemButton>
-            Accept Registration
-          </ListItemButton>
-          <ListItemButton>
-            Teacher List
-          </ListItemButton>
+          <ListItemText>
+            <Link to={'/admin/registration-requests'}>
+              Registration Requests
+            </Link>
+          </ListItemText>
+          <ListItemText>
+            <Link to={'/admin/teacher-list'}>
+              Teacher List
+            </Link>
+          </ListItemText>
         </List>
       </Container>
-    </div>
+    </div >
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -150,7 +163,7 @@ export default function ResponsiveDrawer (props: Props) {
       </Box>
       <Box component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
-          <Toolbar/>
+        <Toolbar />
         {child}
       </Box>
     </Box>
