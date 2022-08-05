@@ -6,34 +6,43 @@ export default function ClassMenu() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Grid container md={12} columnSpacing={3} rowSpacing={3} display='flex' justifyContent={'center'} alignItems='center'>
-                <Grid item md={6} textAlign='center'>
+            <Grid container lg={12} columnSpacing={3} rowSpacing={3} display='flex' justifyContent={'start'} alignItems='center'>
+                <Grid item lg={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
                         <CardActionArea onClick={() => navigate('/admin/class/classId/assign-students')}>
                             <CardHeader title='Assign Student' />
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item md={6} textAlign='center'>
+                <Grid item lg={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
                         <CardActionArea onClick={() => navigate('/admin/class/classId/assigned-students')}>
                             <CardHeader title='Assigned Students' />
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item md={6} textAlign='center'>
+                <Grid item lg={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
                         <CardActionArea onClick={() => navigate('/admin/class/classId/assign-teachers')}>
                             <CardHeader title='Assign Teacher' />
                         </CardActionArea>
                     </Card>
                 </Grid>
-                <Grid item md={6} textAlign='center'>
+                <Grid item lg={4} textAlign='center'>
                     <Card
                         variant='outlined'
                         component={Paper}>
                         <CardActionArea onClick={() => navigate('/admin/class/classId/assigned-teachers')}>
                             <CardHeader title='Assigned Teachers' />
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+                <Grid item lg={4} textAlign='center'>
+                    <Card
+                        variant='outlined'
+                        component={Paper}>
+                        <CardActionArea onClick={() => navigate('/admin/class/classId/edit')}>
+                            <CardHeader title='Edit Class' />
                         </CardActionArea>
                     </Card>
                 </Grid>

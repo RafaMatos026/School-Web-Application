@@ -11,8 +11,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const drawerWidth = 240;
 
@@ -25,6 +26,8 @@ export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const { child } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -49,14 +52,14 @@ export default function ResponsiveDrawer(props: Props) {
           Classes
         </Typography>
         <List>
-          <Link to={'/admin/create-class'} style={{ textDecoration: 'none', color: 'black' }}>
-            <ListItemButton>
-              Create Class
-            </ListItemButton>
-          </Link>
           <Link to={'/admin/class-list'} style={{ textDecoration: 'none', color: 'black' }}>
             <ListItemButton>
               Class List
+            </ListItemButton>
+          </Link>
+          <Link to={'/admin/create-class'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Create Class
             </ListItemButton>
           </Link>
         </List>
@@ -66,14 +69,14 @@ export default function ResponsiveDrawer(props: Props) {
           Student
         </Typography>
         <List>
-          <Link to={'/admin/create-student'} style={{ textDecoration: 'none', color: 'black' }}>
-            <ListItemButton>
-              Create Student
-            </ListItemButton>
-          </Link>
           <Link to={'/admin/student-list'} style={{ textDecoration: 'none', color: 'black' }}>
             <ListItemButton>
               Student List
+            </ListItemButton>
+          </Link>
+          <Link to={'/admin/create-student'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Create Student
             </ListItemButton>
           </Link>
         </List>
@@ -83,14 +86,14 @@ export default function ResponsiveDrawer(props: Props) {
           Teachers
         </Typography>
         <List>
-          <Link to={'/admin/registration-requests'} style={{ textDecoration: 'none', color: 'black' }}>
-            <ListItemButton>
-              Registration Requests
-            </ListItemButton>
-          </Link>
           <Link to={'/admin/teacher-list'} style={{ textDecoration: 'none', color: 'black' }}>
             <ListItemButton>
               Teacher List
+            </ListItemButton>
+          </Link>
+          <Link to={'/admin/registration-requests'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Registration Requests
             </ListItemButton>
           </Link>
         </List>
@@ -122,7 +125,14 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <IconButton
+            color='inherit'
+            aria-label='go back'
+            edge="start"
+            onClick={() => navigate(-1)}>
+            <ArrowBackIcon/>
+          </IconButton>
+          <Typography marginLeft={2} variant="h6" noWrap component="div">
             Homepage
           </Typography>
         </Toolbar>

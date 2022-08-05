@@ -13,6 +13,8 @@ import AssignStudent from '../views/Admiro/Aulas/AssignStudent';
 import AssignedStudents from '../views/Admiro/Aulas/AssignedStudents';
 import AssignTeacher from '../views/Admiro/Aulas/AssignTeacher';
 import AssignedTeachers from '../views/Admiro/Aulas/AssignedTeachers';
+import EditClass from '../views/Admiro/Aulas/EditClass';
+import Login from '../views/Login/Login';
 
 /*After i implement the login part i will know which type of user is logged in and then i can know which routes should be rendered */
 
@@ -21,6 +23,7 @@ export const AppRoutes = () => {
         <Routes>
             {/** OTHERS */}
             <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login/>} />
 
             {/** ADMIN */}
             <Route path='/admin' element={<StructureAdmin child={<h1>Homepage</h1>} />} />
@@ -43,6 +46,8 @@ export const AppRoutes = () => {
             element={<StructureAdmin child={<AssignTeacher/>} />}/>
             <Route path='/admin/class/classId/assigned-teachers'
             element={<StructureAdmin child={<AssignedTeachers/>} />} />
+
+            <Route path='/admin/class/classId/edit' element={<StructureAdmin child={<EditClass/>}/>}/>
 
             {/** TEACHER */}
 
