@@ -1,9 +1,10 @@
 import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from "@mui/system";
+import { useNavigate } from 'react-router-dom';
 
 export default function AcceptRegistration() {
-
+    const navigate = useNavigate();
     return (
         <Box width={'100%'}>
             <Grid lg={12} container rowSpacing={2} display={'flex'} justifyContent='center'
@@ -16,7 +17,7 @@ export default function AcceptRegistration() {
                         <Button sx={{
                             width: '15%',
                             fontSize: '12px'
-                        }} size='small' variant='contained'>View Request</Button>
+                        }} size='small' variant='contained' onClick={() => navigate('/admin/request/1')}>View Request</Button>
                     </Box>
                 </Grid>
                 <Grid lg={8} item>
@@ -27,7 +28,7 @@ export default function AcceptRegistration() {
                         <Button sx={{
                             width: '15%',
                             fontSize: '12px'
-                        }} size='small' variant='contained'>View Request</Button>
+                        }} size='small' variant='contained' onClick={() => navigate('/admin/request/1')}>View Request</Button>
                     </Box>
                 </Grid>
             </Grid>
