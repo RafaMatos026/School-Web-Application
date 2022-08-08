@@ -23,9 +23,19 @@ import PastSummaries from '../views/Teacher/MyClasses/PastSummaries';
 import SubmitEvaluation from '../views/Teacher/MyClasses/SubmitEvaluation';
 import SubmitWork from '../views/Teacher/MyClasses/SubmitWork';
 import StudentAttendance from '../views/Teacher/MyClasses/StudenAttendance';
+import StructureStudent from '../views/Student/StructureStudent';
+import MyClassesStudent from '../views/Student/MyClasses/MyClasses';
+import ClassMenuStudent from '../views/Student/MyClasses/ClassMenu';
+import MarkPresence from '../views/Student/MyClasses/MarkPresence';
+import PastSummariesStudent from '../views/Student/MyClasses/PastSummaries';
+import SubmitWorkStudent from '../views/Student/MyClasses/SubmitWork';
+import SubmitJustification from '../views/Student/MyClasses/SubmitJustification';
+import SubmittedEvaluations from '../views/Student/MyClasses/SubmittedEvaluations';
 
 
 /*After i implement the login part i will know which type of user is logged in and then i can know which routes should be rendered */
+
+/* There are some components that could be shared */
 
 export const AppRoutes = () => {
     return (
@@ -74,9 +84,22 @@ export const AppRoutes = () => {
                 element={<StructureTeacher child={<SubmitEvaluation />} />} />
 
             {/** STUDENT */}
+            <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
+            <Route path='/student/myClasses' element={<StructureStudent child={<MyClassesStudent/>} />} />
+            <Route path='/student/myClasses/classId'
+                element={<StructureStudent child={<ClassMenuStudent/>} />} />
+            <Route path='/student/myClasses/classId/submit-class-work'
+                element={<StructureStudent child={<SubmitWorkStudent/>} />} />
+            <Route path='/student/myClasses/classId/submit-absence-justification'
+                element={<StructureStudent child={<SubmitJustification/>} />} />
+            <Route path='/student/myClasses/classId/submitted-evaluations'
+                element={<StructureStudent child={<SubmittedEvaluations/>} />} />
+            <Route path='/student/myClasses/classId/past-summaries'
+                element={<StructureStudent child={<PastSummariesStudent/>} />} />
+            <Route path='/student/myClasses/classId/mark-presence' element={<StructureStudent child={<MarkPresence/>} />} />
 
             {/* 404 */}
-            <Route path='*' element={<Navigate to='/admin' />} />
+            <Route path='*' element={<Navigate to='/login' />} />
         </Routes>
     );
 }
