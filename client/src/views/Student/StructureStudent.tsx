@@ -12,20 +12,23 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
+  child?: React.ReactNode;
 }
 
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
+  const { child } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -34,10 +37,11 @@ export default function ResponsiveDrawer(props: Props) {
   const drawer = (
     <div>
       <Box
+        marginTop={2}
         display='flex'
         alignItems='center'
         justifyContent='center'>
-        <Avatar alt='Admin avatar' sx={{ width: 100, height: 100 }} />
+        <Avatar alt='Student avatar' sx={{ width: 100, height: 100 }} />
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={26}>
@@ -49,9 +53,11 @@ export default function ResponsiveDrawer(props: Props) {
           Classes
         </Typography>
         <List>
-          <ListItemButton>
-            My Classes
-          </ListItemButton>
+          <Link to={'/student/myClasses'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              My Classes
+            </ListItemButton>
+          </Link>
         </List>
       </Container>
     </div>
@@ -69,7 +75,7 @@ export default function ResponsiveDrawer(props: Props) {
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
-        
+
       >
         <Toolbar>
           <IconButton
@@ -80,6 +86,13 @@ export default function ResponsiveDrawer(props: Props) {
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
+          </IconButton>
+          <IconButton
+            color='inherit'
+            aria-label='go back'
+            edge="start"
+            onClick={() => navigate(-1)}>
+            <ArrowBackIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Homepage
@@ -119,6 +132,11 @@ export default function ResponsiveDrawer(props: Props) {
         >
           {drawer}
         </Drawer>
+      </Box>
+      <Box component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+        <Toolbar />
+        {child}
       </Box>
     </Box>
   );
