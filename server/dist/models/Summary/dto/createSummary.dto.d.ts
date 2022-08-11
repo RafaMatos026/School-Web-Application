@@ -1,6 +1,6 @@
-import { Class } from 'src/models/Aula/class.schema';
+import { ObjectId } from 'mongoose';
 export declare class CreateSummaryDto {
     Date: Date;
     Description: string;
-    classId: Class;
+    classId: ObjectId;
 }

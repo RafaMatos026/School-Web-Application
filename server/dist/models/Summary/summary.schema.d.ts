@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
-import { Class } from '../Aula/class.schema';
+import mongoose, { ObjectId } from 'mongoose';
 export declare class Summary {
     Date: Date;
     Description: string;
-    classId: Class;
+    classId: ObjectId;
 }
 export declare const SummarySchema: mongoose.Schema<Summary, mongoose.Model<Summary, any, any, any, any>, {}, {}, {}, {}, "type", Summary>;

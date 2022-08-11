@@ -10,8 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateClassDto = void 0;
-const subject_schema_1 = require("../../Subject/subject.schema");
-const user_schema_1 = require("../../User/user.schema");
 const class_validator_1 = require("class-validator");
 class UpdateClassDto {
 }
@@ -22,11 +20,11 @@ __decorate([
 ], UpdateClassDto.prototype, "ClassName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a headteacher!' }),
-    __metadata("design:type", user_schema_1.User)
+    __metadata("design:type", Object)
 ], UpdateClassDto.prototype, "HeadTeacher", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a subject!' }),
-    __metadata("design:type", subject_schema_1.Subject)
+    __metadata("design:type", Object)
 ], UpdateClassDto.prototype, "Subject", void 0);
 exports.UpdateClassDto = UpdateClassDto;
 //# sourceMappingURL=updateClass.dto.js.map

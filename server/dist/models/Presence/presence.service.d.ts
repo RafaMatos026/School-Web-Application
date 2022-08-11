@@ -24,10 +24,11 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Presence } from './presence.schema';
+import { MarkPresenceDto } from './markPresence.dto';
 export declare class PresenceService {
     private readonly presenceModel;
     constructor(presenceModel: Model<Presence>);
-    createPresence(Present: boolean, classId: string, userId: string): Promise<Presence>;
+    markPresence(markPresenceDto: MarkPresenceDto): Promise<Presence>;
     getPresences(_id: string): Promise<import("mongoose").Document<unknown, any, Presence> & Presence & {
         _id: import("mongoose").Types.ObjectId;
     }>;

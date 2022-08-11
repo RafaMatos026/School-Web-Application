@@ -9,22 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateClassDto = void 0;
+exports.MarkPresenceDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateClassDto {
+class MarkPresenceDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a name!' }),
-    (0, class_validator_1.Length)(6, 20, { message: 'Class name must be between 6 to 20 characters!' }),
-    __metadata("design:type", String)
-], CreateClassDto.prototype, "ClassName", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a subject!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Presence must be marked for a class!' }),
     __metadata("design:type", Object)
-], CreateClassDto.prototype, "Subject", void 0);
+], MarkPresenceDto.prototype, "classId", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a headteacher!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Presence must be about a student!' }),
     __metadata("design:type", Object)
-], CreateClassDto.prototype, "HeadTeacher", void 0);
-exports.CreateClassDto = CreateClassDto;
-//# sourceMappingURL=createClass.dto.js.map
+], MarkPresenceDto.prototype, "studentId", void 0);
+exports.MarkPresenceDto = MarkPresenceDto;
+//# sourceMappingURL=markPresence.dto.js.map

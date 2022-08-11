@@ -1,7 +1,5 @@
-import { Document } from 'mongoose';
-import { Type } from '../Type/type.schema';
+import { Document, ObjectId } from 'mongoose';
 import mongoose from 'mongoose';
-import { Class } from '../Aula/class.schema';
 export declare type UserDocument = User & Document;
 export declare class User {
     FName: string;
@@ -11,7 +9,7 @@ export declare class User {
     Birthday: Date;
     Status: boolean;
     Registered: boolean;
-    MyClasses: Class[];
-    AccountType: Type;
+    MyClasses: ObjectId[];
+    AccountType: ObjectId;
 }
 export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, any>, {}, {}, {}, {}, "type", User>;

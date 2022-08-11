@@ -21,13 +21,13 @@ let PresenceService = class PresenceService {
     constructor(presenceModel) {
         this.presenceModel = presenceModel;
     }
-    async createPresence(Present, classId, userId) {
+    async markPresence(markPresenceDto) {
         const newPresence = new this.presenceModel({
-            classId: classId,
-            Present: Present,
-            userId: userId,
+            classId: markPresenceDto.classId,
+            Present: markPresenceDto.Present,
+            studentId: markPresenceDto.studentId,
         });
-        const result = await newPresence.save();
+        await newPresence.save();
         return newPresence;
     }
     async getPresences(_id) {
