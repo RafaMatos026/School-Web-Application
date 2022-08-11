@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
-import { Subject } from '../Subject/subject.schema';
-import { User } from '../User/user.schema';
+import mongoose, { Document, ObjectId } from 'mongoose';
 export type ClassDocument = Class & Document;
 
 @Schema()
@@ -9,21 +7,17 @@ export class Class {
   @Prop({ required: true })
   ClassName: string;
 
-  @Prop({
-    required: true,
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Subject',
-  })
-  Subject: Subject;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
+  Subject: ObjectId;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  HeadTeacher: User;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
+  HeadTeacher: ObjectId;
 
   @Prop()
-  AssignedStudents: [{ type: mongoose.Schema.Types.ObjectId; ref: 'User' }];
+  AssignedStudents: [{ type: mongoose.Schema.Types.ObjectId }];
 
   @Prop()
-  AssignedTeachers: [{ type: mongoose.Schema.Types.ObjectId; ref: 'User' }];
+  AssignedTeachers: [{ type: mongoose.Schema.Types.ObjectId }];
 
   @Prop({ default: true })
   Status: boolean;

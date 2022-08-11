@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Presence } from './presence.schema';
+import { MarkPresenceDto } from './markPresence.dto';
 
 @Injectable()
 export class PresenceService {
@@ -9,18 +10,14 @@ export class PresenceService {
     @InjectModel(Presence.name) private readonly presenceModel: Model<Presence>,
   ) {}
 
-  //Create Subject
-  async createPresence(
-    Present: boolean,
-    classId: string,
-    userId: string,
-  ): Promise<Presence> {
+  //Add presence
+  async markPresence(markPresenceDto: MarkPresenceDto): Promise<Presence> {
     const newPresence = new this.presenceModel({
-      classId: classId,
-      Present: Present,
-      userId: userId,
+      classId: markPresenceDto.classId,
+      Present: markPresenceDto.Present,
+      studentId: markPresenceDto.studentId,
     });
-    const result = await newPresence.save();
+    await newPresence.save();
     return newPresence;
   }
 

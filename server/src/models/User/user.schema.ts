@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Type } from '../Type/type.schema';
+import { Document, ObjectId } from 'mongoose';
 import mongoose from 'mongoose';
-import { Class } from '../Aula/class.schema';
 export type UserDocument = User & Document;
 
 @Schema()
@@ -19,7 +17,7 @@ export class User {
   @Prop()
   Password: string;
 
-  @Prop()
+  @Prop({ default: null })
   Birthday: Date;
 
   @Prop({ default: false })
@@ -28,14 +26,11 @@ export class User {
   @Prop({ default: false })
   Registered: boolean;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Class' })
-  MyClasses: Class[];
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  MyClasses: ObjectId[];
 
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Type',
-  })
-  AccountType: Type;
+  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  AccountType: ObjectId;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
