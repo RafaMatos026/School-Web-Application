@@ -1,6 +1,5 @@
 import { IsNotEmpty, Length } from 'class-validator';
-import { Subject } from 'src/models/Subject/subject.schema';
-import { User } from 'src/models/User/user.schema';
+import { ObjectId } from 'mongoose';
 
 export class CreateClassDto {
   @IsNotEmpty({ message: 'Class must have a name!' })
@@ -8,13 +7,11 @@ export class CreateClassDto {
   ClassName: string;
 
   @IsNotEmpty({ message: 'Class must have a subject!' })
-  Subject: Subject;
+  Subject: ObjectId;
 
   @IsNotEmpty({ message: 'Class must have a headteacher!' })
-  HeadTeacher: User;
+  HeadTeacher: ObjectId;
 
-  AssignedTeachers: User[];
-  AssignedStudents: User[];
-
-  Status: boolean;
+  AssignedTeachers: ObjectId[];
+  AssignedStudents: ObjectId[];
 }

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Class } from './class.schema';
 import { CreateClassDto } from './dto/createClass.dto';
@@ -17,7 +17,6 @@ export class ClassService {
       ClassName: CreateClassDto.ClassName,
       Subject: CreateClassDto.Subject,
       HeadTeacher: CreateClassDto.HeadTeacher,
-      Status: CreateClassDto.Status,
       AssignedStudents: CreateClassDto.AssignedStudents,
       AssignedTeachers: CreateClassDto.AssignedTeachers,
     });
@@ -51,8 +50,6 @@ export class ClassService {
     const update = {
       ClassName: UpdateClassDto.ClassName,
       HeadTeacher: UpdateClassDto.HeadTeacher,
-      AssignedTeachers: UpdateClassDto.AssignedTeachers,
-      AssignedStudents: UpdateClassDto.AssignedStudents,
       Subject: UpdateClassDto.Subject,
     };
     await this.classModel.findByIdAndUpdate(_id, update);
@@ -61,6 +58,22 @@ export class ClassService {
   //Delete class
   async deleteClass(_id: string) {
     await this.classModel.deleteOne({ _id: _id });
+    return;
+  }
+
+  //Assign teacher to class
+  async assignTeachers(_id: string, teachers: ObjectId) {
+    await this.classModel.findByIdAndUpdate(_id, {
+      $set: { AssignedTeachers: teachers },
+    });
+    return;
+  }
+
+  //Assign students to class
+  async assignStudents(_id: string, students: ObjectId[]) {
+    await this.classModel.findByIdAndUpdate(_id, {
+      $set: { AssignedStudents: students },
+    });
     return;
   }
 }

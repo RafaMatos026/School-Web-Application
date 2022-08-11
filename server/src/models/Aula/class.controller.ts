@@ -1,4 +1,5 @@
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
 import { ClassService } from './class.service';
 import { CreateClassDto } from './dto/createClass.dto';
 import { UpdateClassDto } from './dto/updateClass.dto';
@@ -36,9 +37,21 @@ export class ClassController {
     await this.ClassService.updateClass(_id, UpdateClassDto);
   }
 
-  //Delete class
+  //Disable class
   @Put('deleteClass/:id')
   async deleteClass(@Param('id') classId: string) {
     await this.ClassService.deleteClass(classId);
+  }
+
+  //Assign teachers
+  @Put('assignTeachers/:id')
+  async assignTeachers(@Param('id') _id: string, @Body() teachers: ObjectId) {
+    await this.ClassService.assignTeachers(_id, teachers);
+  }
+
+  //Assign students
+  @Put('assignStudents/:id')
+  async assignStudents(@Param('id') _id: string, @Body() students: ObjectId[]) {
+    await this.ClassService.assignStudents(_id, students);
   }
 }

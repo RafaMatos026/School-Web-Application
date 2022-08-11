@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { Class } from '../Aula/class.schema';
+import mongoose, { ObjectId } from 'mongoose';
 
 @Schema()
 export class Summary {
@@ -10,8 +9,8 @@ export class Summary {
   @Prop({ required: true })
   Description: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'Class' })
-  classId: Class;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
+  classId: ObjectId;
 }
 
 export const SummarySchema = SchemaFactory.createForClass(Summary);

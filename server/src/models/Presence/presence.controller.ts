@@ -1,22 +1,14 @@
-import { Controller, Post, Get, Put, Param, Body } from '@nestjs/common';
-import { Presence } from './presence.schema';
+import { Controller, Post, Get, Param, Body } from '@nestjs/common';
 import { PresenceService } from './presence.service';
+import { MarkPresenceDto } from './markPresence.dto';
 
 @Controller('presences')
 export class PresenceController {
   constructor(private readonly PresenceService: PresenceService) {}
 
   @Post('create')
-  async createPresence(
-    @Body('Present') Present: boolean,
-    @Body('classId') classId: string,
-    @Body('userId') userId: string,
-  ) {
-    const presence = await this.PresenceService.createPresence(
-      Present,
-      classId,
-      userId,
-    );
+  async createPresence(@Body() markPresenceDto: MarkPresenceDto) {
+    const presence = await this.PresenceService.markPresence(markPresenceDto);
     return presence;
   }
 
