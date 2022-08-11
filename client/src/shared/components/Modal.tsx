@@ -30,7 +30,7 @@ export default function Modal(props: Props) {
                         </IconButton>
                     </div>
                 </DialogTitle>
-                <DialogContent dividers sx={{ padding: 3 }}>
+                <DialogContent dividers >
                     {children}
                 </DialogContent>
             </Dialog>
