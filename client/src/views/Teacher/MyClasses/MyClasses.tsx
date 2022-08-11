@@ -1,12 +1,25 @@
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
-import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { Link } from 'react-router-dom';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useState, useEffect } from 'react';
 
-export default function MyClasses(){
+const baseUrl: string = "http://localhost:3001";
+
+interface Class {
+    _id: string;
+    ClassName: string;
+    Subject: string;
+    HeadTeacher: string;
+    Status: boolean;
+}
+
+export default function MyClasses() {
+
+    const [loadingTable, setLoadingTable] = useState(true);
+    const [classes, setClasses] = useState<Class[]>([]);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -18,77 +31,66 @@ export default function MyClasses(){
         },
     }));
 
-    return (
-        <Box width={'100%'}>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Class Id</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Class Name</StyledTableCell>
-                            <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align='center'>1</TableCell>
-                            <TableCell align='center'>C20233</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <Link to={'/teacher/myClasses/classId'}>
-                                    <IconButton >
-                                        <EditIcon />
-                                    </IconButton>
-                                </Link>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>2</TableCell>
-                            <TableCell align='center'>C20220</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>3</TableCell>
-                            <TableCell align='center'>C20240</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>4</TableCell>
-                            <TableCell align='center'>C20233</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
+    useEffect(() => {
+        let url = baseUrl + "/classes/getClasses"
+        fetch(url, {})
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setClasses(data);
+                setLoadingTable(false);
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }, [])
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
+    return (
+        <>
+            {loadingTable && <h1>Loading...</h1>}
+            {!loadingTable && (
+                <Box width={'100%'}>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Id</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Name</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Subject</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Head Teacher</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Status</StyledTableCell>
+                                    <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {classes.map((aula, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{aula._id}</TableCell>
+                                        <TableCell align='center'>{aula.ClassName}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.Status ? "Active" : "Class not active"}</TableCell>
+                                        <TableCell align='center'>
+                                            <Link to={'/teacher/myClasses/' + aula._id}>
+                                                <IconButton >
+                                                    <MoreHorizIcon />
+                                                </IconButton>
+                                            </Link>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
+        </>
     )
 }

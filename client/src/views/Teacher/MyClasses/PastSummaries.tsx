@@ -6,13 +6,43 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Modal from '../../../shared/components/Modal';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+const baseUrl: string = "http://localhost:3001";
+
+interface Summary {
+    Date: Date;
+    Description: string;
+    classId: string;
+    _id: string;
+}
+
 
 export default function PastSummaries() {
-
     const [open, setOpen] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(true);
+    const [loadingModal, setLoadingModal] = useState(true);
+    const [summaries, setSummaries] = useState<Summary[]>([]);
+    const [summary, setSummary] = useState<Summary>();
 
-    const dummy = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna lectus, pharetra quis egestas ac, blandit id tortor. Proin luctus porttitor lectus, vel auctor velit vehicula nec. Morbi eget nisi eget dui malesuada cursus. Donec sit amet ipsum eu velit rutrum euismod eget eu nisi. In magna quam, luctus ac tortor iaculis, ultrices convallis leo.'
+    useEffect(() => {
+        let url = baseUrl + "/summaries/getSummaries"
+        fetch(url, {})
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setSummaries(data);
+                setLoadingTable(false);
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+    }, [])
+
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -26,67 +56,68 @@ export default function PastSummaries() {
 
     return (
         <>
-            <Box width={'100%'}>
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                                <StyledTableCell width={'15%'} align='center'>Date</StyledTableCell>
-                                <StyledTableCell width={'15%'} align='center'>Submitted at</StyledTableCell>
-                                <StyledTableCell width={'10%'} align='center'>More</StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell align='center'>1</TableCell>
-                                <TableCell align='center'>26/04/2022</TableCell>
-                                <TableCell align='center'>12:40</TableCell>
-                                <TableCell align='center'>
-                                    <IconButton onClick={() => setOpen(true)}>
-                                        <MoreHorizIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align='center'>2</TableCell>
-                                <TableCell align='center'>26/04/2022</TableCell>
-                                <TableCell align='center'>13:00</TableCell>
-                                <TableCell align='center'>
-                                    <IconButton onClick={() => setOpen(true)}>
-                                        <MoreHorizIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align='center'>3</TableCell>
-                                <TableCell align='center'>26/04/2022</TableCell>
-                                <TableCell align='center'>17:00</TableCell>
-                                <TableCell align='center'>
-                                    <IconButton onClick={() => setOpen(true)}>
-                                        <MoreHorizIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align='center'>4</TableCell>
-                                <TableCell align='center'>26/04/2022</TableCell>
-                                <TableCell align='center'>9:00</TableCell>
-                                <TableCell align='center'>
-                                    <IconButton onClick={() => setOpen(true)}>
-                                        <MoreHorizIcon />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
+            {loadingTable && <h1>Loading...</h1>}
+            {!loadingTable && (
+                <Box width={'100%'}>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Date</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Submitted at</StyledTableCell>
+                                    <StyledTableCell width={'10%'} align='center'>More</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
 
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Box>
-            <Modal open={open} title={'Modal dinâmico'} setOpen={setOpen}>
-                <Typography gutterBottom>Summary:</Typography>
-                <TextField InputProps={{ readOnly: true, }} multiline rows={5} value={dummy} fullWidth />
+                                {summaries.map((summary, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{summary.Date.toString().slice(0, 10)}</TableCell>
+                                        <TableCell align='center'>{summary.Date.toString().slice(11, 16)}</TableCell>
+                                        <TableCell align='center'>
+                                            <IconButton onClick={() => OpenSummary(summary._id)}>
+                                                <MoreHorizIcon />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
+
+            <Modal open={open} title={summary ? summary._id : "Error"} setOpen={setOpen}>
+                {loadingModal && <h1>Loading summary...</h1>}
+                {!loadingModal && (
+                    <>
+                        <Typography gutterBottom>Summary:</Typography>
+                        <TextField InputProps={{ readOnly: true, }} multiline rows={5} value={summary?.Description} fullWidth />
+                    </>
+                )}
             </Modal>
         </>
     )
+
+    function OpenSummary(id: string) {
+        let url: string = baseUrl + "/summaries/getSummary/" + id;
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setSummary(data);
+                setLoadingModal(false)
+            })
+            .catch((error) => {
+                console.log(error.message)
+            })
+        setOpen(true);
+    }
 }

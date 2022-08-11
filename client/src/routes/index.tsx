@@ -18,18 +18,12 @@ import Login from '../views/Login/Login';
 import StructureTeacher from '../views/Teacher/StructureTeacher';
 import MyClasses from '../views/Teacher/MyClasses/MyClasses';
 import ClassMenuTeacher from '../views/Teacher/MyClasses/ClassMenu';
-import AddSummary from '../views/Teacher/MyClasses/AddSummary';
 import PastSummaries from '../views/Teacher/MyClasses/PastSummaries';
-import SubmitEvaluation from '../views/Teacher/MyClasses/SubmitEvaluation';
-import SubmitWork from '../views/Teacher/MyClasses/SubmitWork';
 import StudentAttendance from '../views/Teacher/MyClasses/StudenAttendance';
 import StructureStudent from '../views/Student/StructureStudent';
 import MyClassesStudent from '../views/Student/MyClasses/MyClasses';
 import ClassMenuStudent from '../views/Student/MyClasses/ClassMenu';
-import MarkPresence from '../views/Student/MyClasses/MarkPresence';
 import PastSummariesStudent from '../views/Student/MyClasses/PastSummaries';
-import SubmitWorkStudent from '../views/Student/MyClasses/SubmitWork';
-import SubmitJustification from '../views/Student/MyClasses/SubmitJustification';
 import SubmittedEvaluations from '../views/Student/MyClasses/SubmittedEvaluations';
 
 
@@ -70,33 +64,22 @@ export const AppRoutes = () => {
             <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
             <Route path='/teacher/create-class' element={<StructureTeacher child={<CreateClass />} />} />
             <Route path='/teacher/myClasses' element={<StructureTeacher child={<MyClasses />} />} />
-            <Route path='/teacher/myClasses/classId'
+            <Route path='/teacher/myClasses/:id'
                 element={<StructureTeacher child={<ClassMenuTeacher />} />} />
             <Route path='/teacher/myClasses/classId/past-summaries'
                 element={<StructureTeacher child={<PastSummaries />} />} />
-            <Route path='/teacher/myClasses/classId/add-summary'
-                element={<StructureTeacher child={<AddSummary />} />} />
             <Route path='/teacher/myClasses/classId/student-attendance'
                 element={<StructureTeacher child={<StudentAttendance />} />} />
-            <Route path='/teacher/myClasses/classId/submit-class-work'
-                element={<StructureTeacher child={<SubmitWork />} />} />
-            <Route path='/teacher/myClasses/classId/submit-evaluation'
-                element={<StructureTeacher child={<SubmitEvaluation />} />} />
 
             {/** STUDENT */}
             <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
-            <Route path='/student/myClasses' element={<StructureStudent child={<MyClassesStudent/>} />} />
-            <Route path='/student/myClasses/classId'
-                element={<StructureStudent child={<ClassMenuStudent/>} />} />
-            <Route path='/student/myClasses/classId/submit-class-work'
-                element={<StructureStudent child={<SubmitWorkStudent/>} />} />
-            <Route path='/student/myClasses/classId/submit-absence-justification'
-                element={<StructureStudent child={<SubmitJustification/>} />} />
+            <Route path='/student/myClasses' element={<StructureStudent child={<MyClassesStudent />} />} />
+            <Route path='/student/myClasses/:id'
+                element={<StructureStudent child={<ClassMenuStudent />} />} />
             <Route path='/student/myClasses/classId/submitted-evaluations'
-                element={<StructureStudent child={<SubmittedEvaluations/>} />} />
+                element={<StructureStudent child={<SubmittedEvaluations />} />} />
             <Route path='/student/myClasses/classId/past-summaries'
-                element={<StructureStudent child={<PastSummariesStudent/>} />} />
-            <Route path='/student/myClasses/classId/mark-presence' element={<StructureStudent child={<MarkPresence/>} />} />
+                element={<StructureStudent child={<PastSummariesStudent />} />} />
 
             {/* 404 */}
             <Route path='*' element={<Navigate to='/login' />} />
