@@ -8,6 +8,7 @@ import { SubjectModule } from './models/Subject/subject.module';
 import { SummaryModule } from './models/Summary/summary.module';
 import { TypeModule } from './models/Type/type.module';
 import { UserModule } from './models/User/user.module';
+import { WorkModule } from './models/Work/work.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UserModule } from './models/User/user.module';
     ClassModule,
     SummaryModule,
     PresenceModule,
+    WorkModule,
     MongooseModule.forRoot(
       'mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority',
     ),
