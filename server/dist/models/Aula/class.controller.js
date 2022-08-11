@@ -38,6 +38,12 @@ let ClassController = class ClassController {
     async deleteClass(classId) {
         await this.ClassService.deleteClass(classId);
     }
+    async assignTeachers(_id, teachers) {
+        await this.ClassService.assignTeachers(_id, teachers);
+    }
+    async assignStudents(_id, students) {
+        await this.ClassService.assignStudents(_id, students);
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -74,6 +80,22 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "deleteClass", null);
+__decorate([
+    (0, common_1.Put)('assignTeachers/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "assignTeachers", null);
+__decorate([
+    (0, common_1.Put)('assignStudents/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "assignStudents", null);
 ClassController = __decorate([
     (0, common_1.Controller)('classes'),
     __metadata("design:paramtypes", [class_service_1.ClassService])

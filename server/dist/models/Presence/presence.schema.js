@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PresenceSchema = exports.Presence = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const class_schema_1 = require("../Aula/class.schema");
-const user_schema_1 = require("../User/user.schema");
 let Presence = class Presence {
 };
 __decorate([
@@ -21,13 +19,17 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Presence.prototype, "Present", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Class' }),
-    __metadata("design:type", class_schema_1.Class)
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    __metadata("design:type", Object)
 ], Presence.prototype, "classId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
-    __metadata("design:type", user_schema_1.User)
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    __metadata("design:type", Object)
 ], Presence.prototype, "studentId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: false }),
+    __metadata("design:type", Boolean)
+], Presence.prototype, "open", void 0);
 Presence = __decorate([
     (0, mongoose_1.Schema)()
 ], Presence);

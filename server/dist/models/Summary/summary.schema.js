@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SummarySchema = exports.Summary = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const class_schema_1 = require("../Aula/class.schema");
 let Summary = class Summary {
 };
 __decorate([
@@ -24,8 +23,8 @@ __decorate([
     __metadata("design:type", String)
 ], Summary.prototype, "Description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Class' }),
-    __metadata("design:type", class_schema_1.Class)
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    __metadata("design:type", Object)
 ], Summary.prototype, "classId", void 0);
 Summary = __decorate([
     (0, mongoose_1.Schema)()

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateUserDto = void 0;
 const class_validator_1 = require("class-validator");
-const subject_schema_1 = require("../../Subject/subject.schema");
 class CreateUserDto {
 }
 __decorate([
@@ -30,12 +29,8 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "Email", void 0);
 __decorate([
-    (0, class_validator_1.IsDate)({ message: 'Must be a valid date!' }),
-    __metadata("design:type", Date)
-], CreateUserDto.prototype, "Birthday", void 0);
-__decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'User must have an account type!' }),
-    __metadata("design:type", subject_schema_1.Subject)
+    __metadata("design:type", Object)
 ], CreateUserDto.prototype, "AccountType", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Password cannot be empty!' }),

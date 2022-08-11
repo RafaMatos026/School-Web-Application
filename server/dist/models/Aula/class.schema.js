@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClassSchema = exports.Class = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const subject_schema_1 = require("../Subject/subject.schema");
-const user_schema_1 = require("../User/user.schema");
 let Class = class Class {
 };
 __decorate([
@@ -21,16 +19,12 @@ __decorate([
     __metadata("design:type", String)
 ], Class.prototype, "ClassName", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
-        required: true,
-        type: mongoose_2.default.Schema.Types.ObjectId,
-        ref: 'Subject',
-    }),
-    __metadata("design:type", subject_schema_1.Subject)
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    __metadata("design:type", Object)
 ], Class.prototype, "Subject", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
-    __metadata("design:type", user_schema_1.User)
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    __metadata("design:type", Object)
 ], Class.prototype, "HeadTeacher", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),

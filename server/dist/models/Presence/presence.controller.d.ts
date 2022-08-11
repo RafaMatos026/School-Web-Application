@@ -23,13 +23,13 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Presence } from './presence.schema';
 import { PresenceService } from './presence.service';
+import { MarkPresenceDto } from './markPresence.dto';
 export declare class PresenceController {
     private readonly PresenceService;
     constructor(PresenceService: PresenceService);
-    createPresence(Present: boolean, classId: string, userId: string): Promise<Presence>;
-    getPresences(classId: string): Promise<import("mongoose").Document<unknown, any, Presence> & Presence & {
+    createPresence(markPresenceDto: MarkPresenceDto): Promise<import("./presence.schema").Presence>;
+    getPresences(classId: string): Promise<import("mongoose").Document<unknown, any, import("./presence.schema").Presence> & import("./presence.schema").Presence & {
         _id: import("mongoose").Types.ObjectId;
     }>;
 }

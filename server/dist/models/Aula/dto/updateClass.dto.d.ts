@@ -1,9 +1,7 @@
-import { Subject } from 'src/models/Subject/subject.schema';
-import { User } from 'src/models/User/user.schema';
+import { ObjectId } from 'mongoose';
 export declare class UpdateClassDto {
     ClassName: string;
-    HeadTeacher: User;
-    Subject: Subject;
-    AssignedTeachers: User[];
-    AssignedStudents: User[];
+    HeadTeacher: ObjectId;
+    Subject: ObjectId;
+    Status: boolean;
 }

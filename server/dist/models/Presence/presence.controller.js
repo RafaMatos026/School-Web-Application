@@ -15,12 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PresenceController = void 0;
 const common_1 = require("@nestjs/common");
 const presence_service_1 = require("./presence.service");
+const markPresence_dto_1 = require("./markPresence.dto");
 let PresenceController = class PresenceController {
     constructor(PresenceService) {
         this.PresenceService = PresenceService;
     }
-    async createPresence(Present, classId, userId) {
-        const presence = await this.PresenceService.createPresence(Present, classId, userId);
+    async createPresence(markPresenceDto) {
+        const presence = await this.PresenceService.markPresence(markPresenceDto);
         return presence;
     }
     async getPresences(classId) {
@@ -30,11 +31,9 @@ let PresenceController = class PresenceController {
 };
 __decorate([
     (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)('Present')),
-    __param(1, (0, common_1.Body)('classId')),
-    __param(2, (0, common_1.Body)('userId')),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Boolean, String, String]),
+    __metadata("design:paramtypes", [markPresence_dto_1.MarkPresenceDto]),
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "createPresence", null);
 __decorate([
