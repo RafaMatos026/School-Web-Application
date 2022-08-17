@@ -32,7 +32,7 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + "/classes/getClasses"
+        let url = baseUrl + "/classes/getActiveClasses"
         fetch(url, {})
             .then((response) => {
                 if (!response.ok) {
@@ -78,7 +78,7 @@ export default function MyClasses() {
                                         <TableCell align='center'>{aula.Subject}</TableCell>
                                         <TableCell align='center'>{aula.Status ? "Active" : "Class not active"}</TableCell>
                                         <TableCell align='center'>
-                                            <Link to={'/teacher/myClasses/' + aula._id}>
+                                            <Link to={'/student/myClasses/' + aula._id}>
                                                 <IconButton >
                                                     <MoreHorizIcon />
                                                 </IconButton>

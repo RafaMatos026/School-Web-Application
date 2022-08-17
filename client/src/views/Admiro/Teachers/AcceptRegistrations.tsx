@@ -1,37 +1,62 @@
-import { Button, Typography } from '@mui/material';
+import { CardActions } from '@material-ui/core';
+import { Button, CardHeader, Card } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { Box } from "@mui/system";
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ITeacher } from '../../../shared/Interfaces/interfaces';
+
+const baseUrl = "http://localhost:3001";
 
 export default function AcceptRegistration() {
     const navigate = useNavigate();
+    const [requests, setRequests] = useState<ITeacher[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let url = baseUrl + "/users/registrationRequests";
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setRequests(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    })
+
     return (
-        <Box width={'100%'}>
-            <Grid lg={12} container rowSpacing={2} display={'flex'} justifyContent='center'
-            alignItems={'center'}>
-                <Grid lg={8} item>
-                    <Box width={'100%'} minWidth={'450px'} paddingX={1} paddingY={1} border={1} display='flex' justifyContent={'space-around'} alignItems='center'>
-                        <Typography>Request 1</Typography>
-                        <Typography>Name: Jon Doe</Typography>
-                        <Typography>Status: Pendent</Typography>
-                        <Button sx={{
-                            width: '15%',
-                            fontSize: '12px'
-                        }} size='small' variant='contained' onClick={() => navigate('/admin/request/1')}>View Request</Button>
-                    </Box>
-                </Grid>
-                <Grid lg={8} item>
-                    <Box width={'100%'} minWidth={'450px'} paddingX={1} paddingY={1} border={1} display='flex' justifyContent={'space-around'} alignItems='center'>
-                        <Typography>Request 1</Typography>
-                        <Typography>Name: Jon Doe</Typography>
-                        <Typography>Status: Pendent</Typography>
-                        <Button sx={{
-                            width: '15%',
-                            fontSize: '12px'
-                        }} size='small' variant='contained' onClick={() => navigate('/admin/request/1')}>View Request</Button>
-                    </Box>
-                </Grid>
-            </Grid>
-        </Box>
+        <>
+            {loading && <h1>Loading...</h1>}
+            {!requests && <h1>No requests...</h1>}
+            {!loading && (
+                <Box width={'100%'}>
+                    <Grid container rowSpacing={2} columnSpacing={2} display={'flex'} justifyContent='start'
+                        alignItems={'center'}>
+                        {requests.map((request, index) => (
+                            <Grid xs={4} md={2} key={index} item>
+                                <Card variant='outlined' sx={{ height: '175px' }}>
+                                    <CardHeader title={request.FName + ' ' + request.LName}
+                                        subheader={`Request ${index + 1}`} />
+                                    <CardActions>
+                                        <Button variant='contained'
+                                            onClick={() => navigate('/admin/request/' + request._id)}
+                                            fullWidth>
+                                            View Request
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Box>
+            )}
+        </>
     )
 }

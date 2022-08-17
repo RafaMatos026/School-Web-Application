@@ -1,20 +1,18 @@
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
-import IconButton from '@mui/material/IconButton';
-import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { useState, useEffect } from 'react';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
 
 const baseUrl = "http://localhost:3001";
 
-export default function StudentList() {
+export default function DisabledStudents() {
 
     const [loading, setLoading] = useState(true);
     const [students, setStudents] = useState<IStudent[]>([]);
 
     useEffect(() => {
-        let url = baseUrl + '/users/getActiveStudents';
+        let url = baseUrl + '/users/getDisabledStudents';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -54,8 +52,6 @@ export default function StudentList() {
                                     <StyledTableCell width={'15%'} align='center'>Student Id</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Student Name</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Email</StyledTableCell>
-                                    <StyledTableCell width={'15%'} align='center'>Account Status</StyledTableCell>
-                                    <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -65,12 +61,6 @@ export default function StudentList() {
                                         <TableCell align='center'>{student._id}</TableCell>
                                         <TableCell align='center'>{student.FName + ' ' + student.LName}</TableCell>
                                         <TableCell align='center'>{student.Email}</TableCell>
-                                        <TableCell align='center'>{student.Status ? "Active" : "Inactive"}</TableCell>
-                                        <TableCell align='center'>
-                                            <IconButton onClick={() => DisableStudent(student._id)}>
-                                                <PersonOffIcon color='error' />
-                                            </IconButton>
-                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -80,19 +70,4 @@ export default function StudentList() {
             )}
         </>
     )
-
-    function DisableStudent(_id: string) {
-        let url = baseUrl + "/users/disableUser/" + _id;
-        fetch(url, {
-            method: 'PUT'
-        })
-            .then((response) => {
-                if (response.ok) {
-                    alert('Student was disabled!');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
 }

@@ -25,6 +25,9 @@ import MyClassesStudent from '../views/Student/MyClasses/MyClasses';
 import ClassMenuStudent from '../views/Student/MyClasses/ClassMenu';
 import PastSummariesStudent from '../views/Student/MyClasses/PastSummaries';
 import SubmittedEvaluations from '../views/Student/MyClasses/SubmittedEvaluations';
+import DisabledClasses from '../views/Admiro/Aulas/DisabledClasses';
+import DisabledStudents from '../views/Admiro/Students/DisabledStudents';
+import DisabledTeachers from '../views/Admiro/Teachers/DisabledTeachers';
 
 
 /*After i implement the login part i will know which type of user is logged in and then i can know which routes should be rendered */
@@ -47,38 +50,41 @@ export const AppRoutes = () => {
             <Route path='/admin/class-list' element={<StructureAdmin child={<ClassList />} />} />
             <Route path='/admin/student-list' element={<StructureAdmin child={<StudentList />} />} />
             <Route path='/admin/teacher-list' element={<StructureAdmin child={<TeacherList />} />} />
-            <Route path='/admin/request/1' element={<StructureAdmin child={<RequestForm />} />} />
-            <Route path='/admin/class/classId' element={<StructureAdmin child={<ClassMenuAdmin />} />} />
-            <Route path='/admin/class/classId/assign-students'
+            <Route path='/admin/request/:_id' element={<StructureAdmin child={<RequestForm />} />} />
+            <Route path='/admin/class/:_id' element={<StructureAdmin child={<ClassMenuAdmin />} />} />
+            <Route path='/admin/class/:_id/assign-students'
                 element={<StructureAdmin child={<AssignStudent />} />} />
-            <Route path='/admin/class/classId/assigned-students'
+            <Route path='/admin/class/:_id/assigned-students'
                 element={<StructureAdmin child={<AssignedStudents />} />} />
-            <Route path='/admin/class/classId/assign-teachers'
+            <Route path='/admin/class/:_id/assign-teachers'
                 element={<StructureAdmin child={<AssignTeacher />} />} />
-            <Route path='/admin/class/classId/assigned-teachers'
+            <Route path='/admin/class/:_id/assigned-teachers'
                 element={<StructureAdmin child={<AssignedTeachers />} />} />
 
-            <Route path='/admin/class/classId/edit' element={<StructureAdmin child={<EditClass />} />} />
+            <Route path='/admin/class/:_id/edit' element={<StructureAdmin child={<EditClass />} />} />
+            <Route path='/admin/disabled-class-list' element={<StructureAdmin child={<DisabledClasses />} />} />
+            <Route path='/admin/disabled-student-list' element={<StructureAdmin child={<DisabledStudents />} />} />
+            <Route path='/admin/disabled-teacher-list' element={<StructureAdmin child={<DisabledTeachers />} />} />
 
             {/** TEACHER */}
             <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
             <Route path='/teacher/create-class' element={<StructureTeacher child={<CreateClass />} />} />
             <Route path='/teacher/myClasses' element={<StructureTeacher child={<MyClasses />} />} />
-            <Route path='/teacher/myClasses/:id'
+            <Route path='/teacher/myClasses/:_id'
                 element={<StructureTeacher child={<ClassMenuTeacher />} />} />
-            <Route path='/teacher/myClasses/classId/past-summaries'
+            <Route path='/teacher/myClasses/:_id/past-summaries'
                 element={<StructureTeacher child={<PastSummaries />} />} />
-            <Route path='/teacher/myClasses/classId/student-attendance'
+            <Route path='/teacher/myClasses/:_id/student-attendance'
                 element={<StructureTeacher child={<StudentAttendance />} />} />
 
             {/** STUDENT */}
             <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
             <Route path='/student/myClasses' element={<StructureStudent child={<MyClassesStudent />} />} />
-            <Route path='/student/myClasses/:id'
+            <Route path='/student/myClasses/:_id'
                 element={<StructureStudent child={<ClassMenuStudent />} />} />
-            <Route path='/student/myClasses/classId/submitted-evaluations'
+            <Route path='/student/myClasses/:_id/submitted-evaluations'
                 element={<StructureStudent child={<SubmittedEvaluations />} />} />
-            <Route path='/student/myClasses/classId/past-summaries'
+            <Route path='/student/myClasses/:_id/past-summaries'
                 element={<StructureStudent child={<PastSummariesStudent />} />} />
 
             {/* 404 */}

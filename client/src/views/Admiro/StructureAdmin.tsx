@@ -62,6 +62,11 @@ export default function ResponsiveDrawer(props: Props) {
               Create Class
             </ListItemButton>
           </Link>
+          <Link to={'/admin/disabled-class-list'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Disabled Classes
+            </ListItemButton>
+          </Link>
         </List>
       </Container>
       <Container>
@@ -79,6 +84,11 @@ export default function ResponsiveDrawer(props: Props) {
               Create Student
             </ListItemButton>
           </Link>
+          <Link to={'/admin/disabled-student-list'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Disabled Students
+            </ListItemButton>
+          </Link>
         </List>
       </Container>
       <Container>
@@ -94,6 +104,11 @@ export default function ResponsiveDrawer(props: Props) {
           <Link to={'/admin/registration-requests'} style={{ textDecoration: 'none', color: 'black' }}>
             <ListItemButton>
               Registration Requests
+            </ListItemButton>
+          </Link>
+          <Link to={'/admin/disabled-teacher-list'} style={{ textDecoration: 'none', color: 'black' }}>
+            <ListItemButton>
+              Disabled Teachers
             </ListItemButton>
           </Link>
         </List>
