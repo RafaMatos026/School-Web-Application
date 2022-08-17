@@ -14,6 +14,10 @@ const class_validator_1 = require("class-validator");
 class MarkPresenceDto {
 }
 __decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: 'Presence must have a value!' }),
+    __metadata("design:type", Boolean)
+], MarkPresenceDto.prototype, "Present", void 0);
+__decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Presence must be marked for a class!' }),
     __metadata("design:type", Object)
 ], MarkPresenceDto.prototype, "classId", void 0);
