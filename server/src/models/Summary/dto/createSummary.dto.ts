@@ -5,7 +5,7 @@ export class CreateSummaryDto {
   @IsNotEmpty({ message: 'Summary must have a date of creatiion!' })
   Date: Date;
 
-  @Length(10, 50, {
+  @Length(5, 50, {
     message: 'Summary description must have between 10 to 50 characters!',
   })
   Description: string;
