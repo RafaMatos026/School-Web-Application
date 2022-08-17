@@ -3,7 +3,7 @@ export declare class CreateUserDto {
     FName: string;
     LName: string;
     Email: string;
-    Birthday: Date;
+    Birthday?: Date;
     AccountType: ObjectId;
-    Password: string;
+    Password?: string;
 }
