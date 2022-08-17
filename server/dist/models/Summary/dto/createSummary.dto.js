@@ -18,7 +18,7 @@ __decorate([
     __metadata("design:type", Date)
 ], CreateSummaryDto.prototype, "Date", void 0);
 __decorate([
-    (0, class_validator_1.Length)(10, 50, {
+    (0, class_validator_1.Length)(5, 50, {
         message: 'Summary description must have between 10 to 50 characters!',
     }),
     __metadata("design:type", String)
