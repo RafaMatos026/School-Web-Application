@@ -24,8 +24,12 @@ let ClassController = class ClassController {
     async createClass(createClassDto) {
         return await this.ClassService.createClass(createClassDto);
     }
-    async getClasses() {
-        const classes = await this.ClassService.getClasses();
+    async getActiveClasses() {
+        const classes = await this.ClassService.getActiveClasses();
+        return classes;
+    }
+    async getDisabledClasses() {
+        const classes = await this.ClassService.getDisabledClasses();
         return classes;
     }
     async getClass(classId) {
@@ -36,13 +40,19 @@ let ClassController = class ClassController {
         await this.ClassService.updateClass(_id, UpdateClassDto);
     }
     async deleteClass(classId) {
-        await this.ClassService.deleteClass(classId);
+        await this.ClassService.disableClass(classId);
     }
     async assignTeachers(_id, teachers) {
         await this.ClassService.assignTeachers(_id, teachers);
     }
     async assignStudents(_id, students) {
         await this.ClassService.assignStudents(_id, students);
+    }
+    async assignedStudents(_id) {
+        return await this.ClassService.assignedStudents(_id);
+    }
+    async assignedTeachers(_id) {
+        return await this.ClassService.assignedTeachers(_id);
     }
 };
 __decorate([
@@ -53,11 +63,17 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "createClass", null);
 __decorate([
-    (0, common_1.Get)('getClasses'),
+    (0, common_1.Get)('getActiveClasses'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], ClassController.prototype, "getClasses", null);
+], ClassController.prototype, "getActiveClasses", null);
+__decorate([
+    (0, common_1.Get)('getDisabledClasses'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "getDisabledClasses", null);
 __decorate([
     (0, common_1.Get)('getClass/:id'),
     __param(0, (0, common_1.Param)('id')),
@@ -85,7 +101,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignTeachers", null);
 __decorate([
@@ -96,6 +112,20 @@ __decorate([
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignStudents", null);
+__decorate([
+    (0, common_1.Get)('assignedStudents/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "assignedStudents", null);
+__decorate([
+    (0, common_1.Get)('assignedTeachers/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ClassController.prototype, "assignedTeachers", null);
 ClassController = __decorate([
     (0, common_1.Controller)('classes'),
     __metadata("design:paramtypes", [class_service_1.ClassService])

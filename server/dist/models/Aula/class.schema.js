@@ -27,11 +27,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Class.prototype, "HeadTeacher", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
 ], Class.prototype, "AssignedStudents", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
 ], Class.prototype, "AssignedTeachers", void 0);
 __decorate([

@@ -32,8 +32,17 @@ let ClassService = class ClassService {
         const result = await newClass.save();
         return result;
     }
-    async getClasses() {
-        const result = await this.classModel.find({});
+    async getActiveClasses() {
+        const result = await this.classModel.find({ Status: true });
+        if (result) {
+            return result;
+        }
+        else {
+            throw new common_1.NotFoundException('No classes found!');
+        }
+    }
+    async getDisabledClasses() {
+        const result = await this.classModel.find({ Status: false });
         if (result) {
             return result;
         }
@@ -56,21 +65,39 @@ let ClassService = class ClassService {
         };
         await this.classModel.findByIdAndUpdate(_id, update);
     }
-    async deleteClass(_id) {
-        await this.classModel.deleteOne({ _id: _id });
+    async disableClass(_id) {
+        await this.classModel.findByIdAndUpdate({ _id: _id }, { Status: false });
         return;
     }
     async assignTeachers(_id, teachers) {
-        await this.classModel.findByIdAndUpdate(_id, {
-            $set: { AssignedTeachers: teachers },
-        });
+        console.log(teachers);
+        await this.classModel.findByIdAndUpdate({ _id: _id }, {
+            $set: { AssignedTeachers: teachers.AssignedTeachers },
+        }, { new: true });
         return;
     }
     async assignStudents(_id, students) {
-        await this.classModel.findByIdAndUpdate(_id, {
+        console.log(students);
+        await this.classModel.findByIdAndUpdate({ _id: _id }, {
             $set: { AssignedStudents: students },
-        });
+        }, { new: true });
         return;
+    }
+    async assignedStudents(_id) {
+        const aula = await this.classModel.findOne({ _id: _id });
+        let students = [];
+        if (aula) {
+            students = aula.AssignedStudents;
+        }
+        return students;
+    }
+    async assignedTeachers(_id) {
+        const aula = await this.classModel.findOne({ _id: _id });
+        let teachers = [];
+        if (aula) {
+            teachers = aula.AssignedTeachers;
+        }
+        return teachers;
     }
 };
 ClassService = __decorate([
