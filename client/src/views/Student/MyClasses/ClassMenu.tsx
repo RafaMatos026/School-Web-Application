@@ -1,11 +1,12 @@
 import { Grid, Card, Box, CardHeader, CardActionArea, Paper } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SubmitWork from './SubmitWork';
 import SubmitJustification from './SubmitJustification';
 import MarkPresence from './MarkPresence';
 
 export default function ClassMenu() {
+    const { _id } = useParams();
     const [workModal, setOpenWork] = useState(false);
     const [presenceModal, setOpenPresence] = useState(false);
     const [absenceModal, setOpenAbsence] = useState(false);
@@ -49,7 +50,7 @@ export default function ClassMenu() {
                     <Card
                         variant='outlined'
                         component={Paper}>
-                        <CardActionArea onClick={() => navigate('/student/myClasses/classId/submitted-evaluations')}>
+                        <CardActionArea onClick={() => navigate('/student/myClasses/' + _id + '/submitted-evaluations')}>
                             <CardHeader title='Evaluations' />
                         </CardActionArea>
                     </Card>

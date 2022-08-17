@@ -9,6 +9,9 @@ import Card from '@mui/material/Card';
 import CardContent from "@mui/material/CardContent";
 import Button from '@mui/material/Button';
 import Modal from "../../../shared/components/Modal";
+import { useParams } from 'react-router-dom';
+
+const baseUrl = "http://localhost:3001";
 
 interface Props {
     open: boolean;
@@ -16,8 +19,8 @@ interface Props {
 }
 
 export default function MarkPresence(props: Props) {
+    const { _id } = useParams();
     const { open, setOpen } = props;
-
     const [value, setValue] = useState<string>('false');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,11 +57,37 @@ export default function MarkPresence(props: Props) {
                             <Button variant='contained' color='error' onClick={() => setOpen(false)}>
                                 Cancel
                             </Button>
-                            <Button variant="contained">Submit</Button>
+                            <Button variant="contained" onClick={() => MarkPresence()}>Submit</Button>
                         </Grid>
                     </Grid>
                 </form>
             </Modal>
         </div>
     )
+
+    function MarkPresence() {
+        let url = baseUrl + "/presences/create"
+        fetch(url, {
+            method: 'POST',
+
+            body: JSON.stringify({
+                classId: _id,
+                studentId: '62fbc2ec94f87c56ee847d0b', //change here after to the current user _id;
+                Present: value,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    setOpen(false);
+                    alert("Presence status saved!");
+                }
+            })
+            .catch(err => {
+                console.log(err.message);
+                alert("Error: " + err.message);
+            })
+    }
 }

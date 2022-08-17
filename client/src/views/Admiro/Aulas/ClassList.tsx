@@ -4,9 +4,17 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { IClass } from '../../../shared/Interfaces/interfaces';
+
+const baseUrl = "http://localhost:3001";
 
 export default function ClassList() {
+
+    const [classes, setClasses] = useState<IClass[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -18,77 +26,80 @@ export default function ClassList() {
         },
     }));
 
-    return (
-        <Box width={'100%'}>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Class Id</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Class Name</StyledTableCell>
-                            <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align='center'>1</TableCell>
-                            <TableCell align='center'>C20233</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <Link to={'/admin/class/classId'}>
-                                    <IconButton >
-                                        <EditIcon />
-                                    </IconButton>
-                                </Link>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>2</TableCell>
-                            <TableCell align='center'>C20220</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>3</TableCell>
-                            <TableCell align='center'>C20240</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>4</TableCell>
-                            <TableCell align='center'>C20233</TableCell>
-                            <TableCell align='center'>Math</TableCell>
-                            <TableCell align='center'>
-                                <IconButton >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton color='error'>
-                                    <DisabledByDefaultIcon />
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
+    useEffect(() => {
+        let url: string = baseUrl + '/classes/getActiveClasses';
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setClasses(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    })
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
+    return (
+        <>
+            {loading && <h1>Loading...</h1>}
+            {!loading && (
+                <Box width={'100%'}>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Id</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Name</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Subject</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Head Teacher</StyledTableCell>
+                                    <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {classes.map((aula, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{aula._id}</TableCell>
+                                        <TableCell align='center'>{aula.ClassName}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>
+                                            <IconButton onClick={() => navigate('/admin/class/' + aula._id)}>
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton onClick={() => DisableClass(aula._id)}>
+                                                <DisabledByDefaultIcon color='error' />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
+        </>
     )
+
+    function DisableClass(_id: string) {
+        let url = baseUrl + "/classes/deleteClass/" + _id;
+        fetch(url, {
+            method: 'PUT'
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert('Class was disabled!');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 }

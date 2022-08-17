@@ -5,21 +5,16 @@ import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState, useEffect } from 'react';
+import { IClass } from '../../../shared/Interfaces/interfaces';
 
 const baseUrl: string = "http://localhost:3001";
 
-interface Class {
-    _id: string;
-    ClassName: string;
-    Subject: string;
-    HeadTeacher: string;
-    Status: boolean;
-}
+
 
 export default function MyClasses() {
 
     const [loadingTable, setLoadingTable] = useState(true);
-    const [classes, setClasses] = useState<Class[]>([]);
+    const [classes, setClasses] = useState<IClass[]>([]);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -32,8 +27,8 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + "/classes/getClasses"
-        fetch(url, {})
+        let url = baseUrl + "/classes/getActiveClasses"
+        fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -75,7 +70,7 @@ export default function MyClasses() {
                                         <TableCell align='center'>{aula._id}</TableCell>
                                         <TableCell align='center'>{aula.ClassName}</TableCell>
                                         <TableCell align='center'>{aula.Subject}</TableCell>
-                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.HeadTeacher}</TableCell>
                                         <TableCell align='center'>{aula.Status ? "Active" : "Class not active"}</TableCell>
                                         <TableCell align='center'>
                                             <Link to={'/teacher/myClasses/' + aula._id}>

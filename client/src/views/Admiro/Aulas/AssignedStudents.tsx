@@ -1,11 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Checkbox from '@mui/material/Checkbox';
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
+import { useNavigate, useParams } from "react-router-dom";
+import { IStudent } from "../../../shared/Interfaces/interfaces";
 
-export default function AssignedStudents(){
+const baseUrl = "http://localhost:3001";
+
+export default function AssignedStudents() {
+    const { _id } = useParams();
     const [checks, setChecks] = useState<string[]>([])
+    const [students, setStudents] = useState<IStudent[]>([])
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>) => {
         const index = checks.indexOf(event.target.value)
@@ -26,67 +34,60 @@ export default function AssignedStudents(){
         },
     }));
 
-    return (
-        <Box width={'100%'}>
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Student ID</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Student Name</StyledTableCell>
-                            <StyledTableCell width={'5%'} align='center'>Selection</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align='center'>1</TableCell>
-                            <TableCell align='center'>S20233</TableCell>
-                            <TableCell align='center'>Jon Doe</TableCell>
-                            <TableCell align='center'>
-                                <Checkbox
-                                    value={'studentId1'}
-                                    checked={checks.includes('studentId1')}
-                                    onChange={handleCheckboxes} />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>2</TableCell>
-                            <TableCell align='center'>S20233</TableCell>
-                            <TableCell align='center'>Jon Doe</TableCell>
-                            <TableCell align='center'>
-                                <Checkbox
-                                    value={'studentId2'}
-                                    checked={checks.includes('studentId2')}
-                                    onChange={handleCheckboxes} />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>3</TableCell>
-                            <TableCell align='center'>S20233</TableCell>
-                            <TableCell align='center'>Jon Doe</TableCell>
-                            <TableCell align='center'>
-                                <Checkbox
-                                    value={'studentId3'}
-                                    checked={checks.includes('studentId3')}
-                                    onChange={handleCheckboxes} />
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align='center'>4</TableCell>
-                            <TableCell align='center'>S20233</TableCell>
-                            <TableCell align='center'>Jon Doe</TableCell>
-                            <TableCell align='center'>
-                                <Checkbox
-                                    value={'studentId4'}
-                                    checked={checks.includes('studentId4')}
-                                    onChange={handleCheckboxes} />
-                            </TableCell>
-                        </TableRow>
+    useEffect(() => {
+        let url = baseUrl + "/classes/assignedStudents/" + _id;
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setStudents(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
 
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
+
+
+    return (
+        <>
+            {loading && <h1>Loading...</h1>}
+            {!loading && (
+                <Box width={'100%'}>
+                    <TableContainer component={Paper}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Student ID</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Student Name</StyledTableCell>
+                                    <StyledTableCell width={'5%'} align='center'>Selection</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {students.map((student, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{student._id}</TableCell>
+                                        <TableCell align='center'>{student.FName + ' ' + student.LName}</TableCell>
+                                        <TableCell align='center'>
+                                            <Checkbox
+                                                value={'studentId1'}
+                                                checked={checks.includes('studentId1')}
+                                                onChange={handleCheckboxes} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            )}
+        </>
     )
 }

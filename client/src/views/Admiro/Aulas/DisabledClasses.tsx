@@ -1,17 +1,19 @@
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
+import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import PersonOffIcon from '@mui/icons-material/PersonOff';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { ITeacher } from '../../../shared/Interfaces/interfaces';
+import { IClass } from '../../../shared/Interfaces/interfaces';
 
 const baseUrl = "http://localhost:3001";
 
-export default function StudentList() {
+export default function DisabledClasses() {
 
-    const [loading, setLoading] = useState(true);
-    const [teachers, setTeachers] = useState<ITeacher[]>([]);
+    const [classes, setClasses] = useState<IClass[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -24,7 +26,7 @@ export default function StudentList() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + '/users/getTeachers';
+        let url: string = baseUrl + '/classes/getDisabledClasses';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -33,46 +35,49 @@ export default function StudentList() {
                 return response.json();
             })
             .then((data) => {
-                setTeachers(data);
+                console.log(data);
+                setClasses(data);
                 setLoading(false);
             })
             .catch(err => {
                 console.log(err.message);
             })
-    })
+    }, [])
 
     return (
         <>
             {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {classes.length === 0 && <h1>No Classes are disabled</h1>}
+            {(!loading && classes.length !== 0) && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                                    <StyledTableCell width={'15%'} align='center'>Teacher ID</StyledTableCell>
-                                    <StyledTableCell width={'15%'} align='center'>Teacher Name</StyledTableCell>
-                                    <StyledTableCell width={'15%'} align='center'>Email</StyledTableCell>
-                                    <StyledTableCell width={'15%'} align='center'>Status</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Id</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Class Name</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Subject</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Head Teacher</StyledTableCell>
                                     <StyledTableCell width={'10%'} align='center'>Actions</StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {teachers.map((teacher, index) => (
+                                {classes.map((aula, index) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
-                                        <TableCell align='center'>{teacher._id}</TableCell>
-                                        <TableCell align='center'>{teacher.FName + ' ' + teacher.LName}</TableCell>
-                                        <TableCell align='center'>{teacher.Email}</TableCell>
-                                        <TableCell align='center'>{teacher.Status ? "Active" : "Inactive"}</TableCell>
+                                        <TableCell align='center'>{aula._id}</TableCell>
+                                        <TableCell align='center'>{aula.ClassName}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.Subject}</TableCell>
                                         <TableCell align='center'>
-                                            <IconButton onClick={() => DisableTeacher(teacher._id)}>
-                                                <PersonOffIcon color='error' />
+                                            <IconButton onClick={() => navigate('/admin/class/' + aula._id)}>
+                                                <EditIcon />
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>
                                 ))}
+
                             </TableBody>
                         </Table>
                     </TableContainer>
@@ -80,20 +85,4 @@ export default function StudentList() {
             )}
         </>
     )
-
-
-    function DisableTeacher(_id: string) {
-        let url = baseUrl + "/users/disableUser/" + _id;
-        fetch(url, {
-            method: 'PUT'
-        })
-            .then((response) => {
-                if (response.ok) {
-                    alert('Teacher was disabled!');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
 }
