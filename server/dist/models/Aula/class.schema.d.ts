@@ -4,12 +4,8 @@ export declare class Class {
     ClassName: string;
     Subject: ObjectId;
     HeadTeacher: ObjectId;
-    AssignedStudents: [{
-        type: mongoose.Schema.Types.ObjectId;
-    }];
-    AssignedTeachers: [{
-        type: mongoose.Schema.Types.ObjectId;
-    }];
+    AssignedStudents: ObjectId[];
+    AssignedTeachers: ObjectId[];
     Status: boolean;
 }
 export declare const ClassSchema: mongoose.Schema<Class, mongoose.Model<Class, any, any, any, any>, {}, {}, {}, {}, "type", Class>;
