@@ -14,10 +14,17 @@ export class ClassController {
     return await this.ClassService.createClass(createClassDto);
   }
 
-  //Get all classes
-  @Get('getClasses')
-  async getClasses() {
-    const classes = await this.ClassService.getClasses();
+  //Get active classes
+  @Get('getActiveClasses')
+  async getActiveClasses() {
+    const classes = await this.ClassService.getActiveClasses();
+    return classes;
+  }
+
+  //Get disabled classes
+  @Get('getDisabledClasses')
+  async getDisabledClasses() {
+    const classes = await this.ClassService.getDisabledClasses();
     return classes;
   }
 
@@ -40,12 +47,12 @@ export class ClassController {
   //Disable class
   @Put('deleteClass/:id')
   async deleteClass(@Param('id') classId: string) {
-    await this.ClassService.deleteClass(classId);
+    await this.ClassService.disableClass(classId);
   }
 
   //Assign teachers
   @Put('assignTeachers/:id')
-  async assignTeachers(@Param('id') _id: string, @Body() teachers: ObjectId) {
+  async assignTeachers(@Param('id') _id: string, @Body() teachers: ObjectId[]) {
     await this.ClassService.assignTeachers(_id, teachers);
   }
 
@@ -53,5 +60,17 @@ export class ClassController {
   @Put('assignStudents/:id')
   async assignStudents(@Param('id') _id: string, @Body() students: ObjectId[]) {
     await this.ClassService.assignStudents(_id, students);
+  }
+
+  //Assigned Students
+  @Get('assignedStudents/:id')
+  async assignedStudents(@Param('id') _id: string) {
+    return await this.ClassService.assignedStudents(_id);
+  }
+
+  //Assigned Teachers
+  @Get('assignedTeachers/:id')
+  async assignedTeachers(@Param('id') _id: string) {
+    return await this.ClassService.assignedTeachers(_id);
   }
 }

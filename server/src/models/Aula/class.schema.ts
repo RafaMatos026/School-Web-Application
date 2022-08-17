@@ -13,11 +13,11 @@ export class Class {
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId })
   HeadTeacher: ObjectId;
 
-  @Prop()
-  AssignedStudents: [{ type: mongoose.Schema.Types.ObjectId }];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  AssignedStudents: ObjectId[];
 
-  @Prop()
-  AssignedTeachers: [{ type: mongoose.Schema.Types.ObjectId }];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  AssignedTeachers: ObjectId[];
 
   @Prop({ default: true })
   Status: boolean;
