@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 /// <reference types="mongoose/types/aggregate" />
 /// <reference types="mongoose/types/callback" />
 /// <reference types="mongoose/types/collection" />
@@ -28,8 +29,8 @@ import { WorkService } from './work.service';
 export declare class WorkController {
     private readonly WorkService;
     constructor(WorkService: WorkService);
-    createType(data: CreateWorkDto): Promise<import("mongoose").Document<unknown, any, import("./work.schema").Work> & import("./work.schema").Work & {
+    createWork(data: CreateWorkDto, file: Express.Multer.File): Promise<import("mongoose").Document<unknown, any, import("./work.schema").Work> & import("./work.schema").Work & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getType(classId: string): Promise<import("./work.schema").Work[]>;
+    getWork(classId: string): Promise<import("./work.schema").Work[]>;
 }

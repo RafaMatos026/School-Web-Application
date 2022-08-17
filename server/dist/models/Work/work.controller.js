@@ -14,33 +14,54 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkController = void 0;
 const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const path_1 = require("path");
 const createWork_dto_1 = require("./createWork.dto");
 const work_service_1 = require("./work.service");
 let WorkController = class WorkController {
     constructor(WorkService) {
         this.WorkService = WorkService;
     }
-    async createType(data) {
+    async createWork(data, file) {
         return await this.WorkService.createWork(data);
     }
-    async getType(classId) {
+    async getWork(classId) {
         return await this.WorkService.getClassWork(classId);
     }
 };
 __decorate([
     (0, common_1.Post)('create'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
+        storage: (0, multer_1.diskStorage)({
+            destination: '../../../public/Documents/Works',
+            filename: (req, file, callback) => {
+                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+                const ext = (0, path_1.extname)(file.originalname);
+                const filename = `${uniqueSuffix}${ext}`;
+                callback(null, filename);
+            },
+        }),
+    })),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)(new common_1.ParseFilePipeBuilder()
+        .addFileTypeValidator({
+        fileType: 'pdf',
+    })
+        .build({
+        fileIsRequired: true,
+    }))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createWork_dto_1.CreateWorkDto]),
+    __metadata("design:paramtypes", [createWork_dto_1.CreateWorkDto, Object]),
     __metadata("design:returntype", Promise)
-], WorkController.prototype, "createType", null);
+], WorkController.prototype, "createWork", null);
 __decorate([
-    (0, common_1.Get)('getType/:id'),
+    (0, common_1.Get)('getWork/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], WorkController.prototype, "getType", null);
+], WorkController.prototype, "getWork", null);
 WorkController = __decorate([
     (0, common_1.Controller)('works'),
     __metadata("design:paramtypes", [work_service_1.WorkService])
