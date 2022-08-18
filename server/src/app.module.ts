@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MulterModule } from '@nestjs/platform-express';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClassModule } from './models/Aula/class.module';
@@ -10,6 +9,9 @@ import { SummaryModule } from './models/Summary/summary.module';
 import { TypeModule } from './models/Type/type.module';
 import { UserModule } from './models/User/user.module';
 import { WorkModule } from './models/Work/work.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './authentication/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -23,8 +25,9 @@ import { WorkModule } from './models/Work/work.module';
     MongooseModule.forRoot(
       'mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority',
     ),
+    AuthenticationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}
