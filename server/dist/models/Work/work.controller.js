@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const path_1 = require("path");
+const is_public_decorator_1 = require("../../authentication/decorator/is-public.decorator");
 const createWork_dto_1 = require("./createWork.dto");
 const work_service_1 = require("./work.service");
 let WorkController = class WorkController {
@@ -56,6 +57,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkController.prototype, "createWork", null);
 __decorate([
+    (0, is_public_decorator_1.Public)(),
     (0, common_1.Get)('getWork/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
