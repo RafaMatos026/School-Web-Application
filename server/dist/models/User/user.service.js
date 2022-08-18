@@ -17,6 +17,16 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("./user.schema");
 const mongoose_2 = require("mongoose");
+const bcrypt = require("bcrypt");
+function GeneratePassword() {
+    const length = 8;
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let retVal = '';
+    for (let i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
 let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -34,11 +44,14 @@ let UserService = class UserService {
         return result;
     }
     async createStudent(createStudentDto) {
+        const p = GeneratePassword();
+        console.log(`Send email to: ${createStudentDto.Email} with password ` + p);
         const newUser = new this.userModel({
             FName: createStudentDto.FName,
             LName: createStudentDto.LName,
             Email: createStudentDto.Email,
             AccountType: '62f38d97cafa8d86f57141c5',
+            Password: await bcrypt.hash(p, 10),
         });
         const result = await newUser.save();
         return result;
@@ -48,7 +61,8 @@ let UserService = class UserService {
             FName: createTeacherDto.FName,
             LName: createTeacherDto.LName,
             Email: createTeacherDto.Email,
-            Password: createTeacherDto.Password,
+            Password: await bcrypt.hash(createTeacherDto.Password, 10),
+            Birthday: createTeacherDto.Birthday,
             AccountType: '62f38d8ccafa8d86f57141c3',
         });
         const result = await newUser.save();
@@ -193,6 +207,18 @@ let UserService = class UserService {
             else {
                 throw new common_1.NotFoundException('No student is assignable to this class!');
             }
+        }
+    }
+    async findByEmail(email) {
+        console.log('Estou no user service find by email');
+        const result = await this.userModel.findOne({
+            Email: email,
+        });
+        if (result) {
+            return result;
+        }
+        else {
+            return null;
         }
     }
 };
