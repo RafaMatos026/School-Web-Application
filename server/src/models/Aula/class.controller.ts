@@ -1,5 +1,7 @@
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
+import { AuthenticationService } from 'src/authentication/authentication.service';
+import { Public } from 'src/authentication/decorator/is-public.decorator';
 import { ClassService } from './class.service';
 import { CreateClassDto } from './dto/createClass.dto';
 import { UpdateClassDto } from './dto/updateClass.dto';
@@ -15,6 +17,7 @@ export class ClassController {
   }
 
   //Get active classes
+  @Public()
   @Get('getActiveClasses')
   async getActiveClasses() {
     const classes = await this.ClassService.getActiveClasses();
@@ -22,6 +25,7 @@ export class ClassController {
   }
 
   //Get disabled classes
+  @Public()
   @Get('getDisabledClasses')
   async getDisabledClasses() {
     const classes = await this.ClassService.getDisabledClasses();
@@ -63,12 +67,14 @@ export class ClassController {
   }
 
   //Assigned Students
+  @Public()
   @Get('assignedStudents/:id')
   async assignedStudents(@Param('id') _id: string) {
     return await this.ClassService.assignedStudents(_id);
   }
 
   //Assigned Teachers
+  @Public()
   @Get('assignedTeachers/:id')
   async assignedTeachers(@Param('id') _id: string) {
     return await this.ClassService.assignedTeachers(_id);

@@ -1,4 +1,5 @@
 import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Public } from 'src/authentication/decorator/is-public.decorator';
 import { CreateSummaryDto } from './dto/createSummary.dto';
 import { SummaryService } from './summary.service';
 
@@ -15,6 +16,7 @@ export class SummaryController {
 
   //Get all summarys
   @Get('getSummaries')
+  @Public()
   async getSummarys() {
     const summarys = await this.SummaryService.getSummarys();
     return summarys;

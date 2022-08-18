@@ -11,6 +11,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Public } from 'src/authentication/decorator/is-public.decorator';
 import { CreateWorkDto } from './createWork.dto';
 import { WorkService } from './work.service';
 
@@ -51,6 +52,7 @@ export class WorkController {
   }
 
   //Get works submitted from a class
+  @Public()
   @Get('getWork/:id')
   async getWork(@Param('id') classId: string) {
     return await this.WorkService.getClassWork(classId);

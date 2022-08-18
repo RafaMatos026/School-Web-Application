@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateStudentDto } from './dto/createStudent.dto';
 import { CreateTeacherDto } from './dto/createTeacher.dto';
 import { ObjectId } from 'mongoose';
+import { Public } from 'src/authentication/decorator/is-public.decorator';
 
 @Controller('users')
 export class UserController {
@@ -41,18 +42,21 @@ export class UserController {
   }
 
   //Fetch teachers
+  @Public()
   @Get('getTeachers')
   async getTeachers() {
     return await this.UserService.getTeachers();
   }
 
   //Fetch students
+  @Public()
   @Get('getStudents')
   async getStudents() {
     return await this.UserService.getStudents();
   }
 
   //Get disabled students
+  @Public()
   @Get('getDisabledStudents')
   async getDisabledStudents() {
     const students = await this.UserService.getDisabledStudents();
@@ -60,6 +64,7 @@ export class UserController {
   }
 
   //Get disabled students
+  @Public()
   @Get('getDisabledTeachers')
   async getDisabledTeachers() {
     const teachers = await this.UserService.getDisabledTeachers();
@@ -110,5 +115,10 @@ export class UserController {
   @Get('assignableStudents/:id')
   async assignableStudents(@Param('id') _id: ObjectId) {
     return await this.UserService.assignableStudents(_id);
+  }
+
+  @Get('getByEmail')
+  async getByEmail(@Body('Email') email: string) {
+    return await this.UserService.findByEmail(email);
   }
 }
