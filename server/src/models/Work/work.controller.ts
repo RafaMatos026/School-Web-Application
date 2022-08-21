@@ -11,7 +11,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { Public } from 'src/authentication/decorator/is-public.decorator';
+import { Public } from 'src/auth/decorators/isPublic.decorator';
 import { CreateWorkDto } from './createWork.dto';
 import { WorkService } from './work.service';
 

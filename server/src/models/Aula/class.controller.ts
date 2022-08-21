@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, Param, Put } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { AuthenticationService } from 'src/authentication/authentication.service';
-import { Public } from 'src/authentication/decorator/is-public.decorator';
+import { Public } from 'src/auth/decorators/isPublic.decorator';
 import { ClassService } from './class.service';
 import { CreateClassDto } from './dto/createClass.dto';
 import { UpdateClassDto } from './dto/updateClass.dto';
