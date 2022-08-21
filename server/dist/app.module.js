@@ -18,9 +18,9 @@ const summary_module_1 = require("./models/Summary/summary.module");
 const type_module_1 = require("./models/Type/type.module");
 const user_module_1 = require("./models/User/user.module");
 const work_module_1 = require("./models/Work/work.module");
-const authentication_module_1 = require("./authentication/authentication.module");
+const auth_module_1 = require("./auth/auth.module");
 const core_1 = require("@nestjs/core");
-const jwt_auth_guard_1 = require("./authentication/guards/jwt-auth.guard");
+const jwt_guard_1 = require("./auth/guards/jwt.guard");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,10 +34,10 @@ AppModule = __decorate([
             presence_module_1.PresenceModule,
             work_module_1.WorkModule,
             mongoose_1.MongooseModule.forRoot('mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority'),
-            authentication_module_1.AuthenticationModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: jwt_auth_guard_1.JwtAuthGuard }],
+        providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: jwt_guard_1.JwtAuthGuard }],
     })
 ], AppModule);
 exports.AppModule = AppModule;
