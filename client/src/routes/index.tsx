@@ -28,6 +28,9 @@ import SubmittedEvaluations from '../views/Student/MyClasses/SubmittedEvaluation
 import DisabledClasses from '../views/Admiro/Aulas/DisabledClasses';
 import DisabledStudents from '../views/Admiro/Students/DisabledStudents';
 import DisabledTeachers from '../views/Admiro/Teachers/DisabledTeachers';
+import { RequireAuth } from '../auth/RequireAuth';
+import { useContext } from 'react';
+import { AuthContext } from '../auth/AuthContext';
 
 
 /*After i implement the login part i will know which type of user is logged in and then i can know which routes should be rendered */
@@ -35,36 +38,72 @@ import DisabledTeachers from '../views/Admiro/Teachers/DisabledTeachers';
 /* There are some components that could be shared */
 
 export const AppRoutes = () => {
+
     return (
         <Routes>
-            {/** LOGIN - REGISTER */}
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Login />} />
-
             {/** ADMIN */}
-            <Route path='/admin' element={<StructureAdmin child={<h1>Hello Admin</h1>} />} />
+            <Route path='/admin' element={
+                <RequireAuth>
+                    <StructureAdmin child={<h1>Hello Admin</h1>} />
+                </RequireAuth>} />
             <Route path='/admin/registration-requests'
-                element={<StructureAdmin child={<RegistrationRequests />} />} />
-            <Route path='/admin/create-student' element={<StructureAdmin child={<CreateStudent />} />} />
-            <Route path='/admin/create-class' element={<StructureAdmin child={<CreateClass />} />} />
-            <Route path='/admin/class-list' element={<StructureAdmin child={<ClassList />} />} />
-            <Route path='/admin/student-list' element={<StructureAdmin child={<StudentList />} />} />
-            <Route path='/admin/teacher-list' element={<StructureAdmin child={<TeacherList />} />} />
-            <Route path='/admin/request/:_id' element={<StructureAdmin child={<RequestForm />} />} />
-            <Route path='/admin/class/:_id' element={<StructureAdmin child={<ClassMenuAdmin />} />} />
+                element={<RequireAuth>
+                    <StructureAdmin child={<RegistrationRequests />} />
+                </RequireAuth>} />
+            <Route path='/admin/create-student' element={
+                <RequireAuth>
+                    <StructureAdmin child={<CreateStudent />} />
+                </RequireAuth>
+            } />
+            <Route path='/admin/create-class' element={
+                <RequireAuth>
+                    <StructureAdmin child={<CreateClass />} />
+                </RequireAuth>
+            } />
+            <Route path='/admin/class-list' element={<RequireAuth>
+                <StructureAdmin child={<ClassList />} />
+            </RequireAuth>} />
+            <Route path='/admin/student-list' element={<RequireAuth>
+                <StructureAdmin child={<StudentList />} />
+            </RequireAuth>} />
+            <Route path='/admin/teacher-list' element={<RequireAuth>
+                <StructureAdmin child={<TeacherList />} />
+            </RequireAuth>} />
+            <Route path='/admin/request/:_id' element={<RequireAuth>
+                <StructureAdmin child={<RequestForm />} />
+            </RequireAuth>} />
+            <Route path='/admin/class/:_id' element={<RequireAuth>
+                <StructureAdmin child={<ClassMenuAdmin />} />
+            </RequireAuth>} />
             <Route path='/admin/class/:_id/assign-students'
-                element={<StructureAdmin child={<AssignStudent />} />} />
+                element={<RequireAuth>
+                    <StructureAdmin child={<AssignStudent />} />
+                </RequireAuth>} />
             <Route path='/admin/class/:_id/assigned-students'
-                element={<StructureAdmin child={<AssignedStudents />} />} />
+                element={<RequireAuth>
+                    <StructureAdmin child={<AssignedStudents />} />
+                </RequireAuth>} />
             <Route path='/admin/class/:_id/assign-teachers'
-                element={<StructureAdmin child={<AssignTeacher />} />} />
+                element={<RequireAuth>
+                    <StructureAdmin child={<AssignTeacher />} />
+                </RequireAuth>} />
             <Route path='/admin/class/:_id/assigned-teachers'
-                element={<StructureAdmin child={<AssignedTeachers />} />} />
+                element={<RequireAuth>
+                    <StructureAdmin child={<AssignedTeachers />} />
+                </RequireAuth>} />
 
-            <Route path='/admin/class/:_id/edit' element={<StructureAdmin child={<EditClass />} />} />
-            <Route path='/admin/disabled-class-list' element={<StructureAdmin child={<DisabledClasses />} />} />
-            <Route path='/admin/disabled-student-list' element={<StructureAdmin child={<DisabledStudents />} />} />
-            <Route path='/admin/disabled-teacher-list' element={<StructureAdmin child={<DisabledTeachers />} />} />
+            <Route path='/admin/class/:_id/edit' element={<RequireAuth>
+                <StructureAdmin child={<EditClass />} />
+            </RequireAuth>} />
+            <Route path='/admin/disabled-class-list' element={<RequireAuth>
+                <StructureAdmin child={<DisabledClasses />} />
+            </RequireAuth>} />
+            <Route path='/admin/disabled-student-list' element={<RequireAuth>
+                <StructureAdmin child={<DisabledStudents />} />
+            </RequireAuth>} />
+            <Route path='/admin/disabled-teacher-list' element={<RequireAuth>
+                <StructureAdmin child={<DisabledTeachers />} />
+            </RequireAuth>} />
 
             {/** TEACHER */}
             <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
@@ -86,6 +125,10 @@ export const AppRoutes = () => {
                 element={<StructureStudent child={<SubmittedEvaluations />} />} />
             <Route path='/student/myClasses/:_id/past-summaries'
                 element={<StructureStudent child={<PastSummariesStudent />} />} />
+
+            {/** LOGIN - REGISTER */}
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
 
             {/* 404 */}
             <Route path='*' element={<Navigate to='/login' />} />
