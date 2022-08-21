@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateStudentDto } from './dto/createStudent.dto';
 import { CreateTeacherDto } from './dto/createTeacher.dto';
 import { ObjectId } from 'mongoose';
-import { Public } from 'src/authentication/decorator/is-public.decorator';
+import { Public } from 'src/auth/decorators/isPublic.decorator';
 
 @Controller('users')
 export class UserController {
@@ -14,6 +14,10 @@ export class UserController {
   //Create User
   @Post('create')
   async createUser(@Body() CreateUserDto: CreateUserDto) {
+    const existingUser = this.UserService.findByEmail(CreateUserDto.Email);
+    if (existingUser) {
+      return { success: false, message: 'Email already taken!' };
+    }
     return await this.UserService.createUser(CreateUserDto);
   }
 
@@ -36,6 +40,7 @@ export class UserController {
   }
 
   //Fetch all users
+  @Public()
   @Get('getUsers')
   async getUsers() {
     return await this.UserService.getUsers();
@@ -72,6 +77,7 @@ export class UserController {
   }
 
   //Get active students
+  @Public()
   @Get('getActiveStudents')
   async getActiveStudents() {
     const students = await this.UserService.getActiveStudents();
@@ -79,6 +85,7 @@ export class UserController {
   }
 
   //Fetch registration requests
+  @Public()
   @Get('/registrationRequests')
   async getRequests() {
     return await this.UserService.getRequests();
@@ -112,11 +119,13 @@ export class UserController {
   }
 
   //Assignable students
+  @Public()
   @Get('assignableStudents/:id')
   async assignableStudents(@Param('id') _id: ObjectId) {
     return await this.UserService.assignableStudents(_id);
   }
 
+  //Find user by email
   @Get('getByEmail')
   async getByEmail(@Body('Email') email: string) {
     return await this.UserService.findByEmail(email);

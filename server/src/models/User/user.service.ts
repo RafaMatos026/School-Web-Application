@@ -41,14 +41,16 @@ export class UserService {
 
   //Create a student account
   async createStudent(createStudentDto: CreateStudentDto): Promise<User> {
-    const p = GeneratePassword();
-    console.log(`Send email to: ${createStudentDto.Email} with password ` + p);
+    const pass = GeneratePassword();
+    console.log(
+      `Send email to: ${createStudentDto.Email} with password ` + pass,
+    );
     const newUser = new this.userModel({
       FName: createStudentDto.FName,
       LName: createStudentDto.LName,
       Email: createStudentDto.Email,
       AccountType: '62f38d97cafa8d86f57141c5',
-      Password: await bcrypt.hash(p, 10),
+      Password: await bcrypt.hash(pass, 10),
     });
     const result = await newUser.save();
     return result;
@@ -237,12 +239,34 @@ export class UserService {
 
   //Find by email
   async findByEmail(email: string) {
-    console.log('Estou no user service find by email');
     const result = await this.userModel.findOne({
       Email: email,
     });
     if (result) {
-      return result;
+      const user = result;
+      return {
+        _id: user._id,
+        FName: user.FName,
+        LName: user.LName,
+        AccountType: user.AccountType,
+        Status: user.Status,
+        Registered: user.Registered,
+        Password: user.Password,
+      };
+    } else {
+      return null;
+    }
+  }
+
+  async getId(email: string) {
+    const result = await this.userModel.findOne({ Email: email });
+    if (result) {
+      return {
+        _id: result._id,
+        FName: result.FName,
+        LName: result.LName,
+        AccountType: result.AccountType,
+      };
     } else {
       return null;
     }
