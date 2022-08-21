@@ -14,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import { Link, useNavigate } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { AuthContext } from '../../auth/AuthContext';
 
 const drawerWidth = 240;
 
@@ -26,6 +27,7 @@ export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const { child } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const auth = React.useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ export default function ResponsiveDrawer(props: Props) {
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={26}>
-        Admin Name
+        {auth.user?.FName + ' ' + auth.user?.LName}
       </Typography>
       <Divider variant='middle' />
       <Container>
@@ -145,7 +147,7 @@ export default function ResponsiveDrawer(props: Props) {
             aria-label='go back'
             edge="start"
             onClick={() => navigate(-1)}>
-            <ArrowBackIcon/>
+            <ArrowBackIcon />
           </IconButton>
           <Typography marginLeft={2} variant="h6" noWrap component="div">
             Homepage
