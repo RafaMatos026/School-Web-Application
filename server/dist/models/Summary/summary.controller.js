@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SummaryController = void 0;
 const common_1 = require("@nestjs/common");
-const is_public_decorator_1 = require("../../authentication/decorator/is-public.decorator");
+const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 const createSummary_dto_1 = require("./dto/createSummary.dto");
 const summary_service_1 = require("./summary.service");
 let SummaryController = class SummaryController {
@@ -42,8 +42,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SummaryController.prototype, "createSummary", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Get)('getSummaries'),
-    (0, is_public_decorator_1.Public)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
