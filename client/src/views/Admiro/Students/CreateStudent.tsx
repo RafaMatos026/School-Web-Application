@@ -5,8 +5,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function CreateStudent() {
     const [FirstName, setFirstName] = useState<string>("");
@@ -51,7 +50,7 @@ export default function CreateStudent() {
 
     //I'm not dealing with any errors yet
     function CreateStudent() {
-        let url = baseUrl + "/users/createStudent";
+        let url = BASE_URL + "/users/createStudent";
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({

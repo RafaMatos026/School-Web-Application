@@ -2,9 +2,6 @@ import Modal from "../../../shared/components/Modal"
 import { Button, ButtonGroup, TextField } from "@mui/material"
 import Typography from '@mui/material/Typography';
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-
-const baseUrl = "http://localhost:3001";
 
 interface Props {
     open: boolean;
@@ -12,7 +9,6 @@ interface Props {
 }
 
 export default function SubmitWork(props: Props) {
-    const { _id } = useParams();
     const { open, setOpen } = props;
     const [WorkName, setWorkName] = useState("");
     const [Description, setDescription] = useState("");

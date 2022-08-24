@@ -6,8 +6,7 @@ import SubmitJustification from './SubmitJustification';
 import { ISurvey } from '../../../shared/Interfaces/interfaces';
 import Modal from '../../../shared/components/Modal';
 import { AuthContext } from '../../../auth/AuthContext';
-
-const baseUrl = "http://localhost:3001";
+import {BASE_URL } from '../../../shared/consts'
 
 export default function ClassMenu() {
     const { _id } = useParams();
@@ -101,7 +100,7 @@ export default function ClassMenu() {
     )
 
     function MarkPresence() {
-        let url = baseUrl + "/presences/markPresence";
+        let url = BASE_URL + "/presences/markPresence";
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
@@ -131,7 +130,7 @@ export default function ClassMenu() {
     }
 
     function LoadSurvey() {
-        let url = baseUrl + '/presences/latestSurvey/' + _id;
+        let url = BASE_URL + '/presences/latestSurvey/' + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

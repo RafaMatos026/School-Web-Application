@@ -7,8 +7,7 @@ import { ISurvey } from '../../../shared/Interfaces/interfaces';
 import MoreHoriz from '@mui/icons-material/MoreHoriz';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '../../../shared/components/Modal';
-
-const baseUrl = "http://localhost:3001";
+import {BASE_URL } from '../../../shared/consts'
 
 export default function StudentAttendance() {
     const { _id } = useParams();
@@ -34,7 +33,7 @@ export default function StudentAttendance() {
     }, [])
 
     function LoadSurveys() {
-        let url = baseUrl + "/presences/getSurveys/" + _id;
+        let url = BASE_URL + "/presences/getSurveys/" + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -147,8 +146,8 @@ export default function StudentAttendance() {
     )
 
     function openAttendance(_id: string) {
-        let urlA = baseUrl + '/presences/getAbsents/' + _id;
-        let urlP = baseUrl + '/presences/getPresents/' + _id;
+        let urlA = BASE_URL + '/presences/getAbsents/' + _id;
+        let urlP = BASE_URL + '/presences/getPresents/' + _id;
 
         fetch(urlA)
             .then((response) => {
@@ -184,7 +183,7 @@ export default function StudentAttendance() {
     }
 
     function createSurvey() {
-        let url = baseUrl + '/presences/create';
+        let url = BASE_URL + '/presences/create';
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
@@ -207,7 +206,7 @@ export default function StudentAttendance() {
     }
 
     function closeSurvey(_id: string) {
-        let url = baseUrl + '/presences/closeSurvey/' + _id;
+        let url = BASE_URL + '/presences/closeSurvey/' + _id;
         fetch(url, {
             method: 'PUT'
         })

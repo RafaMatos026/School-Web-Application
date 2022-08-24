@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 
-const baseUrl: string = "http://localhost:3001";
+const BASE_URL: string = "http://localhost:3001";
 
 interface Summary {
     Date: Date;
@@ -26,7 +26,7 @@ export default function PastSummaries() {
     const [summary, setSummary] = useState<Summary>();
 
     useEffect(() => {
-        let url = baseUrl + "/summaries/getSummaries"
+        let url = BASE_URL + "/summaries/getSummaries"
         fetch(url, {})
             .then((response) => {
                 if (!response.ok) {
@@ -103,7 +103,7 @@ export default function PastSummaries() {
     )
 
     function OpenSummary(id: string) {
-        let url: string = baseUrl + "/summaries/getSummary/" + id;
+        let url: string = BASE_URL + "/summaries/getSummary/" + id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

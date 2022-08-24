@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { User } from "../types/User";
 import { AuthContext } from "./AuthContext";
+import { BASE_URL } from "../shared/consts";
 
-const baseUrl = "http://localhost:3001";
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     const [user, setUser] = useState<User | null>(null);
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }, [])
 
     function validateToken() {
-        let url = baseUrl + '/auth/validateToken';
+        let url = BASE_URL + '/auth/validateToken';
         const token = localStorage.getItem('token');
         if (token) {
             fetch(url, {
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
     //Function not awaiting, sets the user but doesn't return true, goes to false
     const signin = async (Email: string, Password: string) => {
-        let url = baseUrl + '/auth/login'
+        let url = BASE_URL + '/auth/login'
         return fetch(url, {
             method: 'POST',
             body: JSON.stringify({

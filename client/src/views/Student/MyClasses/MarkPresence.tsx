@@ -10,8 +10,7 @@ import Modal from "../../../shared/components/Modal";
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../auth/AuthContext';
 import { ISurvey } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts'
 
 interface Props {
     open: boolean;
@@ -30,7 +29,7 @@ export default function MarkPresence(props: Props) {
     }
 
     useEffect(() => {
-        let url = baseUrl + '/presences/latestSurvey/' + _id;
+        let url = BASE_URL + '/presences/latestSurvey/' + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -80,7 +79,7 @@ export default function MarkPresence(props: Props) {
     )
 
     function MarkPresence() {
-        let url = baseUrl + "/presences/markPresence"
+        let url = BASE_URL + "/presences/markPresence"
         fetch(url, {
             method: 'POST',
 

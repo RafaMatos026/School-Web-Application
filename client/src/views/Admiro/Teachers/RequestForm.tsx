@@ -6,8 +6,7 @@ import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = 'http://localhost:3001';
+import { BASE_URL } from '../../../shared/consts';
 
 export default function RegistrationForm() {
     let { _id } = useParams();
@@ -16,7 +15,7 @@ export default function RegistrationForm() {
     const [user, setUser] = useState<ITeacher>();
 
     useEffect(() => {
-        let url = baseUrl + "/users/getUser/" + _id;
+        let url = BASE_URL + "/users/getUser/" + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -74,7 +73,7 @@ export default function RegistrationForm() {
     )
 
     function AcceptRegister() {
-        let url = baseUrl + "/users/acceptTeacher/" + _id;
+        let url = BASE_URL + "/users/acceptTeacher/" + _id;
         fetch(url, {
             method: 'PUT'
         })
@@ -93,7 +92,7 @@ export default function RegistrationForm() {
     }
 
     function DeclineRegister() {
-        let url = baseUrl + "/users/declineTeacher/" + _id;
+        let url = BASE_URL + "/users/declineTeacher/" + _id;
         fetch(url, {
             method: 'PUT'
         })

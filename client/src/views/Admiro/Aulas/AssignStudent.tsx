@@ -5,8 +5,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function AssignStudent() {
     const { _id } = useParams();
@@ -26,7 +25,7 @@ export default function AssignStudent() {
 
     useEffect(() => {
         //To get students who don't belong to the class
-        let url = baseUrl + "/users/assignableStudents/" + _id;
+        let url = BASE_URL + "/users/assignableStudents/" + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -87,7 +86,7 @@ export default function AssignStudent() {
     )
 
     function AssignStudents() {
-        let url = baseUrl + "/classes/assignStudents/" + _id;
+        let url = BASE_URL + "/classes/assignStudents/" + _id;
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify(checks),

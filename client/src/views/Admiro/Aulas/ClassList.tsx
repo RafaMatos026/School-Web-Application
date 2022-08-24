@@ -7,8 +7,7 @@ import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { IClass } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function ClassList() {
 
@@ -27,7 +26,7 @@ export default function ClassList() {
     }));
 
     useEffect(() => {
-        let url: string = baseUrl + '/classes/getActiveClasses';
+        let url: string = BASE_URL + '/classes/getActiveClasses';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -89,7 +88,7 @@ export default function ClassList() {
     )
 
     function DisableClass(_id: string) {
-        let url = baseUrl + "/classes/deleteClass/" + _id;
+        let url = BASE_URL + "/classes/deleteClass/" + _id;
         fetch(url, {
             method: 'PUT'
         })

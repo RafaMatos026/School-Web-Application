@@ -7,7 +7,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState, useEffect } from 'react';
 import { IClass } from '../../../shared/Interfaces/interfaces';
 
-const baseUrl: string = "http://localhost:3001";
+const BASE_URL: string = "http://localhost:3001";
 
 
 
@@ -27,7 +27,7 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + "/classes/getActiveClasses"
+        let url = BASE_URL + "/classes/getActiveClasses"
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

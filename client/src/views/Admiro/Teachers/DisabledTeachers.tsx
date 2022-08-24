@@ -3,8 +3,7 @@ import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { useState, useEffect } from 'react';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function DisabledTeachers() {
 
@@ -12,7 +11,7 @@ export default function DisabledTeachers() {
     const [teachers, setTeachers] = useState<ITeacher[]>([]);
 
     useEffect(() => {
-        let url = baseUrl + '/users/getDisabledTeachers';
+        let url = BASE_URL + '/users/getDisabledTeachers';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

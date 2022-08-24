@@ -8,8 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ISubject, ITeacher } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function CreateClass() {
     const [subjects, setSubjects] = useState<ISubject[]>([])
@@ -25,7 +24,7 @@ export default function CreateClass() {
     }, [])
 
     function getSubjects() {
-        let url = baseUrl + "/subjects/getSubjects";
+        let url = BASE_URL + "/subjects/getSubjects";
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -42,7 +41,7 @@ export default function CreateClass() {
     }
 
     function getTeachers() {
-        let url = baseUrl + "/users/getTeachers";
+        let url = BASE_URL + "/users/getTeachers";
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -111,7 +110,7 @@ export default function CreateClass() {
 
     //I'm not dealing with any errors yet
     function CreateClass() {
-        let url = baseUrl + "/classes/create";
+        let url = BASE_URL + "/classes/create";
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({

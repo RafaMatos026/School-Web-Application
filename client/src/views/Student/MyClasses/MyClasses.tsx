@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState, useEffect } from 'react';
 
-const baseUrl: string = "http://localhost:3001";
+const BASE_URL: string = "http://localhost:3001";
 
 interface Class {
     _id: string;
@@ -32,7 +32,7 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + "/classes/getActiveClasses"
+        let url = BASE_URL + "/classes/getActiveClasses"
         fetch(url, {})
             .then((response) => {
                 if (!response.ok) {

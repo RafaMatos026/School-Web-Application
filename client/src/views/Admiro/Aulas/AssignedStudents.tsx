@@ -5,8 +5,7 @@ import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { useNavigate, useParams } from "react-router-dom";
 import { IStudent } from "../../../shared/Interfaces/interfaces";
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function AssignedStudents() {
     const { _id } = useParams();
@@ -35,7 +34,7 @@ export default function AssignedStudents() {
     }));
 
     useEffect(() => {
-        let url = baseUrl + "/classes/assignedStudents/" + _id;
+        let url = BASE_URL + "/classes/assignedStudents/" + _id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

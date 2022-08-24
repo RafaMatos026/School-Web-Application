@@ -4,13 +4,12 @@ import { Card, CardContent, TextField, Typography, Button } from "@mui/material"
 import Modal from '../../../shared/components/Modal';
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { BASE_URL } from '../../../shared/consts'
 
 interface Props {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const baseUrl = "http://localhost:3001";
 
 export default function AddSummary(props: Props) {
     const { id } = useParams();
@@ -36,7 +35,7 @@ export default function AddSummary(props: Props) {
     )
 
     function AddSummary() {
-        let url = baseUrl + "/summaries/create";
+        let url = BASE_URL + "/summaries/create";
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({

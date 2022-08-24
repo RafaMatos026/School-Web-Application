@@ -6,8 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { IClass } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function DisabledClasses() {
 
@@ -26,7 +25,7 @@ export default function DisabledClasses() {
     }));
 
     useEffect(() => {
-        let url: string = baseUrl + '/classes/getDisabledClasses';
+        let url: string = BASE_URL + '/classes/getDisabledClasses';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

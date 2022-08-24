@@ -5,8 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { useState, useEffect } from 'react';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
-
-const baseUrl = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 export default function StudentList() {
 
@@ -14,7 +13,7 @@ export default function StudentList() {
     const [students, setStudents] = useState<IStudent[]>([]);
 
     useEffect(() => {
-        let url = baseUrl + '/users/getActiveStudents';
+        let url = BASE_URL + '/users/getActiveStudents';
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -82,7 +81,7 @@ export default function StudentList() {
     )
 
     function DisableStudent(_id: string) {
-        let url = baseUrl + "/users/disableUser/" + _id;
+        let url = BASE_URL + "/users/disableUser/" + _id;
         fetch(url, {
             method: 'PUT'
         })
