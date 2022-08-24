@@ -23,17 +23,13 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { UserService } from 'src/models/User/user.service';
-import { JwtService } from '@nestjs/jwt';
-import { UserToken } from './models/UserToken';
-import { UserPayload } from './models/UserPayload';
-export declare class AuthService {
-    private userService;
-    private readonly jwtService;
-    constructor(userService: UserService, jwtService: JwtService);
-    login(Email: string): Promise<UserToken>;
-    validateToken(token: string): Promise<UserPayload>;
-    validateUser(email: string, pass: string): Promise<{
+import { Strategy } from 'passport-local';
+import { AuthService } from '../auth.service';
+declare const LocalStrategy_base: new (...args: any[]) => Strategy;
+export declare class LocalStrategy extends LocalStrategy_base {
+    private authService;
+    constructor(authService: AuthService);
+    validate(Email: string, Password: string): Promise<{
         _id: import("mongoose").Types.ObjectId;
         FName: string;
         LName: string;
@@ -43,3 +39,4 @@ export declare class AuthService {
         Password: string;
     }>;
 }
+export {};
