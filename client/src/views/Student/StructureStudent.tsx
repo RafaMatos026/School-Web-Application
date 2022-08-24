@@ -19,7 +19,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../auth/AuthContext';
 import { useContext } from 'react';
-import { AuthProvider } from '../../auth/AuthProvider';
 
 
 const drawerWidth = 240;
@@ -98,7 +97,7 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box>
+          <Box sx={{flexGrow: 1}}>
             <IconButton
               color='inherit'
               aria-label='go back'
@@ -111,11 +110,11 @@ export default function ResponsiveDrawer(props: Props) {
             </Typography>
           </Box>
 
-          <Box>
+          <Box sx={{flexGrow: 0.05}} display='flex' justifyContent={'space-evenly'}>
             <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => navigate('/settings/' + user?._id)}>
               <SettingsIcon />
             </IconButton>
-            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => auth.signout()}>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => logout()}>
               <LogoutIcon />
             </IconButton>
           </Box>
