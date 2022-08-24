@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Class } from './class.schema';
 import { CreateClassDto } from './dto/createClass.dto';
 import { UpdateClassDto } from './dto/updateClass.dto';
-import { User } from '../User/user.schema';
 
 @Injectable()
 export class ClassService {
@@ -87,7 +86,6 @@ export class ClassService {
 
   //Assign students to class
   async assignStudents(_id: string, students: ObjectId[]) {
-    console.log(students);
     await this.classModel.findByIdAndUpdate(
       { _id: _id },
       {
