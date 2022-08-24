@@ -77,7 +77,6 @@ let ClassService = class ClassService {
         return;
     }
     async assignStudents(_id, students) {
-        console.log(students);
         await this.classModel.findByIdAndUpdate({ _id: _id }, {
             $set: { AssignedStudents: students },
         }, { new: true });

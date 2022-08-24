@@ -21,22 +21,79 @@ let PresenceService = class PresenceService {
     constructor(presenceModel) {
         this.presenceModel = presenceModel;
     }
-    async markPresence(markPresenceDto) {
-        const newPresence = new this.presenceModel({
-            classId: markPresenceDto.classId,
-            Present: markPresenceDto.Present,
-            studentId: markPresenceDto.studentId,
+    async newSurvey(newSurveyDto) {
+        const newSurvey = new this.presenceModel({
+            Date: Date.now(),
+            classId: newSurveyDto.classId,
+            presentStudents: newSurveyDto.presentStudents,
+            absentStudents: newSurveyDto.absentStudents,
         });
-        await newPresence.save();
-        return newPresence;
+        const result = await newSurvey.save();
+        return result;
     }
-    async getPresences(_id) {
-        const presences = await this.presenceModel.findById(_id);
-        if (presences) {
-            return presences;
+    async markPresence(_id, studenId, Present) {
+        const survey = await this.presenceModel.findById(_id);
+        if (survey) {
+            const presents = survey.presentStudents;
+            if (presents.includes(studenId)) {
+                return false;
+            }
+            if (Present) {
+                await this.presenceModel.findByIdAndUpdate({ _id: _id }, {
+                    $push: { presentStudents: studenId },
+                });
+            }
+            else {
+                await this.presenceModel.findByIdAndUpdate({ _id: _id }, {
+                    $push: { absentStudents: studenId },
+                });
+            }
+            return true;
+        }
+        return;
+    }
+    async closeSurvey(_id) {
+        await this.presenceModel.findByIdAndUpdate({
+            _id: _id,
+        }, {
+            open: false,
+        });
+    }
+    async getSurveys(classId) {
+        const surveys = await this.presenceModel.find({
+            classId: classId,
+        });
+        if (surveys) {
+            return surveys;
         }
         else {
-            throw new common_1.NotFoundException('Presences not found for this class!');
+            throw new common_1.NotFoundException('No presence forms for this class yet!');
+        }
+    }
+    async getAbsents(_id) {
+        const survey = await this.presenceModel.findById(_id);
+        if (survey) {
+            const absentStudents = survey.absentStudents;
+            return absentStudents;
+        }
+    }
+    async getPresents(_id) {
+        const survey = await this.presenceModel.findById(_id);
+        if (survey) {
+            const presentStudents = survey.presentStudents;
+            return presentStudents;
+        }
+    }
+    async getLatestSurvey(classId) {
+        const survey = await this.presenceModel
+            .findOne({ classId: classId, open: true })
+            .sort({ Date: -1 })
+            .limit(1);
+        if (survey) {
+            return survey;
+        }
+        else {
+            throw new common_1.NotFoundException('No presence forms for this class yet!');
         }
     }
 };

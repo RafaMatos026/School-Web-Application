@@ -15,19 +15,29 @@ const mongoose_2 = require("mongoose");
 let Presence = class Presence {
 };
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: false }),
-    __metadata("design:type", Boolean)
-], Presence.prototype, "Present", void 0);
+    (0, mongoose_1.Prop)({ required: true, default: Date.now() }),
+    __metadata("design:type", Date)
+], Presence.prototype, "Date", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
     __metadata("design:type", Object)
 ], Presence.prototype, "classId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
-    __metadata("design:type", Object)
-], Presence.prototype, "studentId", void 0);
+    (0, mongoose_1.Prop)({
+        required: true,
+        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }],
+    }),
+    __metadata("design:type", Array)
+], Presence.prototype, "absentStudents", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: false }),
+    (0, mongoose_1.Prop)({
+        required: true,
+        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }],
+    }),
+    __metadata("design:type", Array)
+], Presence.prototype, "presentStudents", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ default: true }),
     __metadata("design:type", Boolean)
 ], Presence.prototype, "open", void 0);
 Presence = __decorate([
