@@ -1,15 +1,15 @@
 import Grid from '@mui/material/Grid';
 import { Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Radio from '@mui/material/Radio';
 import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Card from '@mui/material/Card';
-import CardContent from "@mui/material/CardContent";
 import Button from '@mui/material/Button';
 import Modal from "../../../shared/components/Modal";
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../../auth/AuthContext';
+import { ISurvey } from '../../../shared/Interfaces/interfaces';
 
 const baseUrl = "http://localhost:3001";
 
@@ -22,28 +22,42 @@ export default function MarkPresence(props: Props) {
     const { _id } = useParams();
     const { open, setOpen } = props;
     const [value, setValue] = useState<string>('false');
+    const user_id = useContext(AuthContext).user?._id;
+    const [survey, setSurvey] = useState<ISurvey>();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     }
 
+    useEffect(() => {
+        let url = baseUrl + '/presences/latestSurvey/' + _id;
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setSurvey(data);
+            })
+            .catch((err) => {
+                alert(err.message);
+            })
+    }, [])
+
     return (
-        <div>
+        <>
             <Modal open={open} title={'Mark Presence'} setOpen={setOpen}>
-                <form>
+                {!survey && (<h2>Theres no survey open...</h2>)}
+                {survey && (
                     <Grid container spacing={1}>
                         <Grid item xs={12} textAlign='center'>
-                            <Typography variant="h6">Class: {'math'}</Typography>
+                            <Typography variant="h6">Attendance survey: { }</Typography>
                         </Grid>
-                        <Grid item xs={12} textAlign='center'>
-                            <Typography variant="h6">Date: {'9/08/2022'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} textAlign='center'>
-                            <Typography variant="h6">Time: {'14:57'}</Typography>
-                        </Grid>
-                        <Grid item xs={12} textAlign='center'>
+                        <Grid item xs={12} textAlign='center' display={'flex'} justifyContent='center' alignItems={'center'}>
                             <Typography variant="h6">Presence: </Typography>
-                            <FormControl>
+                            <FormControl sx={{ marginLeft: 2 }}>
                                 <RadioGroup
                                     value={value}
                                     onChange={handleChange}
@@ -60,19 +74,19 @@ export default function MarkPresence(props: Props) {
                             <Button variant="contained" onClick={() => MarkPresence()}>Submit</Button>
                         </Grid>
                     </Grid>
-                </form>
+                )}
             </Modal>
-        </div>
+        </>
     )
 
     function MarkPresence() {
-        let url = baseUrl + "/presences/create"
+        let url = baseUrl + "/presences/markPresence"
         fetch(url, {
             method: 'POST',
 
             body: JSON.stringify({
-                classId: _id,
-                studentId: '62fbc2ec94f87c56ee847d0b', //change here after to the current user _id;
+                _id: _id,
+                studentId: user_id,
                 Present: value,
             }),
             headers: {

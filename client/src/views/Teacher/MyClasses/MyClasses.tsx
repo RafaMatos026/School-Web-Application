@@ -36,7 +36,6 @@ export default function MyClasses() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setClasses(data);
                 setLoadingTable(false);
             })

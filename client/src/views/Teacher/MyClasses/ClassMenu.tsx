@@ -1,6 +1,6 @@
 import { Grid, Card, Box, CardHeader, CardActionArea, Paper } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SubmitWork from './SubmitWork';
 import SubmitEvaluation from './SubmitEvaluation';
 import AddSummary from './AddSummary';
@@ -12,6 +12,7 @@ export default function ClassMenu() {
     const [evaluationModal, setOpenEvaluation] = useState(false);
     const [summaryModal, setOpenSummary] = useState(false);
     const navigate = useNavigate();
+    const { _id } = useParams();
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -25,14 +26,14 @@ export default function ClassMenu() {
                 </Grid>
                 <Grid item xs={12} md={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
-                        <CardActionArea onClick={() => navigate('/teacher/myClasses/classId/past-summaries')}>
+                        <CardActionArea onClick={() => navigate('/teacher/myClasses/' + _id + '/past-summaries')}>
                             <CardHeader title='View Past Summaries' />
                         </CardActionArea>
                     </Card>
                 </Grid>
                 <Grid item xs={12} md={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
-                        <CardActionArea onClick={() => navigate('/teacher/myClasses/classId/student-attendance')}>
+                        <CardActionArea onClick={() => navigate('/teacher/myClasses/' + _id + '/student-attendance')}>
                             <CardHeader title='Student Attendance' />
                         </CardActionArea>
                     </Card>

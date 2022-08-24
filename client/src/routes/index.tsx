@@ -28,9 +28,11 @@ import SubmittedEvaluations from '../views/Student/MyClasses/SubmittedEvaluation
 import DisabledClasses from '../views/Admiro/Aulas/DisabledClasses';
 import DisabledStudents from '../views/Admiro/Students/DisabledStudents';
 import DisabledTeachers from '../views/Admiro/Teachers/DisabledTeachers';
-import { RequireAuth } from '../auth/RequireAuth';
+import { RequireAuth } from '../auth/Authorization';
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
+import AccessDenied from '../views/others/AccessDenied';
+import Portal from '../views/others/Portal';
 
 
 /*After i implement the login part i will know which type of user is logged in and then i can know which routes should be rendered */
@@ -39,71 +41,71 @@ import { AuthContext } from '../auth/AuthContext';
 
 export const AppRoutes = () => {
 
+    const user_role = useContext(AuthContext).user?.AccountType;
+
     return (
         <Routes>
             {/** ADMIN */}
-            <Route path='/admin' element={
+            <Route path='/admin' element={user_role === '62f38d82cafa8d86f57141c1' ?
                 <RequireAuth>
                     <StructureAdmin child={<h1>Hello Admin</h1>} />
-                </RequireAuth>} />
+                </RequireAuth> : <AccessDenied />} />
             <Route path='/admin/registration-requests'
-                element={<RequireAuth>
+                element={user_role === '62f38d82cafa8d86f57141c1' && <RequireAuth>
                     <StructureAdmin child={<RegistrationRequests />} />
                 </RequireAuth>} />
-            <Route path='/admin/create-student' element={
+            <Route path='/admin/create-student' element={user_role === '62f38d82cafa8d86f57141c1' ?
                 <RequireAuth>
                     <StructureAdmin child={<CreateStudent />} />
-                </RequireAuth>
-            } />
-            <Route path='/admin/create-class' element={
+                </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/create-class' element={user_role === '62f38d82cafa8d86f57141c1' ?
                 <RequireAuth>
                     <StructureAdmin child={<CreateClass />} />
-                </RequireAuth>
-            } />
-            <Route path='/admin/class-list' element={<RequireAuth>
+                </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/class-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<ClassList />} />
-            </RequireAuth>} />
-            <Route path='/admin/student-list' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/student-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<StudentList />} />
-            </RequireAuth>} />
-            <Route path='/admin/teacher-list' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/teacher-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<TeacherList />} />
-            </RequireAuth>} />
-            <Route path='/admin/request/:_id' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/request/:_id' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<RequestForm />} />
-            </RequireAuth>} />
-            <Route path='/admin/class/:_id' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/class/:_id' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<ClassMenuAdmin />} />
-            </RequireAuth>} />
+            </RequireAuth> : <AccessDenied />} />
             <Route path='/admin/class/:_id/assign-students'
-                element={<RequireAuth>
+                element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                     <StructureAdmin child={<AssignStudent />} />
-                </RequireAuth>} />
+                </RequireAuth> : <AccessDenied />} />
             <Route path='/admin/class/:_id/assigned-students'
-                element={<RequireAuth>
+                element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                     <StructureAdmin child={<AssignedStudents />} />
-                </RequireAuth>} />
+                </RequireAuth> : <AccessDenied />} />
             <Route path='/admin/class/:_id/assign-teachers'
-                element={<RequireAuth>
+                element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                     <StructureAdmin child={<AssignTeacher />} />
-                </RequireAuth>} />
+                </RequireAuth> : <AccessDenied />} />
             <Route path='/admin/class/:_id/assigned-teachers'
-                element={<RequireAuth>
+                element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                     <StructureAdmin child={<AssignedTeachers />} />
-                </RequireAuth>} />
+                </RequireAuth> : <AccessDenied />} />
 
-            <Route path='/admin/class/:_id/edit' element={<RequireAuth>
+            <Route path='/admin/class/:_id/edit' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<EditClass />} />
-            </RequireAuth>} />
-            <Route path='/admin/disabled-class-list' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/disabled-class-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<DisabledClasses />} />
-            </RequireAuth>} />
-            <Route path='/admin/disabled-student-list' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/disabled-student-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<DisabledStudents />} />
-            </RequireAuth>} />
-            <Route path='/admin/disabled-teacher-list' element={<RequireAuth>
+            </RequireAuth> : <AccessDenied />} />
+            <Route path='/admin/disabled-teacher-list' element={user_role === '62f38d82cafa8d86f57141c1' ? <RequireAuth>
                 <StructureAdmin child={<DisabledTeachers />} />
-            </RequireAuth>} />
+            </RequireAuth> : <AccessDenied />} />
 
             {/** TEACHER */}
             <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
@@ -129,6 +131,9 @@ export const AppRoutes = () => {
             {/** LOGIN - REGISTER */}
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+
+            {/** Portal */}
+            <Route path='/' element={<Portal />} />
 
             {/* 404 */}
             <Route path='*' element={<Navigate to='/login' />} />
