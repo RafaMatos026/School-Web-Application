@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     //Function not awaiting, sets the user but doesn't return true, goes to false
     const signin = async (Email: string, Password: string) => {
         let url = baseUrl + '/auth/login'
-        fetch(url, {
+        return fetch(url, {
             method: 'POST',
             body: JSON.stringify({
                 Email: Email,
@@ -66,11 +66,12 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
                     setToken(data.access_token);
                     return true;
                 }
+                return false;
             })
             .catch(erro => {
                 alert("Login failed: " + erro.message);
+                return false;
             })
-        return false;
     }
 
     const signout = async () => {
