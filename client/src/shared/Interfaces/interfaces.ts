@@ -40,10 +40,12 @@ interface IAddSummary {
   classId: string;
 }
 
-interface IAttendance {
-  Presence: boolean;
-  Student: string;
+interface ISurvey {
+  _id: string;
   Date: Date;
+  AbsentStudents: string[];
+  PresentStudents: string[];
+  open: boolean;
 }
 
 export type {
@@ -53,5 +55,5 @@ export type {
   ITeacher,
   IStudent,
   IAddSummary,
-  IAttendance,
+  ISurvey,
 };

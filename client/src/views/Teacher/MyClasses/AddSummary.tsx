@@ -19,7 +19,6 @@ export default function AddSummary(props: Props) {
 
     return (
         <Modal open={open} title={"Add Summary"} setOpen={setOpen}>
-
             <form>
                 <Grid container spacing={1}>
                     <Grid xs={12} item>

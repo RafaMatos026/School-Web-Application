@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, TextField, Typography, Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/AuthContext";
+import { admin, student } from "../../shared/consts";
 
 export default function Login() {
     const [Email, setEmail] = useState("");
@@ -14,9 +15,15 @@ export default function Login() {
     const handleLogin = async () => {
         if (Email && Password) {
             const isLogged = await auth.signin(Email, Password);
-            console.debug(isLogged);
+            console.log(isLogged);
             if (isLogged) {
-                navigate('/admin');
+                if (auth.user?.AccountType === admin) {
+                    navigate('/admin');
+                } else if (auth.user?.AccountType === student) {
+                    navigate('/student')
+                } else {
+                    navigate('/teacher');
+                }
             }
         }
     }

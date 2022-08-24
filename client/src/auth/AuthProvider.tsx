@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(data);
                     if (data) {
                         setUser(data);
                     }
@@ -41,6 +40,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         localStorage.setItem('token', token);
     }
 
+    //Function not awaiting, sets the user but doesn't return true, goes to false
     const signin = async (Email: string, Password: string) => {
         let url = baseUrl + '/auth/login'
         fetch(url, {
@@ -61,6 +61,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
             })
             .then((data) => {
                 if (data.access_token && data.user) {
+                    console.log("Settei o user");
                     setUser(data.user);
                     setToken(data.access_token);
                     return true;
@@ -76,6 +77,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         console.log("signout está sendo executada.");
         setUser(null);
         setToken('');
+        localStorage.removeItem('token');
     }
 
     return (
