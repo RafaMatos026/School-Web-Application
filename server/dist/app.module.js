@@ -21,6 +21,7 @@ const work_module_1 = require("./models/Work/work.module");
 const auth_module_1 = require("./auth/auth.module");
 const core_1 = require("@nestjs/core");
 const jwt_guard_1 = require("./auth/guards/jwt.guard");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -33,7 +34,8 @@ AppModule = __decorate([
             summary_module_1.SummaryModule,
             presence_module_1.PresenceModule,
             work_module_1.WorkModule,
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority'),
+            config_1.ConfigModule.forRoot(),
+            mongoose_1.MongooseModule.forRoot(process.env.MONGOOSE_CONNECTION),
             auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
