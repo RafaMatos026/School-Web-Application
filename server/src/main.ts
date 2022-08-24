@@ -1,13 +1,14 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { env } from 'process';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  await app.listen(3001);
+  await app.listen(process.env.PORT || 3001);
   console.log('Listening on port 3001');
 }
 bootstrap();
