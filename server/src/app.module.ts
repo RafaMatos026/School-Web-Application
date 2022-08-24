@@ -12,6 +12,7 @@ import { WorkModule } from './models/Work/work.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -22,9 +23,8 @@ import { JwtAuthGuard } from './auth/guards/jwt.guard';
     SummaryModule,
     PresenceModule,
     WorkModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority',
-    ),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGOOSE_CONNECTION),
     AuthModule,
   ],
   controllers: [AppController],
