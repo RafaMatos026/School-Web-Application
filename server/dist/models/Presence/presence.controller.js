@@ -15,34 +15,98 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PresenceController = void 0;
 const common_1 = require("@nestjs/common");
 const presence_service_1 = require("./presence.service");
-const markPresence_dto_1 = require("./markPresence.dto");
+const newSurvey_dto_1 = require("./dto's/newSurvey.dto");
+const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 let PresenceController = class PresenceController {
     constructor(PresenceService) {
         this.PresenceService = PresenceService;
     }
-    async createPresence(markPresenceDto) {
-        const presence = await this.PresenceService.markPresence(markPresenceDto);
-        return presence;
+    async createPresence(newSurveyDto) {
+        const survey = await this.PresenceService.newSurvey(newSurveyDto);
+        return survey;
     }
-    async getPresences(classId) {
-        const presences = await this.PresenceService.getPresences(classId);
-        return presences;
+    async getAbsents(_id) {
+        const absents = await this.PresenceService.getAbsents(_id);
+        return absents;
+    }
+    async getPresents(_id) {
+        const presents = await this.PresenceService.getPresents(_id);
+        return presents;
+    }
+    async getSurveys(classId) {
+        const surveys = await this.PresenceService.getSurveys(classId);
+        return surveys;
+    }
+    async markPresence(studentId, _id, Present) {
+        const success = await this.PresenceService.markPresence(_id, studentId, Present);
+        return success;
+    }
+    async closeSurvey(_id) {
+        await this.PresenceService.closeSurvey(_id);
+    }
+    async lastestSurvey(classId) {
+        const survey = await this.PresenceService.getLatestSurvey(classId);
+        return survey;
     }
 };
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [markPresence_dto_1.MarkPresenceDto]),
+    __metadata("design:paramtypes", [newSurvey_dto_1.newSurveyDto]),
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "createPresence", null);
 __decorate([
-    (0, common_1.Get)('getPresences/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)('getAbsents/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], PresenceController.prototype, "getPresences", null);
+], PresenceController.prototype, "getAbsents", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)('getPresents/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "getPresents", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)('getSurveys/:classId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "getSurveys", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Put)('markPresence/'),
+    __param(0, (0, common_1.Body)('studentId')),
+    __param(1, (0, common_1.Body)('_id')),
+    __param(2, (0, common_1.Body)('Present')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, Boolean]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "markPresence", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Put)('closeSurvey/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "closeSurvey", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)('latestSurvey/:classId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "lastestSurvey", null);
 PresenceController = __decorate([
     (0, common_1.Controller)('presences'),
     __metadata("design:paramtypes", [presence_service_1.PresenceService])

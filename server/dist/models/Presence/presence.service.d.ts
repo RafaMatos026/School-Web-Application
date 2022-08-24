@@ -22,14 +22,19 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Presence } from './presence.schema';
-import { MarkPresenceDto } from './markPresence.dto';
+import { newSurveyDto } from "./dto's/newSurvey.dto";
 export declare class PresenceService {
     private readonly presenceModel;
     constructor(presenceModel: Model<Presence>);
-    markPresence(markPresenceDto: MarkPresenceDto): Promise<Presence>;
-    getPresences(_id: string): Promise<import("mongoose").Document<unknown, any, Presence> & Presence & {
+    newSurvey(newSurveyDto: newSurveyDto): Promise<Presence>;
+    markPresence(_id: string, studenId: ObjectId, Present: boolean): Promise<boolean>;
+    closeSurvey(_id: string): Promise<void>;
+    getSurveys(classId: string): Promise<(import("mongoose").Document<unknown, any, Presence> & Presence & {
         _id: import("mongoose").Types.ObjectId;
-    }>;
+    })[]>;
+    getAbsents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    getPresents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    getLatestSurvey(classId: string): Promise<Presence>;
 }
