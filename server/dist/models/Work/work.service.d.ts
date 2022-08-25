@@ -22,9 +22,9 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
-import { Work } from './work.schema';
-import { CreateWorkDto } from './createWork.dto';
+import { Model } from "mongoose";
+import { Work } from "./work.schema";
+import { CreateWorkDto } from "./createWork.dto";
 export declare class WorkService {
     private readonly workModel;
     constructor(workModel: Model<Work>);

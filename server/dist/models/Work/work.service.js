@@ -27,6 +27,7 @@ let WorkService = class WorkService {
             DueDate: data.DueDate,
             classId: data.classId,
             Description: data.Description,
+            fileUrl: data.fileUrl,
         });
         const result = await newWork.save();
         return result;
@@ -34,7 +35,7 @@ let WorkService = class WorkService {
     async getClassWork(_id) {
         const work = await this.workModel.find({ classId: _id });
         if (!work) {
-            throw new common_1.NotFoundException('No work associated with the class!');
+            throw new common_1.NotFoundException("No work associated with the class!");
         }
         else {
             return work;

@@ -21,10 +21,7 @@ export class Work {
   classId: ObjectId;
 
   @Prop({ required: true })
-  FilePath: string;
-
-  @Prop()
-  FileName: string;
+  fileUrl: string;
 }
 
 export const WorkSchema = SchemaFactory.createForClass(Work);

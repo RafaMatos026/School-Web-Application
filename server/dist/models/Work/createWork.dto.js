@@ -27,5 +27,9 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Work must be associated to a class!' }),
     __metadata("design:type", class_schema_1.Class)
 ], CreateWorkDto.prototype, "classId", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: "Work must hava a url associated with!" }),
+    __metadata("design:type", String)
+], CreateWorkDto.prototype, "fileUrl", void 0);
 exports.CreateWorkDto = CreateWorkDto;
 //# sourceMappingURL=createWork.dto.js.map

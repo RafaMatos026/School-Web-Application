@@ -37,11 +37,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Work.prototype, "FilePath", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Work.prototype, "FileName", void 0);
+], Work.prototype, "fileUrl", void 0);
 Work = __decorate([
     (0, mongoose_1.Schema)()
 ], Work);

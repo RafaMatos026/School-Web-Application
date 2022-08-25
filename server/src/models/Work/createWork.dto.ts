@@ -13,4 +13,7 @@ export class CreateWorkDto {
 
   @IsNotEmpty({ message: 'Work must be associated to a class!' })
   classId: Class;
+
+  @IsNotEmpty({message: "Work must hava a url associated with!"})
+  fileUrl: string;
 }
