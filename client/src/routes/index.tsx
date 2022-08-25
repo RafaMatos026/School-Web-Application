@@ -50,9 +50,9 @@ export const AppRoutes = () => {
             <Route path='/' element={<Portal />} />
 
             {/**Homes*/}
-            <Route path='/admin' element={user_role === admin && user ? <StructureAdmin child={<h1>Hello Admin</h1>} /> : <Navigate to={'/login'} />} />
-            <Route path='/teacher' element={user_role === teacher && user ? <StructureTeacher child={<h1>Hello Teacher</h1>} /> : <Navigate to={'/login'} />} />
-            <Route path='/student' element={user_role === student && user ? <StructureStudent child={<h1>Hello Student!</h1>} /> : <Navigate to={'/login'} />} />
+            <Route path='/admin' element={user_role === admin && <StructureAdmin child={<h1>Hello Admin</h1>} />} />
+            <Route path='/teacher' element={user_role === teacher && <StructureTeacher child={<h1>Hello Teacher</h1>} />} />
+            <Route path='/student' element={user_role === student && <StructureStudent child={<h1>Hello Student!</h1>} />} />
 
             {/** ADMIN */}
             <Route path='/admin/registration-requests' element={user_role === admin && <StructureAdmin child={<RegistrationRequests />} />} />
