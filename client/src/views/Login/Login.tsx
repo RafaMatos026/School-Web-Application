@@ -9,24 +9,22 @@ import { admin, student, teacher } from "../../shared/consts";
 export default function Login() {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
-    const [loading, setLoading] = useState(true);
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         if (Email && Password) {
             const isLogged = await auth.signin(Email, Password);
+
             if (isLogged) {
                 if (auth.user?.AccountType === admin) {
                     navigate('/admin');
-                }
-
-                if (auth.user?.AccountType === student) {
+                } else if (auth.user?.AccountType === student) {
                     navigate('/student')
-                }
-
-                if (auth.user?.AccountType === teacher) {
+                } else if (auth.user?.AccountType === teacher) {
                     navigate('/teacher');
+                } else {
+                    alert('Something went wrong! Try again')
                 }
             }
         }
