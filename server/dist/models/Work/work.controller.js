@@ -14,9 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkController = void 0;
 const common_1 = require("@nestjs/common");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const path_1 = require("path");
 const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 const createWork_dto_1 = require("./createWork.dto");
 const work_service_1 = require("./work.service");
@@ -33,17 +30,6 @@ let WorkController = class WorkController {
 };
 __decorate([
     (0, common_1.Post)('create'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
-        storage: (0, multer_1.diskStorage)({
-            destination: '../../../public/Documents/Works',
-            filename: (req, file, callback) => {
-                const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-                const ext = (0, path_1.extname)(file.originalname);
-                const filename = `${uniqueSuffix}${ext}`;
-                callback(null, filename);
-            },
-        }),
-    })),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.UploadedFile)(new common_1.ParseFilePipeBuilder()
         .addFileTypeValidator({
