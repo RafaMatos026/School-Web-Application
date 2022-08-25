@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         localStorage.setItem('token', token);
     }
 
-    //Function not awaiting, sets the user but doesn't return true, goes to false
     const signin = async (Email: string, Password: string) => {
         let url = BASE_URL + '/auth/login'
         return fetch(url, {
