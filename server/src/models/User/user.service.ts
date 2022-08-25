@@ -9,7 +9,7 @@ import { CreateTeacherDto } from "./dto/createTeacher.dto";
 import * as bcrypt from "bcrypt";
 import * as sgMail from "@sendgrid/mail";
 
-sgMail.setApiKey(process.env.SENDGRIP_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function GeneratePassword() {
   const length = 8;

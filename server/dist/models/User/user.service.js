@@ -18,6 +18,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("./user.schema");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 function GeneratePassword() {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -26,6 +28,31 @@ function GeneratePassword() {
         retVal += charset.charAt(Math.floor(Math.random() * n));
     }
     return retVal;
+}
+function SendEmail(Email, Password) {
+    const link_img = "https://i.postimg.cc/xCH6ng8z/Guy-computer.png";
+    const message = {
+        to: Email,
+        from: "hardtinsa@gmail.com",
+        subject: "Password to accesss your school account",
+        text: "Welcome to the new management web application of our school!",
+        html: '<img src="' +
+            link_img +
+            '" />' +
+            "<h2>Bem-vindo<h2/>" +
+            "<p>Start using the web application today!<p/>" +
+            '<p>Your password: "' +
+            Password +
+            '" <p/>',
+    };
+    sgMail
+        .send(message)
+        .then((res) => {
+        console.log("Email has been sent!");
+    })
+        .catch((error) => {
+        console.log("Error: " + error);
+    });
 }
 let UserService = class UserService {
     constructor(userModel) {
@@ -45,7 +72,6 @@ let UserService = class UserService {
     }
     async createStudent(createStudentDto) {
         const pass = GeneratePassword();
-        console.log(`Send email to: ${createStudentDto.Email} with password ` + pass);
         const newUser = new this.userModel({
             FName: createStudentDto.FName,
             LName: createStudentDto.LName,
@@ -54,6 +80,9 @@ let UserService = class UserService {
             Password: await bcrypt.hash(pass, 10),
         });
         const result = await newUser.save();
+        if (result) {
+            SendEmail(createStudentDto.Email, pass);
+        }
         return result;
     }
     async createTeacher(createTeacherDto) {
