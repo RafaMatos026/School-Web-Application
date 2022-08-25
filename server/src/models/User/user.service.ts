@@ -7,9 +7,7 @@ import { UpdateUserDto } from "./dto/updateUser.dto";
 import { CreateStudentDto } from "./dto/createStudent.dto";
 import { CreateTeacherDto } from "./dto/createTeacher.dto";
 import * as bcrypt from "bcrypt";
-import * as sgMail from "@sendgrid/mail";
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import sgMail = require("@sendgrid/mail");
 
 function GeneratePassword() {
   const length = 8;
@@ -52,9 +50,9 @@ function SendEmail(Email: string, Password: string) {
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>
-  ) {}
+  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  }
 
   //Create user
   async createUser(CreateUserDto: CreateUserDto): Promise<User> {

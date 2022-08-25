@@ -19,7 +19,6 @@ const user_schema_1 = require("./user.schema");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 function GeneratePassword() {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -57,6 +56,7 @@ function SendEmail(Email, Password) {
 let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     }
     async createUser(CreateUserDto) {
         const newUser = new this.userModel({
