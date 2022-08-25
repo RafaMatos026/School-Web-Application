@@ -1,9 +1,9 @@
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/createUser.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
-import { CreateStudentDto } from './dto/createStudent.dto';
-import { CreateTeacherDto } from './dto/createTeacher.dto';
-import { ObjectId } from 'mongoose';
+import { UserService } from "./user.service";
+import { CreateUserDto } from "./dto/createUser.dto";
+import { UpdateUserDto } from "./dto/updateUser.dto";
+import { CreateStudentDto } from "./dto/createStudent.dto";
+import { CreateTeacherDto } from "./dto/createTeacher.dto";
+import { ObjectId } from "mongoose";
 export declare class UserController {
     private readonly UserService;
     constructor(UserService: UserService);

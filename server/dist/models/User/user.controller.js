@@ -27,7 +27,7 @@ let UserController = class UserController {
     async createUser(CreateUserDto) {
         const existingUser = this.UserService.findByEmail(CreateUserDto.Email);
         if (existingUser) {
-            return { success: false, message: 'Email already taken!' };
+            return { success: false, message: "Email already taken!" };
         }
         return await this.UserService.createUser(CreateUserDto);
     }
@@ -84,128 +84,129 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)("create"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createUser_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
-    (0, common_1.Post)('/createStudent'),
+    (0, common_1.Post)("/createStudent"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createStudent_dto_1.CreateStudentDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createStudent", null);
 __decorate([
-    (0, common_1.Post)('/createTeacher'),
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Post)("/createTeacher"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createTeacher_dto_1.CreateTeacherDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createTeacher", null);
 __decorate([
-    (0, common_1.Get)('/getUser/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("/getUser/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUser", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getUsers'),
+    (0, common_1.Get)("getUsers"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getTeachers'),
+    (0, common_1.Get)("getTeachers"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getTeachers", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getStudents'),
+    (0, common_1.Get)("getStudents"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getStudents", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getDisabledStudents'),
+    (0, common_1.Get)("getDisabledStudents"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getDisabledStudents", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getDisabledTeachers'),
+    (0, common_1.Get)("getDisabledTeachers"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getDisabledTeachers", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getActiveStudents'),
+    (0, common_1.Get)("getActiveStudents"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getActiveStudents", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('/registrationRequests'),
+    (0, common_1.Get)("/registrationRequests"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getRequests", null);
 __decorate([
-    (0, common_1.Put)('updateUser/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("updateUser/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, updateUser_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
-    (0, common_1.Put)('disableUser/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("disableUser/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "deleteUser", null);
 __decorate([
-    (0, common_1.Put)('acceptTeacher/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("acceptTeacher/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "acceptTeacher", null);
 __decorate([
-    (0, common_1.Put)('declineTeacher/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("declineTeacher/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "declineTeacher", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('assignableStudents/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("assignableStudents/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "assignableStudents", null);
 __decorate([
-    (0, common_1.Get)('getByEmail'),
-    __param(0, (0, common_1.Body)('Email')),
+    (0, common_1.Get)("getByEmail"),
+    __param(0, (0, common_1.Body)("Email")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getByEmail", null);
 UserController = __decorate([
-    (0, common_1.Controller)('users'),
+    (0, common_1.Controller)("users"),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;

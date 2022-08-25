@@ -5,11 +5,16 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { CardContent, Card } from "@mui/material";
-import React from "react";
-
-
+import { useState } from "react";
+import { BASE_URL } from "../../shared/consts";
 
 export default function Register() {
+
+    const [FName, setFName] = useState("");
+    const [LName, setLName] = useState("");
+    const [Birthday, setBirthday] = useState("");
+    const [Password, setPassword] = useState("");
+    const [Email, setEmail] = useState("");
 
     return (
         <Box marginTop={5}>
@@ -20,28 +25,28 @@ export default function Register() {
                         <Grid container spacing={1}>
                             <Grid xs={12} item>
                                 <Typography>First Name</Typography>
-                                <TextField type={'text'} fullWidth />
+                                <TextField type={'text'} fullWidth value={FName} onChange={(e) => setFName(e.target.value)} />
                             </Grid>
                             <Grid xs={12} item>
                                 <Typography>Last Name</Typography>
-                                <TextField type={'text'} fullWidth />
+                                <TextField type={'text'} fullWidth value={LName} onChange={(e) => setLName(e.target.value)} />
                             </Grid>
                             <Grid xs={12} item>
                                 <Typography>Email</Typography>
-                                <TextField type={'email'} fullWidth />
+                                <TextField type={'email'} fullWidth value={Email} onChange={(e) => setEmail(e.target.value)} />
                             </Grid>
                             <Grid xs={12} item>
                                 <Typography>Password</Typography>
-                                <TextField type={'password'} fullWidth />
+                                <TextField type={'password'} fullWidth value={Password} onChange={(e) => setPassword(e.target.value)} />
                             </Grid>
                             <Grid xs={12} item>
                                 <Typography>Birthday</Typography>
-                                <TextField type={'date'} fullWidth />
+                                <TextField type={'date'} fullWidth value={Birthday} onChange={(e) => setBirthday(e.target.value.toString())} />
                             </Grid>
                             <Grid item>
                                 <Typography variant="caption">
                                     Already have an account?&nbsp;
-                                    <Link to={'/login'} style={{textDecoration: 'none', color: '#000000'}}>
+                                    <Link to={'/login'} style={{ textDecoration: 'none', color: '#000000' }}>
                                         <Typography variant="caption" sx={{ textDecoration: 'underline' }}>
                                             Sign In
                                         </Typography>
@@ -49,7 +54,7 @@ export default function Register() {
                                 </Typography>
                             </Grid>
                             <Grid xs={12} item textAlign={'center'}>
-                                <Button variant="contained">Submit</Button>
+                                <Button variant="contained" onClick={() => createAccount()}>Submit</Button>
                             </Grid>
                         </Grid>
                     </form>
@@ -57,4 +62,37 @@ export default function Register() {
             </Card>
         </Box>
     )
+
+    function createAccount() {
+        let url = BASE_URL + '/users/createTeacher';
+        if (FName && LName && Email && Password && Birthday) {
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    FName: FName,
+                    LName: LName,
+                    Email: Email,
+                    Password: Password,
+                    Birthday: Birthday
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("Your account has been created, now it needs to be validated by an admin.");
+                    }
+                    response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log((err).message);
+                })
+        } else {
+            alert('All fields are mandatory!');
+        }
+    }
 }

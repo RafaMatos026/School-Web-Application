@@ -20,8 +20,8 @@ const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
 function GeneratePassword() {
     const length = 8;
-    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let retVal = '';
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let retVal = "";
     for (let i = 0, n = charset.length; i < length; ++i) {
         retVal += charset.charAt(Math.floor(Math.random() * n));
     }
@@ -50,7 +50,7 @@ let UserService = class UserService {
             FName: createStudentDto.FName,
             LName: createStudentDto.LName,
             Email: createStudentDto.Email,
-            AccountType: '62f38d97cafa8d86f57141c5',
+            AccountType: "62f38d97cafa8d86f57141c5",
             Password: await bcrypt.hash(pass, 10),
         });
         const result = await newUser.save();
@@ -63,7 +63,7 @@ let UserService = class UserService {
             Email: createTeacherDto.Email,
             Password: await bcrypt.hash(createTeacherDto.Password, 10),
             Birthday: createTeacherDto.Birthday,
-            AccountType: '62f38d8ccafa8d86f57141c3',
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         const result = await newUser.save();
         return result;
@@ -74,7 +74,7 @@ let UserService = class UserService {
             return user;
         }
         else {
-            throw new common_1.NotFoundException('User not found!');
+            throw new common_1.NotFoundException("User not found!");
         }
     }
     async getUsers() {
@@ -83,82 +83,82 @@ let UserService = class UserService {
             return users;
         }
         else {
-            throw new common_1.NotFoundException('No users found!');
+            throw new common_1.NotFoundException("No users found!");
         }
     }
     async getTeachers() {
         const teachers = await this.userModel.find({
             Status: true,
             Registered: true,
-            AccountType: '62f38d8ccafa8d86f57141c3',
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (teachers) {
             return teachers;
         }
         else {
-            throw new common_1.NotFoundException('There are no teachers!');
+            throw new common_1.NotFoundException("There are no teachers!");
         }
     }
     async getStudents() {
         const students = await this.userModel.find({
-            AccountType: '62f38d97cafa8d86f57141c5',
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (students) {
             return students;
         }
         else {
-            throw new common_1.NotFoundException('There are no students!');
+            throw new common_1.NotFoundException("There are no students!");
         }
     }
     async getActiveStudents() {
         const result = await this.userModel.find({
             Status: true,
-            AccountType: '62f38d97cafa8d86f57141c5',
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (result) {
             return result;
         }
         else {
-            throw new common_1.NotFoundException('No students found!');
+            throw new common_1.NotFoundException("No students found!");
         }
     }
     async getDisabledStudents() {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: '62f38d97cafa8d86f57141c5',
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (result) {
             return result;
         }
         else {
-            throw new common_1.NotFoundException('No students found!');
+            throw new common_1.NotFoundException("No students found!");
         }
     }
     async getDisabledTeachers() {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: '62f38d8ccafa8d86f57141c3',
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (result) {
             return result;
         }
         else {
-            throw new common_1.NotFoundException('No teachers found!');
+            throw new common_1.NotFoundException("No teachers found!");
         }
     }
     async getRequests() {
         const requests = await this.userModel.find({
             Status: false,
             Registered: false,
-            AccountType: '62f38d8ccafa8d86f57141c3',
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (requests) {
             return requests;
         }
         else {
-            throw new common_1.NotFoundException('No requests yet!');
+            throw new common_1.NotFoundException("No requests yet!");
         }
     }
     async updateUser(_id, updateUserDto) {
@@ -191,7 +191,7 @@ let UserService = class UserService {
     }
     async assignableStudents(_id) {
         const students = await this.userModel.find({
-            AccountType: '62f38d97cafa8d86f57141c5',
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         const astudents = [];
         if (students) {
@@ -205,7 +205,7 @@ let UserService = class UserService {
                 return astudents;
             }
             else {
-                throw new common_1.NotFoundException('No student is assignable to this class!');
+                throw new common_1.NotFoundException("No student is assignable to this class!");
             }
         }
     }

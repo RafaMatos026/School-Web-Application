@@ -1,28 +1,59 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from './user.schema';
-import { Model, ObjectId } from 'mongoose';
-import { CreateUserDto } from './dto/createUser.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
-import { CreateStudentDto } from './dto/createStudent.dto';
-import { CreateTeacherDto } from './dto/createTeacher.dto';
-import * as bcrypt from 'bcrypt';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { User } from "./user.schema";
+import { Model, ObjectId } from "mongoose";
+import { CreateUserDto } from "./dto/createUser.dto";
+import { UpdateUserDto } from "./dto/updateUser.dto";
+import { CreateStudentDto } from "./dto/createStudent.dto";
+import { CreateTeacherDto } from "./dto/createTeacher.dto";
+import * as bcrypt from "bcrypt";
+import * as sgMail from "@sendgrid/mail";
+
+sgMail.setApiKey(process.env.SENDGRIP_API_KEY);
 
 function GeneratePassword() {
   const length = 8;
   const charset =
-    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let retVal = '';
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let retVal = "";
   for (let i = 0, n = charset.length; i < length; ++i) {
     retVal += charset.charAt(Math.floor(Math.random() * n));
   }
   return retVal;
 }
 
+function SendEmail(Email: string, Password: string) {
+  const link_img = "https://i.postimg.cc/xCH6ng8z/Guy-computer.png";
+  const message = {
+    to: Email,
+    from: "hardtinsa@gmail.com",
+    subject: "Password to accesss your school account",
+    text: "Welcome to the new management web application of our school!",
+    html:
+      '<img src="' +
+      link_img +
+      '" />' +
+      "<h2>Bem-vindo<h2/>" +
+      "<p>Start using the web application today!<p/>" +
+      '<p>Your password: "' +
+      Password +
+      '" <p/>',
+  };
+
+  sgMail
+    .send(message)
+    .then((res) => {
+      console.log("Email has been sent!");
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
 @Injectable()
 export class UserService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<User>
   ) {}
 
   //Create user
@@ -42,17 +73,17 @@ export class UserService {
   //Create a student account
   async createStudent(createStudentDto: CreateStudentDto): Promise<User> {
     const pass = GeneratePassword();
-    console.log(
-      `Send email to: ${createStudentDto.Email} with password ` + pass,
-    );
     const newUser = new this.userModel({
       FName: createStudentDto.FName,
       LName: createStudentDto.LName,
       Email: createStudentDto.Email,
-      AccountType: '62f38d97cafa8d86f57141c5',
+      AccountType: "62f38d97cafa8d86f57141c5",
       Password: await bcrypt.hash(pass, 10),
     });
     const result = await newUser.save();
+    if (result) {
+      SendEmail(createStudentDto.Email, pass);
+    }
     return result;
   }
 
@@ -64,7 +95,7 @@ export class UserService {
       Email: createTeacherDto.Email,
       Password: await bcrypt.hash(createTeacherDto.Password, 10),
       Birthday: createTeacherDto.Birthday,
-      AccountType: '62f38d8ccafa8d86f57141c3',
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     const result = await newUser.save();
     return result;
@@ -76,7 +107,7 @@ export class UserService {
     if (user) {
       return user;
     } else {
-      throw new NotFoundException('User not found!');
+      throw new NotFoundException("User not found!");
     }
   }
 
@@ -86,7 +117,7 @@ export class UserService {
     if (users) {
       return users;
     } else {
-      throw new NotFoundException('No users found!');
+      throw new NotFoundException("No users found!");
     }
   }
 
@@ -95,24 +126,24 @@ export class UserService {
     const teachers = await this.userModel.find({
       Status: true,
       Registered: true,
-      AccountType: '62f38d8ccafa8d86f57141c3',
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (teachers) {
       return teachers;
     } else {
-      throw new NotFoundException('There are no teachers!');
+      throw new NotFoundException("There are no teachers!");
     }
   }
 
   //Get students
   async getStudents(): Promise<User[]> {
     const students = await this.userModel.find({
-      AccountType: '62f38d97cafa8d86f57141c5',
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (students) {
       return students;
     } else {
-      throw new NotFoundException('There are no students!');
+      throw new NotFoundException("There are no students!");
     }
   }
 
@@ -120,12 +151,12 @@ export class UserService {
   async getActiveStudents(): Promise<User[]> {
     const result = await this.userModel.find({
       Status: true,
-      AccountType: '62f38d97cafa8d86f57141c5',
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (result) {
       return result;
     } else {
-      throw new NotFoundException('No students found!');
+      throw new NotFoundException("No students found!");
     }
   }
 
@@ -134,12 +165,12 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: '62f38d97cafa8d86f57141c5',
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (result) {
       return result;
     } else {
-      throw new NotFoundException('No students found!');
+      throw new NotFoundException("No students found!");
     }
   }
 
@@ -148,12 +179,12 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: '62f38d8ccafa8d86f57141c3',
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (result) {
       return result;
     } else {
-      throw new NotFoundException('No teachers found!');
+      throw new NotFoundException("No teachers found!");
     }
   }
 
@@ -162,12 +193,12 @@ export class UserService {
     const requests = await this.userModel.find({
       Status: false,
       Registered: false,
-      AccountType: '62f38d8ccafa8d86f57141c3',
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (requests) {
       return requests;
     } else {
-      throw new NotFoundException('No requests yet!');
+      throw new NotFoundException("No requests yet!");
     }
   }
 
@@ -179,7 +210,7 @@ export class UserService {
         FName: updateUserDto.FName,
         LName: updateUserDto.LName,
         Password: updateUserDto.Password,
-      },
+      }
     );
     return user;
   }
@@ -192,7 +223,7 @@ export class UserService {
       },
       {
         Status: false,
-      },
+      }
     );
     return;
   }
@@ -206,7 +237,7 @@ export class UserService {
       {
         Status: true,
         Registered: true,
-      },
+      }
     );
   }
 
@@ -219,7 +250,7 @@ export class UserService {
   //Assignable students
   async assignableStudents(_id: ObjectId) {
     const students = await this.userModel.find({
-      AccountType: '62f38d97cafa8d86f57141c5',
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     const astudents = [];
     if (students) {
@@ -232,7 +263,7 @@ export class UserService {
       if (astudents) {
         return astudents;
       } else {
-        throw new NotFoundException('No student is assignable to this class!');
+        throw new NotFoundException("No student is assignable to this class!");
       }
     }
   }

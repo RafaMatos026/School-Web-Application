@@ -32,7 +32,6 @@ import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
 import Portal from '../views/others/Portal';
 import { admin, student, teacher } from '../shared/consts';
-import AccessDenied from '../views/others/AccessDenied';
 
 export const AppRoutes = () => {
 
