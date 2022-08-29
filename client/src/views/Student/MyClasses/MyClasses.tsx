@@ -6,21 +6,13 @@ import { Link } from 'react-router-dom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../../auth/AuthContext';
-
-const BASE_URL: string = "http://localhost:3001";
-
-interface Class {
-    _id: string;
-    ClassName: string;
-    Subject: string;
-    HeadTeacher: string;
-    Status: boolean;
-}
+import { BASE_URL } from '../../../shared/consts';
+import { IMyClasses } from '../../../shared/Interfaces/interfaces';
 
 export default function MyClasses() {
 
-    const [loadingTable, setLoadingTable] = useState(true);
-    const [classes, setClasses] = useState<Class[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [MyClasses, setMyClasses] = useState<any[]>([]);
     const user_id = useContext(AuthContext).user?._id;
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -34,7 +26,7 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = BASE_URL + "/classes/myClasses/" + user_id;
+        let url = BASE_URL + "/users/myClasses/" + user_id;
         fetch(url)
             .then((response) => {
                 if (!response.ok) {
@@ -43,8 +35,9 @@ export default function MyClasses() {
                 return response.json();
             })
             .then((data) => {
-                setClasses(data);
-                setLoadingTable(false);
+                console.log(data);
+                setMyClasses(data.MyClasses);
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error.message)
@@ -53,8 +46,9 @@ export default function MyClasses() {
 
     return (
         <>
-            {loadingTable && <h1>Loading...</h1>}
-            {!loadingTable && (
+            {loading && <h1>Loading...</h1>}
+            {!loading && MyClasses.length === 0 && (<h2>You are not assigned to any class yet!</h2>)}
+            {!loading && MyClasses.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>
@@ -70,16 +64,16 @@ export default function MyClasses() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {classes.map((aula, index) => (
+                                {MyClasses.map((MyClass: IMyClasses, index: number) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
-                                        <TableCell align='center'>{aula._id}</TableCell>
-                                        <TableCell align='center'>{aula.ClassName}</TableCell>
-                                        <TableCell align='center'>{aula.Subject}</TableCell>
-                                        <TableCell align='center'>{aula.Subject}</TableCell>
-                                        <TableCell align='center'>{aula.Status ? "Active" : "Class not active"}</TableCell>
+                                        <TableCell align='center'>{MyClass._id}</TableCell>
+                                        <TableCell align='center'>{MyClass.ClassName}</TableCell>
+                                        <TableCell align='center'>{MyClass.Subject.Description}</TableCell>
+                                        <TableCell align='center'>{MyClass.HeadTeacher.FName + ' ' + MyClass.HeadTeacher.LName}</TableCell>
+                                        <TableCell align='center'>{MyClass.Status ? "Active" : "Class not active"}</TableCell>
                                         <TableCell align='center'>
-                                            <Link to={'/student/myClasses/' + aula._id}>
+                                            <Link to={'/student/myClasses/' + MyClass._id}>
                                                 <IconButton >
                                                     <MoreHorizIcon />
                                                 </IconButton>

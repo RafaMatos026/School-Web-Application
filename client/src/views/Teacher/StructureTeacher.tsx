@@ -24,7 +24,7 @@ const drawerWidth = 240;
 interface Props {
   window?: () => Window;
   child?: React.ReactNode;
-  page_title: string;
+  page_title?: string;
 }
 
 export default function ResponsiveDrawer(props: Props) {

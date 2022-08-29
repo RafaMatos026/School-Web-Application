@@ -341,11 +341,27 @@ export class UserService {
 
   //get my classes
   async getMyClasses(_id: ObjectId) {
-    const user = await this.userModel.findById(_id);
-    if (user) {
-      return user.MyClasses;
-    } else {
-      throw new NotFoundException("You are not assigned to any class!");
-    }
+    return await this.userModel
+      .findById(_id)
+      .select("MyClasses -_id")
+      .populate({
+        path: "MyClasses",
+        select: "_id HeadTeacher",
+        populate: {
+          path: "HeadTeacher",
+          select: "FName LName _id",
+          model: "User",
+        },
+      })
+      .populate({
+        path: "MyClasses",
+        select: "Subject Status ClassName",
+        populate: {
+          path: "Subject",
+          select: "_id Description",
+          model: "Subject",
+        },
+      })
+      .exec();
   }
 }

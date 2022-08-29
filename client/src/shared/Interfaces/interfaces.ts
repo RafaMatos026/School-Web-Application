@@ -6,6 +6,21 @@ interface IClass {
   Status: boolean;
 }
 
+interface IMyClasses {
+  _id: string;
+  ClassName: string;
+  HeadTeacher: {
+    _id: string;
+    FName: string;
+    LName: string;
+  };
+  Subject: {
+    _id: string;
+    Description: string;
+  };
+  Status: boolean;
+}
+
 interface IStudent {
   _id: string;
   FName: string;
@@ -56,4 +71,5 @@ export type {
   IStudent,
   IAddSummary,
   ISurvey,
+  IMyClasses,
 };

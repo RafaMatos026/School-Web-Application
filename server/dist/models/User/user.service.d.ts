@@ -65,5 +65,7 @@ export declare class UserService {
         AccountType: import("mongoose").Schema.Types.ObjectId;
     }>;
     updateMyClasses(_id: ObjectId, classId: ObjectId): Promise<void>;
-    getMyClasses(_id: ObjectId): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    getMyClasses(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, User> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
 }
