@@ -32,11 +32,11 @@ import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
 import Portal from '../views/others/Portal';
 import { admin, student, teacher } from '../shared/consts';
+import EditProfile from '../shared/views/EditProfile';
 
 export const AppRoutes = () => {
 
     const user_role = useContext(AuthContext).user?.AccountType;
-    const user = useContext(AuthContext).user;
     const homepage = currentHP();
 
     return (
@@ -81,7 +81,7 @@ export const AppRoutes = () => {
             <Route path='/admin/disabled-teacher-list' element={user_role === admin ?
                 <StructureAdmin child={<DisabledTeachers />} /> : homepage} />
             <Route path='/admin/settings/:_id/' element={user_role === admin ?
-                <StructureAdmin child={<h2>Settings Admin</h2>} /> : homepage} />
+                <StructureAdmin child={<EditProfile />} /> : homepage} />
 
             {/** TEACHER */}
             <Route path='/teacher/create-class' element={user_role === teacher ?
@@ -95,7 +95,7 @@ export const AppRoutes = () => {
             <Route path='/teacher/myClasses/:_id/student-attendance' element={user_role === teacher ?
                 <StructureTeacher child={<StudentAttendance />} /> : homepage} />
             <Route path='/teacher/settings/:_id/' element={user_role === teacher ?
-                <StructureTeacher child={<h2>Settings Teacher</h2>} /> : homepage} />
+                <StructureTeacher child={<EditProfile />} /> : homepage} />
 
             {/** STUDENT */}
             <Route path='/student/myClasses' element={user_role === student ?
@@ -107,7 +107,7 @@ export const AppRoutes = () => {
             <Route path='/student/myClasses/:_id/past-summaries' element={user_role === student ?
                 <StructureStudent child={<PastSummariesStudent />} /> : homepage} />
             <Route path='/student/settings/:_id/' element={user_role === student ?
-                <StructureStudent child={<h2>Settings Student</h2>} /> : homepage} />
+                <StructureStudent child={<EditProfile />} /> : homepage} />
 
             {/* 404 create a new component here*/}
             <Route path='*' element={<h2>You seem somewhat lost...</h2>} />
