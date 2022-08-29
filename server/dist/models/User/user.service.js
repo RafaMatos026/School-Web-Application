@@ -297,6 +297,13 @@ let UserService = class UserService {
             return null;
         }
     }
+    async updateMyClasses(_id, classId) {
+        await this.userModel.findOneAndUpdate({ _id: _id }, {
+            $push: {
+                MyClasses: classId,
+            },
+        });
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

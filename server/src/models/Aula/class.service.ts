@@ -4,11 +4,14 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Class } from "./class.schema";
 import { CreateClassDto } from "./dto/createClass.dto";
 import { UpdateClassDto } from "./dto/updateClass.dto";
+import { User } from "../User/user.schema";
+import { UserService } from "../User/user.service";
 
 @Injectable()
 export class ClassService {
   constructor(
-    @InjectModel(Class.name) private readonly classModel: Model<Class>
+    @InjectModel(Class.name) private readonly classModel: Model<Class>,
+    private readonly userService: UserService
   ) {}
 
   //Create a class
@@ -71,13 +74,15 @@ export class ClassService {
     return;
   }
 
-  //Assign teacher to class
-  async assignTeachers(_id: string, teachers: ObjectId[]) {
-    console.log(teachers);
-    await this.classModel.findByIdAndUpdate(
+  //Assign teachers to class
+  async assignTeachers(_id: ObjectId, teachers: ObjectId[]) {
+    for (const teacher of teachers) {
+      await this.userService.updateMyClasses(teacher, _id);
+    }
+    await this.classModel.updateMany(
       { _id: _id },
       {
-        $set: { AssignedTeachers: (teachers as any).AssignedTeachers },
+        $push: { AssignedTeachers: { $each: teachers } },
       },
       { new: true }
     );
@@ -85,11 +90,14 @@ export class ClassService {
   }
 
   //Assign students to class
-  async assignStudents(_id: string, students: ObjectId[]) {
-    await this.classModel.findByIdAndUpdate(
+  async assignStudents(_id: ObjectId, students: ObjectId[]) {
+    for (const student of students) {
+      await this.userService.updateMyClasses(student, _id);
+    }
+    await this.classModel.updateMany(
       { _id: _id },
       {
-        $set: { AssignedStudents: students },
+        $push: { AssignedStudents: { $each: students } },
       },
       { new: true }
     );
@@ -99,7 +107,7 @@ export class ClassService {
   //Assigned students
   async assignedStudents(_id: string) {
     return await (
-      await this.classModel.findOne({ _id: _id})
+      await this.classModel.findOne({ _id: _id })
     ).AssignedStudents;
   }
 

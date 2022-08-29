@@ -40,4 +40,5 @@ export declare class UserService {
         LName: string;
         AccountType: import("mongoose").Schema.Types.ObjectId;
     }>;
+    updateMyClasses(_id: ObjectId, classId: ObjectId): Promise<void>;
 }

@@ -26,17 +26,19 @@ import { Model, ObjectId } from "mongoose";
 import { Class } from "./class.schema";
 import { CreateClassDto } from "./dto/createClass.dto";
 import { UpdateClassDto } from "./dto/updateClass.dto";
+import { UserService } from "../User/user.service";
 export declare class ClassService {
     private readonly classModel;
-    constructor(classModel: Model<Class>);
+    private readonly userService;
+    constructor(classModel: Model<Class>, userService: UserService);
     createClass(CreateClassDto: CreateClassDto): Promise<Class>;
     getActiveClasses(): Promise<Class[]>;
     getDisabledClasses(): Promise<Class[]>;
     getClass(_id: string): Promise<Class>;
     updateClass(_id: string, UpdateClassDto: UpdateClassDto): Promise<void>;
     disableClass(_id: string): Promise<void>;
-    assignTeachers(_id: string, teachers: ObjectId[]): Promise<void>;
-    assignStudents(_id: string, students: ObjectId[]): Promise<void>;
+    assignTeachers(_id: ObjectId, teachers: ObjectId[]): Promise<void>;
+    assignStudents(_id: ObjectId, students: ObjectId[]): Promise<void>;
     assignedStudents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
     assignedTeachers(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
 }

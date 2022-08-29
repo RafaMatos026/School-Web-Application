@@ -22,10 +22,10 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { ObjectId } from 'mongoose';
-import { ClassService } from './class.service';
-import { CreateClassDto } from './dto/createClass.dto';
-import { UpdateClassDto } from './dto/updateClass.dto';
+import { ObjectId } from "mongoose";
+import { ClassService } from "./class.service";
+import { CreateClassDto } from "./dto/createClass.dto";
+import { UpdateClassDto } from "./dto/updateClass.dto";
 export declare class ClassController {
     private readonly ClassService;
     constructor(ClassService: ClassService);
@@ -35,8 +35,8 @@ export declare class ClassController {
     getClass(classId: string): Promise<import("./class.schema").Class>;
     updateClass(_id: string, UpdateClassDto: UpdateClassDto): Promise<void>;
     deleteClass(classId: string): Promise<void>;
-    assignTeachers(_id: string, teachers: ObjectId[]): Promise<void>;
-    assignStudents(_id: string, students: ObjectId[]): Promise<void>;
+    assignTeachers(_id: ObjectId, teachers: ObjectId[]): Promise<void>;
+    assignStudents(_id: ObjectId, students: ObjectId[]): Promise<void>;
     assignedStudents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
     assignedTeachers(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
 }

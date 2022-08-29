@@ -326,4 +326,15 @@ export class UserService {
       return null;
     }
   }
+
+  async updateMyClasses(_id: ObjectId, classId: ObjectId) {
+    await this.userModel.findOneAndUpdate(
+      { _id: _id },
+      {
+        $push: {
+          MyClasses: classId,
+        },
+      }
+    );
+  }
 }

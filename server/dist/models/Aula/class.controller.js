@@ -58,7 +58,7 @@ let ClassController = class ClassController {
 };
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)("create"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createClass_dto_1.CreateClassDto]),
@@ -66,29 +66,29 @@ __decorate([
 ], ClassController.prototype, "createClass", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getActiveClasses'),
+    (0, common_1.Get)("getActiveClasses"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "getActiveClasses", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getDisabledClasses'),
+    (0, common_1.Get)("getDisabledClasses"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "getDisabledClasses", null);
 __decorate([
-    (0, common_1.Get)('getClass/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("getClass/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "getClass", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Put)('updateClass/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("updateClass/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, updateClass_dto_1.UpdateClassDto]),
@@ -96,48 +96,48 @@ __decorate([
 ], ClassController.prototype, "updateClass", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Put)('deleteClass/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("deleteClass/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "deleteClass", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Put)('assignTeachers/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("assignTeachers/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [Object, Array]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignTeachers", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Put)('assignStudents/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("assignStudents/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [Object, Array]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignStudents", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('assignedStudents/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("assignedStudents/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignedStudents", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('assignedTeachers/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("assignedTeachers/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignedTeachers", null);
 ClassController = __decorate([
-    (0, common_1.Controller)('classes'),
+    (0, common_1.Controller)("classes"),
     __metadata("design:paramtypes", [class_service_1.ClassService])
 ], ClassController);
 exports.ClassController = ClassController;
