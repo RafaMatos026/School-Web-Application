@@ -4,7 +4,8 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../../../auth/AuthContext';
 
 const BASE_URL: string = "http://localhost:3001";
 
@@ -20,6 +21,7 @@ export default function MyClasses() {
 
     const [loadingTable, setLoadingTable] = useState(true);
     const [classes, setClasses] = useState<Class[]>([]);
+    const user_id = useContext(AuthContext).user?._id;
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -32,8 +34,8 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = BASE_URL + "/classes/getActiveClasses"
-        fetch(url, {})
+        let url = BASE_URL + "/classes/myClasses/" + user_id;
+        fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

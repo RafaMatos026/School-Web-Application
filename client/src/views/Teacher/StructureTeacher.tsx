@@ -11,21 +11,28 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { AuthContext } from '../../auth/AuthContext';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
 interface Props {
   window?: () => Window;
   child?: React.ReactNode;
+  page_title: string;
 }
 
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const { child } = props
+  const { page_title } = props;
+  const user = useContext(AuthContext).user;
+  const auth = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -41,14 +48,14 @@ export default function ResponsiveDrawer(props: Props) {
         alignItems='center'
         justifyContent='center'
         marginTop={3}>
-        <Avatar alt='Admin avatar' sx={{ width: 100, height: 100 }}/>
+        <Avatar alt='Admin avatar' sx={{ width: 100, height: 100 }} />
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={26}>
-        Teacher Name
+        {user?.FName + ' ' + user?.LName}
       </Typography>
       <Divider variant='middle' />
-      <Container sx={{marginTop: 1}}>
+      <Container sx={{ marginTop: 1 }}>
         <Typography variant='h6' component="div">
           Classes
         </Typography>
@@ -91,16 +98,27 @@ export default function ResponsiveDrawer(props: Props) {
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
             <MenuIcon />
-          </IconButton>          <IconButton
-            color='inherit'
-            aria-label='go back'
-            edge="start"
-            onClick={() => navigate(-1)}>
-            <ArrowBackIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Homepage
-          </Typography>
+          <Box>
+            <IconButton
+              color='inherit'
+              aria-label='go back'
+              edge="start"
+              onClick={() => navigate(-1)}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              {page_title}
+            </Typography>
+          </Box>
+          <Box sx={{ flexGrow: 0.05 }} display='flex' justifyContent={'space-evenly'}>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => navigate('/student/settings/' + user?._id)}>
+              <SettingsIcon />
+            </IconButton>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => logout()}>
+              <LogoutIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
@@ -146,4 +164,9 @@ export default function ResponsiveDrawer(props: Props) {
       </Box>
     </Box>
   );
+
+  function logout(): void {
+    auth.signout();
+    navigate('/login');
+  }
 }

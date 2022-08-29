@@ -54,6 +54,9 @@ export const AppRoutes = () => {
             <Route path='/teacher' element={user_role === teacher && <StructureTeacher child={<h1>Hello Teacher</h1>} />} />
             <Route path='/student' element={user_role === student && <StructureStudent child={<h1>Hello Student!</h1>} />} />
 
+            {/* USER SETTINGS */}
+            <Route path='/student/user/settings/:_id' element={<h2>Settings</h2>} />
+
             {/** ADMIN */}
             <Route path='/admin/registration-requests' element={user_role === admin && <StructureAdmin child={<RegistrationRequests />} />} />
             <Route path='/admin/create-student' element={user_role === admin ? <StructureAdmin child={<CreateStudent />} /> : homepage} />
@@ -77,6 +80,8 @@ export const AppRoutes = () => {
                 <StructureAdmin child={<DisabledStudents />} /> : homepage} />
             <Route path='/admin/disabled-teacher-list' element={user_role === admin ?
                 <StructureAdmin child={<DisabledTeachers />} /> : homepage} />
+            <Route path='/admin/settings/:_id/' element={user_role === admin ?
+                <StructureAdmin child={<h2>Settings Admin</h2>} /> : homepage} />
 
             {/** TEACHER */}
             <Route path='/teacher/create-class' element={user_role === teacher ?
@@ -89,6 +94,8 @@ export const AppRoutes = () => {
                 <StructureTeacher child={<PastSummaries />} /> : homepage} />
             <Route path='/teacher/myClasses/:_id/student-attendance' element={user_role === teacher ?
                 <StructureTeacher child={<StudentAttendance />} /> : homepage} />
+            <Route path='/teacher/settings/:_id/' element={user_role === teacher ?
+                <StructureTeacher child={<h2>Settings Teacher</h2>} /> : homepage} />
 
             {/** STUDENT */}
             <Route path='/student/myClasses' element={user_role === student ?
@@ -99,16 +106,19 @@ export const AppRoutes = () => {
                 <StructureStudent child={<SubmittedEvaluations />} /> : homepage} />
             <Route path='/student/myClasses/:_id/past-summaries' element={user_role === student ?
                 <StructureStudent child={<PastSummariesStudent />} /> : homepage} />
+            <Route path='/student/settings/:_id/' element={user_role === student ?
+                <StructureStudent child={<h2>Settings Student</h2>} /> : homepage} />
 
-            {/* 404 */}
-            <Route path='*' element={user ? homepage : <Navigate to={'/login'} />} />
+            {/* 404 create a new component here*/}
+            <Route path='*' element={<h2>You seem somewhat lost...</h2>} />
+
         </Routes>
     );
 
     function currentHP() {
-        if (user_role === admin) {
+        if (user_role == admin) {
             return <Navigate to={'/admin'} />
-        } else if (user_role === teacher) {
+        } else if (user_role == teacher) {
             return <StructureTeacher child={<h1>Hello Teacher</h1>} />
         } else {
             return <Navigate to={'/student'} />

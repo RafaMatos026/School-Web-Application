@@ -15,19 +15,25 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { AuthContext } from '../../auth/AuthContext';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useContext } from 'react';
 
 const drawerWidth = 240;
 
 interface Props {
   window?: () => Window;
   child?: React.ReactNode;
+  page_title?: string;
 }
 
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const { child } = props;
+  const { page_title } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const auth = React.useContext(AuthContext);
+  const user = useContext(AuthContext).user;
+  const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -142,16 +148,26 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <IconButton
-            color='inherit'
-            aria-label='go back'
-            edge="start"
-            onClick={() => navigate(-1)}>
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography marginLeft={2} variant="h6" noWrap component="div">
-            Homepage
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <IconButton
+              color='inherit'
+              aria-label='go back'
+              edge="start"
+              onClick={() => navigate(-1)}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography marginLeft={2} variant="h6" noWrap component="div">
+              {page_title}
+            </Typography>
+          </Box>
+          <Box sx={{ flexGrow: 0.05 }} display='flex' justifyContent={'space-evenly'}>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => navigate('/settings/' + user?._id)}>
+              <SettingsIcon />
+            </IconButton>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => logout()}>
+              <LogoutIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Box
@@ -195,4 +211,9 @@ export default function ResponsiveDrawer(props: Props) {
       </Box>
     </Box>
   );
+
+  function logout(): void {
+    auth.signout();
+    navigate('/login');
+  }
 }

@@ -304,6 +304,15 @@ let UserService = class UserService {
             },
         });
     }
+    async getMyClasses(_id) {
+        const user = await this.userModel.findById(_id);
+        if (user) {
+            return user.MyClasses;
+        }
+        else {
+            throw new common_1.NotFoundException("You are not assigned to any class!");
+        }
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),

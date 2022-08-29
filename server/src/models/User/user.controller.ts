@@ -142,4 +142,11 @@ export class UserController {
   async getByEmail(@Body("Email") email: string) {
     return await this.UserService.findByEmail(email);
   }
+
+  //Get classes the user is assigned to;
+  @Public()
+  @Get('myClasses/:_id')
+  async getMyClasses(@Param('_id') _id: ObjectId){
+    return await this.UserService.getMyClasses(_id)
+  }
 }

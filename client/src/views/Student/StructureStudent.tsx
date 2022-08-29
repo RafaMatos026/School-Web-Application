@@ -105,13 +105,13 @@ export default function ResponsiveDrawer(props: Props) {
               onClick={() => navigate(-1)}>
               <ArrowBackIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography marginLeft={2} variant="h6" noWrap component="div">
               {page_title}
             </Typography>
           </Box>
 
           <Box sx={{flexGrow: 0.05}} display='flex' justifyContent={'space-evenly'}>
-            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => navigate('/settings/' + user?._id)}>
+            <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => navigate('/student/settings/' + user?._id)}>
               <SettingsIcon />
             </IconButton>
             <IconButton color='inherit' aria-label='settings' edge='end' onClick={() => logout()}>

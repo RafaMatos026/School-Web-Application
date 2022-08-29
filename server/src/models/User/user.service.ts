@@ -327,6 +327,7 @@ export class UserService {
     }
   }
 
+  //update my classes
   async updateMyClasses(_id: ObjectId, classId: ObjectId) {
     await this.userModel.findOneAndUpdate(
       { _id: _id },
@@ -336,5 +337,15 @@ export class UserService {
         },
       }
     );
+  }
+
+  //get my classes
+  async getMyClasses(_id: ObjectId) {
+    const user = await this.userModel.findById(_id);
+    if (user) {
+      return user.MyClasses;
+    } else {
+      throw new NotFoundException("You are not assigned to any class!");
+    }
   }
 }
