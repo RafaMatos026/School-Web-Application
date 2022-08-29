@@ -91,7 +91,7 @@ export class ClassService {
   //Assign teachers to class
   async assignTeachers(_id: ObjectId, teachers: ObjectId[]) {
     for (const teacher of teachers) {
-      await this.userService.updateMyClasses(teacher, _id);
+      await this.userService.addToMyClasses(teacher, _id);
     }
     await this.classModel.updateMany(
       { _id: _id },
@@ -106,7 +106,7 @@ export class ClassService {
   //Assign students to class
   async assignStudents(_id: ObjectId, students: ObjectId[]) {
     for (const student of students) {
-      await this.userService.updateMyClasses(student, _id);
+      await this.userService.addToMyClasses(student, _id);
     }
     await this.classModel.updateMany(
       { _id: _id },
@@ -131,4 +131,36 @@ export class ClassService {
       await this.classModel.findOne({ _id: _id })
     ).AssignedTeachers;
   }
+
+  //remove students from class
+  async unassignStudent(_id: ObjectId, students: ObjectId[]) {
+    for (const student of students) {
+      await this.userService.removeFromMyClasses(student, _id);
+    }
+    await this.classModel.updateOne(
+      { _id: _id },
+      {
+        $pullAll: {
+          AssignedStudents: students,
+        },
+      }
+    );
+    return;
+  }
+
+    //remove teachers from class
+    async unassignTeacher(_id: ObjectId, teachers: ObjectId[]) {
+      for (const teacher of teachers) {
+        await this.userService.removeFromMyClasses(teacher, _id);
+      }
+      await this.classModel.updateOne(
+        { _id: _id },
+        {
+          $pullAll: {
+            AssignedTeachers: teachers,
+          },
+        }
+      );
+      return;
+    }
 }

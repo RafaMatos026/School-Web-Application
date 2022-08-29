@@ -22,7 +22,6 @@ export default function SubmitWork(props: Props) {
         if (!file) {
             return
         }
-
         return file[0];
     }
 

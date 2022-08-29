@@ -1,7 +1,8 @@
-import { Document, ObjectId } from 'mongoose';
-import mongoose from 'mongoose';
+import { Document, ObjectId } from "mongoose";
+import mongoose from "mongoose";
 export declare type UserDocument = User & Document;
 export declare class User {
+    ProfilePicture: string;
     FName: string;
     LName: string;
     Email: string;

@@ -14,16 +14,16 @@ const class_validator_1 = require("class-validator");
 class UpdateUserDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'First name cannot be empty!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "First name cannot be empty!" }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "FName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Last name cannot be empty!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Last name cannot be empty!" }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "LName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Password cannot be empty!' }),
-    (0, class_validator_1.Length)(8, 16, { message: 'Password must have between 8 to 16 characters!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Password cannot be empty!" }),
+    (0, class_validator_1.Length)(8, 16, { message: "Password must have between 8 to 16 characters!" }),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "Password", void 0);
 exports.UpdateUserDto = UpdateUserDto;

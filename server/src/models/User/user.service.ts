@@ -79,7 +79,7 @@ export class UserService {
       MyClasses: createStudentDto.MyClasses,
       Status: true,
       Registered: true,
-      AccountType: "62f38d97cafa8d86f57141c5",
+      AccountType: student,
       Password: await bcrypt.hash(pass, 10),
     });
     const result = await newUser.save();
@@ -98,7 +98,7 @@ export class UserService {
       MyClasses: createTeacherDto.MyClasses,
       Password: await bcrypt.hash(createTeacherDto.Password, 10),
       Birthday: createTeacherDto.Birthday,
-      AccountType: "62f38d8ccafa8d86f57141c3",
+      AccountType: teacher,
     });
     const result = await newUser.save();
     return result;
@@ -129,7 +129,7 @@ export class UserService {
     const teachers = await this.userModel.find({
       Status: true,
       Registered: true,
-      AccountType: "62f38d8ccafa8d86f57141c3",
+      AccountType: teacher,
     });
     if (teachers) {
       return teachers;
@@ -141,7 +141,7 @@ export class UserService {
   //Get students
   async getStudents(): Promise<User[]> {
     const students = await this.userModel.find({
-      AccountType: "62f38d97cafa8d86f57141c5",
+      AccountType: student,
     });
     if (students) {
       return students;
@@ -154,7 +154,7 @@ export class UserService {
   async getActiveStudents(): Promise<User[]> {
     const result = await this.userModel.find({
       Status: true,
-      AccountType: "62f38d97cafa8d86f57141c5",
+      AccountType: student,
     });
     if (result) {
       return result;
@@ -168,7 +168,7 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: "62f38d97cafa8d86f57141c5",
+      AccountType: student,
     });
     if (result) {
       return result;
@@ -182,7 +182,7 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: "62f38d8ccafa8d86f57141c3",
+      AccountType: teacher,
     });
     if (result) {
       return result;
@@ -196,7 +196,7 @@ export class UserService {
     const requests = await this.userModel.find({
       Status: false,
       Registered: false,
-      AccountType: "62f38d8ccafa8d86f57141c3",
+      AccountType: teacher,
     });
     if (requests) {
       return requests;
@@ -212,7 +212,9 @@ export class UserService {
       {
         FName: updateUserDto.FName,
         LName: updateUserDto.LName,
-        Password: updateUserDto.Password,
+        ProfilePicture: updateUserDto.ProfilePicture,
+        Birthday: updateUserDto.Birthday,
+        Password: await bcrypt.hash(updateUserDto.Password, 10),
       }
     );
     return user;
@@ -327,14 +329,24 @@ export class UserService {
     }
   }
 
-  //update my classes
-  async updateMyClasses(_id: ObjectId, classId: ObjectId) {
+  //add a class to my classes
+  async addToMyClasses(_id: ObjectId, classId: ObjectId) {
     await this.userModel.findOneAndUpdate(
       { _id: _id },
       {
         $push: {
           MyClasses: classId,
         },
+      }
+    );
+  }
+
+  //remove a class from my classes
+  async removeFromMyClasses(_id: ObjectId, classId: ObjectId) {
+    await this.userModel.findOneAndUpdate(
+      { _id: _id },
+      {
+        $pull: { MyClasses: classId },
       }
     );
   }

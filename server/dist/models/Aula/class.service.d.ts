@@ -47,4 +47,6 @@ export declare class ClassService {
     assignStudents(_id: ObjectId, students: ObjectId[]): Promise<void>;
     assignedStudents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
     assignedTeachers(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    unassignStudent(_id: ObjectId, students: ObjectId[]): Promise<void>;
+    unassignTeacher(_id: ObjectId, teachers: ObjectId[]): Promise<void>;
 }

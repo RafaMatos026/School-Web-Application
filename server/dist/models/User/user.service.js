@@ -80,7 +80,7 @@ let UserService = class UserService {
             MyClasses: createStudentDto.MyClasses,
             Status: true,
             Registered: true,
-            AccountType: "62f38d97cafa8d86f57141c5",
+            AccountType: consts_1.student,
             Password: await bcrypt.hash(pass, 10),
         });
         const result = await newUser.save();
@@ -97,7 +97,7 @@ let UserService = class UserService {
             MyClasses: createTeacherDto.MyClasses,
             Password: await bcrypt.hash(createTeacherDto.Password, 10),
             Birthday: createTeacherDto.Birthday,
-            AccountType: "62f38d8ccafa8d86f57141c3",
+            AccountType: consts_1.teacher,
         });
         const result = await newUser.save();
         return result;
@@ -124,7 +124,7 @@ let UserService = class UserService {
         const teachers = await this.userModel.find({
             Status: true,
             Registered: true,
-            AccountType: "62f38d8ccafa8d86f57141c3",
+            AccountType: consts_1.teacher,
         });
         if (teachers) {
             return teachers;
@@ -135,7 +135,7 @@ let UserService = class UserService {
     }
     async getStudents() {
         const students = await this.userModel.find({
-            AccountType: "62f38d97cafa8d86f57141c5",
+            AccountType: consts_1.student,
         });
         if (students) {
             return students;
@@ -147,7 +147,7 @@ let UserService = class UserService {
     async getActiveStudents() {
         const result = await this.userModel.find({
             Status: true,
-            AccountType: "62f38d97cafa8d86f57141c5",
+            AccountType: consts_1.student,
         });
         if (result) {
             return result;
@@ -160,7 +160,7 @@ let UserService = class UserService {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: "62f38d97cafa8d86f57141c5",
+            AccountType: consts_1.student,
         });
         if (result) {
             return result;
@@ -173,7 +173,7 @@ let UserService = class UserService {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: "62f38d8ccafa8d86f57141c3",
+            AccountType: consts_1.teacher,
         });
         if (result) {
             return result;
@@ -186,7 +186,7 @@ let UserService = class UserService {
         const requests = await this.userModel.find({
             Status: false,
             Registered: false,
-            AccountType: "62f38d8ccafa8d86f57141c3",
+            AccountType: consts_1.teacher,
         });
         if (requests) {
             return requests;
@@ -199,7 +199,9 @@ let UserService = class UserService {
         const user = await this.userModel.findByIdAndUpdate({ _id: _id }, {
             FName: updateUserDto.FName,
             LName: updateUserDto.LName,
-            Password: updateUserDto.Password,
+            ProfilePicture: updateUserDto.ProfilePicture,
+            Birthday: updateUserDto.Birthday,
+            Password: await bcrypt.hash(updateUserDto.Password, 10),
         });
         return user;
     }
@@ -297,11 +299,16 @@ let UserService = class UserService {
             return null;
         }
     }
-    async updateMyClasses(_id, classId) {
+    async addToMyClasses(_id, classId) {
         await this.userModel.findOneAndUpdate({ _id: _id }, {
             $push: {
                 MyClasses: classId,
             },
+        });
+    }
+    async removeFromMyClasses(_id, classId) {
+        await this.userModel.findOneAndUpdate({ _id: _id }, {
+            $pull: { MyClasses: classId },
         });
     }
     async getMyClasses(_id) {

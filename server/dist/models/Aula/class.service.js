@@ -83,7 +83,7 @@ let ClassService = class ClassService {
     }
     async assignTeachers(_id, teachers) {
         for (const teacher of teachers) {
-            await this.userService.updateMyClasses(teacher, _id);
+            await this.userService.addToMyClasses(teacher, _id);
         }
         await this.classModel.updateMany({ _id: _id }, {
             $push: { AssignedTeachers: { $each: teachers } },
@@ -92,7 +92,7 @@ let ClassService = class ClassService {
     }
     async assignStudents(_id, students) {
         for (const student of students) {
-            await this.userService.updateMyClasses(student, _id);
+            await this.userService.addToMyClasses(student, _id);
         }
         await this.classModel.updateMany({ _id: _id }, {
             $push: { AssignedStudents: { $each: students } },
@@ -104,6 +104,28 @@ let ClassService = class ClassService {
     }
     async assignedTeachers(_id) {
         return await (await this.classModel.findOne({ _id: _id })).AssignedTeachers;
+    }
+    async unassignStudent(_id, students) {
+        for (const student of students) {
+            await this.userService.removeFromMyClasses(student, _id);
+        }
+        await this.classModel.updateOne({ _id: _id }, {
+            $pullAll: {
+                AssignedStudents: students,
+            },
+        });
+        return;
+    }
+    async unassignTeacher(_id, teachers) {
+        for (const teacher of teachers) {
+            await this.userService.removeFromMyClasses(teacher, _id);
+        }
+        await this.classModel.updateOne({ _id: _id }, {
+            $pullAll: {
+                AssignedTeachers: teachers,
+            },
+        });
+        return;
     }
 };
 ClassService = __decorate([
