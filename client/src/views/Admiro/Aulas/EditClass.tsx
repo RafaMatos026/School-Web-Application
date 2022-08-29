@@ -25,6 +25,7 @@ export default function EditClass() {
         getClass();
         getSubjects();
         getTeachers();
+        setLoading(false);
     }, [])
 
     function getClass() {
@@ -43,7 +44,6 @@ export default function EditClass() {
                     setHeadTeacher(Class.HeadTeacher);
                     setSubject(Class.Subject);
                     setClassName(Class.ClassName);
-                    setLoading(false);
                 }
             })
             .catch((error) => {

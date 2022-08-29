@@ -32,7 +32,13 @@ export declare class ClassController {
     createClass(createClassDto: CreateClassDto): Promise<import("./class.schema").Class>;
     getActiveClasses(): Promise<import("./class.schema").Class[]>;
     getDisabledClasses(): Promise<import("./class.schema").Class[]>;
-    getClass(classId: string): Promise<import("./class.schema").Class>;
+    getClass(classId: string): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        ClassName: string;
+        Subject: import("mongoose").Schema.Types.ObjectId;
+        HeadTeacher: import("mongoose").Schema.Types.ObjectId;
+        Status: boolean;
+    }>;
     updateClass(_id: string, UpdateClassDto: UpdateClassDto): Promise<void>;
     deleteClass(classId: string): Promise<void>;
     assignTeachers(_id: ObjectId, teachers: ObjectId[]): Promise<void>;

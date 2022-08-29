@@ -4,7 +4,6 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Class } from "./class.schema";
 import { CreateClassDto } from "./dto/createClass.dto";
 import { UpdateClassDto } from "./dto/updateClass.dto";
-import { User } from "../User/user.schema";
 import { UserService } from "../User/user.service";
 
 @Injectable()
@@ -29,7 +28,8 @@ export class ClassService {
 
   //Get active classes
   async getActiveClasses(): Promise<Class[]> {
-    const result = await this.classModel.find({ Status: true });
+    const result = await this.classModel
+      .find({ Status: true }).populate('HeadTeacher').exec();
     if (result) {
       return result;
     } else {
@@ -48,14 +48,21 @@ export class ClassService {
   }
 
   //Find class by id
-  async getClass(_id: string): Promise<Class> {
+  async getClass(_id: string) {
     const result = await this.classModel.findById(_id);
+    const aula = {
+      _id: result._id,
+      ClassName: result.ClassName,
+      Subject: result.Subject,
+      HeadTeacher: result.HeadTeacher,
+      Status: result.Status,
+    };
 
     if (!result) {
       throw new NotFoundException("Could not find class!");
     }
 
-    return result;
+    return aula;
   }
 
   //Update class

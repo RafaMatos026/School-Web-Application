@@ -35,7 +35,8 @@ let ClassService = class ClassService {
         return result;
     }
     async getActiveClasses() {
-        const result = await this.classModel.find({ Status: true });
+        const result = await this.classModel
+            .find({ Status: true }).populate('HeadTeacher').exec();
         if (result) {
             return result;
         }
@@ -54,10 +55,17 @@ let ClassService = class ClassService {
     }
     async getClass(_id) {
         const result = await this.classModel.findById(_id);
+        const aula = {
+            _id: result._id,
+            ClassName: result.ClassName,
+            Subject: result.Subject,
+            HeadTeacher: result.HeadTeacher,
+            Status: result.Status,
+        };
         if (!result) {
             throw new common_1.NotFoundException("Could not find class!");
         }
-        return result;
+        return aula;
     }
     async updateClass(_id, UpdateClassDto) {
         const update = {

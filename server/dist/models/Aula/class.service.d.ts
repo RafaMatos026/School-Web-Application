@@ -34,7 +34,13 @@ export declare class ClassService {
     createClass(CreateClassDto: CreateClassDto): Promise<Class>;
     getActiveClasses(): Promise<Class[]>;
     getDisabledClasses(): Promise<Class[]>;
-    getClass(_id: string): Promise<Class>;
+    getClass(_id: string): Promise<{
+        _id: import("mongoose").Types.ObjectId;
+        ClassName: string;
+        Subject: import("mongoose").Schema.Types.ObjectId;
+        HeadTeacher: import("mongoose").Schema.Types.ObjectId;
+        Status: boolean;
+    }>;
     updateClass(_id: string, UpdateClassDto: UpdateClassDto): Promise<void>;
     disableClass(_id: string): Promise<void>;
     assignTeachers(_id: ObjectId, teachers: ObjectId[]): Promise<void>;

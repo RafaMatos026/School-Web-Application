@@ -41,7 +41,7 @@ export default function ClassList() {
             .catch(err => {
                 console.log(err.message);
             })
-    })
+    }, [])
 
     return (
         <>
@@ -70,7 +70,7 @@ export default function ClassList() {
                                         <TableCell align='center'>{aula._id}</TableCell>
                                         <TableCell align='center'>{aula.ClassName}</TableCell>
                                         <TableCell align='center'>{aula.Subject}</TableCell>
-                                        <TableCell align='center'>{aula.Subject}</TableCell>
+                                        <TableCell align='center'>{aula.HeadTeacher}</TableCell>
                                         <TableCell align='center'>
                                             <IconButton onClick={() => navigate('/admin/class/' + aula._id)}>
                                                 <EditIcon />
