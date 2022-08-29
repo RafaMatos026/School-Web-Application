@@ -14,23 +14,23 @@ const class_validator_1 = require("class-validator");
 class CreateTeacherDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'First name cannot be empty!' }),
-    (0, class_validator_1.Length)(5, 10, { message: 'Name must be between 5 and 10 characters|' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "First name cannot be empty!" }),
+    (0, class_validator_1.Length)(5, 10, { message: "Name must be between 5 and 10 characters|" }),
     __metadata("design:type", String)
 ], CreateTeacherDto.prototype, "FName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'First name cannot be empty!' }),
-    (0, class_validator_1.Length)(5, 10, { message: 'Name must be between 5 and 10 characters|' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "First name cannot be empty!" }),
+    (0, class_validator_1.Length)(5, 10, { message: "Name must be between 5 and 10 characters|" }),
     __metadata("design:type", String)
 ], CreateTeacherDto.prototype, "LName", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.IsNotEmpty)({ message: 'Email must not be empty' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Email must not be empty" }),
     __metadata("design:type", String)
 ], CreateTeacherDto.prototype, "Email", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Password cannot be empty!' }),
-    (0, class_validator_1.Length)(8, 16, { message: 'Password must have between 8 to 16 characters!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Password cannot be empty!" }),
+    (0, class_validator_1.Length)(8, 16, { message: "Password must have between 8 to 16 characters!" }),
     __metadata("design:type", String)
 ], CreateTeacherDto.prototype, "Password", void 0);
 exports.CreateTeacherDto = CreateTeacherDto;

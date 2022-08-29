@@ -22,10 +22,10 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model, ObjectId } from 'mongoose';
-import { Class } from './class.schema';
-import { CreateClassDto } from './dto/createClass.dto';
-import { UpdateClassDto } from './dto/updateClass.dto';
+import { Model, ObjectId } from "mongoose";
+import { Class } from "./class.schema";
+import { CreateClassDto } from "./dto/createClass.dto";
+import { UpdateClassDto } from "./dto/updateClass.dto";
 export declare class ClassService {
     private readonly classModel;
     constructor(classModel: Model<Class>);

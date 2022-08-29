@@ -8,6 +8,7 @@ import { CreateStudentDto } from "./dto/createStudent.dto";
 import { CreateTeacherDto } from "./dto/createTeacher.dto";
 import * as bcrypt from "bcrypt";
 import sgMail = require("@sendgrid/mail");
+import { student, teacher } from "src/consts";
 
 function GeneratePassword() {
   const length = 8;
@@ -75,6 +76,9 @@ export class UserService {
       FName: createStudentDto.FName,
       LName: createStudentDto.LName,
       Email: createStudentDto.Email,
+      MyClasses: createStudentDto.MyClasses,
+      Status: true,
+      Registered: true,
       AccountType: "62f38d97cafa8d86f57141c5",
       Password: await bcrypt.hash(pass, 10),
     });
@@ -91,6 +95,7 @@ export class UserService {
       FName: createTeacherDto.FName,
       LName: createTeacherDto.LName,
       Email: createTeacherDto.Email,
+      MyClasses: createTeacherDto.MyClasses,
       Password: await bcrypt.hash(createTeacherDto.Password, 10),
       Birthday: createTeacherDto.Birthday,
       AccountType: "62f38d8ccafa8d86f57141c3",
@@ -248,22 +253,43 @@ export class UserService {
   //Assignable students
   async assignableStudents(_id: ObjectId) {
     const students = await this.userModel.find({
-      AccountType: "62f38d97cafa8d86f57141c5",
+      AccountType: student,
+      Status: true,
+      Registered: true,
     });
-    const astudents = [];
-    if (students) {
+    var assignable_students = [];
+    if (students.length > 0) {
       for (const student of students) {
-        const classes = student.MyClasses;
-        if (!classes?.includes(_id)) {
-          astudents.push(student);
+        if (!student.MyClasses?.includes(_id)) {
+          assignable_students.push(student);
         }
       }
-      if (astudents) {
-        return astudents;
-      } else {
-        throw new NotFoundException("No student is assignable to this class!");
-      }
+    } else {
+      return new NotFoundException("No students are assignable to this class!");
     }
+    return assignable_students;
+  }
+
+  //Assignable teachers
+  async assignableTeachers(_id: ObjectId) {
+    const teachers = await this.userModel.find({
+      AccountType: teacher,
+      Status: true,
+      Registered: true,
+    });
+    var assignable_teachers = [];
+    if (teachers.length > 0) {
+      for (const teacher of teachers) {
+        if (!teacher.MyClasses?.includes(_id)) {
+          assignable_teachers.push(teacher);
+        }
+      }
+    } else {
+      return new NotFoundException(
+        "No teachers are assignable for this class!"
+      );
+    }
+    return assignable_teachers;
   }
 
   //Find by email

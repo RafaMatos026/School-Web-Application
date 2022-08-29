@@ -38,7 +38,7 @@ let ClassService = class ClassService {
             return result;
         }
         else {
-            throw new common_1.NotFoundException('No classes found!');
+            throw new common_1.NotFoundException("No classes found!");
         }
     }
     async getDisabledClasses() {
@@ -47,13 +47,13 @@ let ClassService = class ClassService {
             return result;
         }
         else {
-            throw new common_1.NotFoundException('No classes found!');
+            throw new common_1.NotFoundException("No classes found!");
         }
     }
     async getClass(_id) {
         const result = await this.classModel.findById(_id);
         if (!result) {
-            throw new common_1.NotFoundException('Could not find class!');
+            throw new common_1.NotFoundException("Could not find class!");
         }
         return result;
     }
@@ -83,20 +83,10 @@ let ClassService = class ClassService {
         return;
     }
     async assignedStudents(_id) {
-        const aula = await this.classModel.findOne({ _id: _id });
-        let students = [];
-        if (aula) {
-            students = aula.AssignedStudents;
-        }
-        return students;
+        return await (await this.classModel.findOne({ _id: _id })).AssignedStudents;
     }
     async assignedTeachers(_id) {
-        const aula = await this.classModel.findOne({ _id: _id });
-        let teachers = [];
-        if (aula) {
-            teachers = aula.AssignedTeachers;
-        }
-        return teachers;
+        return await (await this.classModel.findOne({ _id: _id })).AssignedTeachers;
     }
 };
 ClassService = __decorate([

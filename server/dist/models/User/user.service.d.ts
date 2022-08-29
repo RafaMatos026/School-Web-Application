@@ -1,3 +1,4 @@
+import { NotFoundException } from "@nestjs/common";
 import { User } from "./user.schema";
 import { Model, ObjectId } from "mongoose";
 import { CreateUserDto } from "./dto/createUser.dto";
@@ -22,7 +23,8 @@ export declare class UserService {
     disableUser(_id: string): Promise<void>;
     acceptTeacher(_id: string): Promise<void>;
     declineTeacher(_id: string): Promise<void>;
-    assignableStudents(_id: ObjectId): Promise<any[]>;
+    assignableStudents(_id: ObjectId): Promise<any[] | NotFoundException>;
+    assignableTeachers(_id: ObjectId): Promise<any[] | NotFoundException>;
     findByEmail(email: string): Promise<{
         _id: import("mongoose").Types.ObjectId;
         FName: string;

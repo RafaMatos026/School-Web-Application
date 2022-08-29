@@ -26,7 +26,7 @@ export class User {
   @Prop({ default: false })
   Registered: boolean;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Class' }] })
   MyClasses: ObjectId[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId })

@@ -43,7 +43,10 @@ export default function StudentList() {
     return (
         <>
             {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {!loading && students.length === 0 && (
+                <h2>No students were created yet!</h2>
+            )}
+            {!loading && students.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>

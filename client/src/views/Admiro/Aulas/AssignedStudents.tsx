@@ -3,16 +3,14 @@ import Checkbox from '@mui/material/Checkbox';
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
-import { useNavigate, useParams } from "react-router-dom";
-import { IStudent } from "../../../shared/Interfaces/interfaces";
+import { useParams } from "react-router-dom";
 import { BASE_URL } from '../../../shared/consts';
 
 export default function AssignedStudents() {
     const { _id } = useParams();
     const [checks, setChecks] = useState<string[]>([])
-    const [students, setStudents] = useState<IStudent[]>([])
+    const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
 
     const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>) => {
         const index = checks.indexOf(event.target.value)
@@ -49,14 +47,13 @@ export default function AssignedStudents() {
             .catch(err => {
                 console.log(err);
             })
-    })
-
-
+    }, [])
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {loading && <h2>Loading...</h2>}
+            {!loading && students.length === 0 && (<h2>No students are assigned to this class yet...</h2>)}
+            {!loading && students.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>
@@ -72,8 +69,8 @@ export default function AssignedStudents() {
                                 {students.map((student, index) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
-                                        <TableCell align='center'>{student._id}</TableCell>
-                                        <TableCell align='center'>{student.FName + ' ' + student.LName}</TableCell>
+                                        <TableCell align='center'>{student}</TableCell>
+                                        <TableCell align='center'>{'Name here'}</TableCell>
                                         <TableCell align='center'>
                                             <Checkbox
                                                 value={'studentId1'}

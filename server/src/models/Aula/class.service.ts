@@ -1,14 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model, ObjectId } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { Class } from './class.schema';
-import { CreateClassDto } from './dto/createClass.dto';
-import { UpdateClassDto } from './dto/updateClass.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { Model, ObjectId } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { Class } from "./class.schema";
+import { CreateClassDto } from "./dto/createClass.dto";
+import { UpdateClassDto } from "./dto/updateClass.dto";
 
 @Injectable()
 export class ClassService {
   constructor(
-    @InjectModel(Class.name) private readonly classModel: Model<Class>,
+    @InjectModel(Class.name) private readonly classModel: Model<Class>
   ) {}
 
   //Create a class
@@ -30,7 +30,7 @@ export class ClassService {
     if (result) {
       return result;
     } else {
-      throw new NotFoundException('No classes found!');
+      throw new NotFoundException("No classes found!");
     }
   }
 
@@ -40,7 +40,7 @@ export class ClassService {
     if (result) {
       return result;
     } else {
-      throw new NotFoundException('No classes found!');
+      throw new NotFoundException("No classes found!");
     }
   }
 
@@ -49,7 +49,7 @@ export class ClassService {
     const result = await this.classModel.findById(_id);
 
     if (!result) {
-      throw new NotFoundException('Could not find class!');
+      throw new NotFoundException("Could not find class!");
     }
 
     return result;
@@ -79,7 +79,7 @@ export class ClassService {
       {
         $set: { AssignedTeachers: (teachers as any).AssignedTeachers },
       },
-      { new: true },
+      { new: true }
     );
     return;
   }
@@ -91,28 +91,22 @@ export class ClassService {
       {
         $set: { AssignedStudents: students },
       },
-      { new: true },
+      { new: true }
     );
     return;
   }
 
   //Assigned students
   async assignedStudents(_id: string) {
-    const aula: Class = await this.classModel.findOne({ _id: _id });
-    let students: ObjectId[] = [];
-    if (aula) {
-      students = aula.AssignedStudents;
-    }
-    return students;
+    return await (
+      await this.classModel.findOne({ _id: _id})
+    ).AssignedStudents;
   }
 
-  //Assigned students
+  //Assigned teachers
   async assignedTeachers(_id: string) {
-    const aula: Class = await this.classModel.findOne({ _id: _id });
-    let teachers: ObjectId[] = [];
-    if (aula) {
-      teachers = aula.AssignedTeachers;
-    }
-    return teachers;
+    return await (
+      await this.classModel.findOne({ _id: _id })
+    ).AssignedTeachers;
   }
 }

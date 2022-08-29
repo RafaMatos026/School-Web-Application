@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "Registered", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId }),
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Class' }] }),
     __metadata("design:type", Array)
 ], User.prototype, "MyClasses", void 0);
 __decorate([

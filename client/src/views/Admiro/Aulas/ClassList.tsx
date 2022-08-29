@@ -46,7 +46,10 @@ export default function ClassList() {
     return (
         <>
             {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {!loading && classes.length === 0 && (
+                <h2>No classes were created yet!</h2>
+            )}
+            {!loading && classes.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>

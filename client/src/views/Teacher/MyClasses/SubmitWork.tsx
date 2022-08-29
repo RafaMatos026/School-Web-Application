@@ -35,7 +35,7 @@ export default function SubmitWork(props: Props) {
                 <TextField sx={{ width: '100%' }} multiline rows={3} value={Description} onChange={(e) => setDescription(e.target.value)} size="small" type='text' variant="outlined" />
                 <Typography textAlign={'start'} sx={{ marginTop: 3 }}>Due Date</Typography>
                 <TextField sx={{ width: '100%' }} value={DueDate} onChange={(e) => setDueDate(e.target.value)} size="small" type='date' variant="outlined" />
-                <TextField type='file' fullWidth sx={{ marginTop: 3 }} value={file} onChange={handleFileUpload(e)} />
+                <TextField type='file' fullWidth sx={{ marginTop: 3 }} value={file} />
                 <Typography variant="caption">Only PDF or JPEG/PNG files will be accepted</Typography>
                 <ButtonGroup sx={{ display: 'flex', justifyContent: 'space-evenly', marginTop: 3 }}>
                     <Button variant="contained" color="error" onClick={() => setOpen(false)}>Cancel</Button>

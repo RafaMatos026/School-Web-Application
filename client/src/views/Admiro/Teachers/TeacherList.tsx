@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { useState, useEffect } from 'react';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
-import {BASE_URL } from '../../../shared/consts'
+import { BASE_URL } from '../../../shared/consts'
 
 export default function StudentList() {
 
@@ -43,7 +43,10 @@ export default function StudentList() {
     return (
         <>
             {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {!loading && teachers.length === 0 && (
+                <h2>No teachers were accepted yet!</h2>
+            )}
+            {!loading && teachers.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>

@@ -10,6 +10,7 @@ export class ClassController {
   constructor(private readonly ClassService: ClassService) {}
 
   //Create class
+  @Public()
   @Post('create')
   async createClass(@Body() createClassDto: CreateClassDto) {
     return await this.ClassService.createClass(createClassDto);
@@ -39,6 +40,7 @@ export class ClassController {
   }
 
   //Update class
+  @Public()
   @Put('updateClass/:id')
   async updateClass(
     @Param('id') _id: string,
@@ -48,18 +50,21 @@ export class ClassController {
   }
 
   //Disable class
+  @Public()
   @Put('deleteClass/:id')
   async deleteClass(@Param('id') classId: string) {
     await this.ClassService.disableClass(classId);
   }
 
   //Assign teachers
+  @Public()
   @Put('assignTeachers/:id')
   async assignTeachers(@Param('id') _id: string, @Body() teachers: ObjectId[]) {
     await this.ClassService.assignTeachers(_id, teachers);
   }
 
   //Assign students
+  @Public()
   @Put('assignStudents/:id')
   async assignStudents(@Param('id') _id: string, @Body() students: ObjectId[]) {
     await this.ClassService.assignStudents(_id, students);

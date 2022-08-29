@@ -12,16 +12,14 @@ export class UserController {
   constructor(private readonly UserService: UserService) {}
 
   //Create User
+  @Public()
   @Post("create")
   async createUser(@Body() CreateUserDto: CreateUserDto) {
-    const existingUser = this.UserService.findByEmail(CreateUserDto.Email);
-    if (existingUser) {
-      return { success: false, message: "Email already taken!" };
-    }
     return await this.UserService.createUser(CreateUserDto);
   }
 
   //Create Student
+  @Public()
   @Post("/createStudent")
   async createStudent(@Body() CreateStudentDto: CreateStudentDto) {
     return await this.UserService.createStudent(CreateStudentDto);
@@ -35,6 +33,7 @@ export class UserController {
   }
 
   //Get user by id
+  @Public()
   @Get("/getUser/:id")
   async getUser(@Param("id") _id: string) {
     return await this.UserService.getUser(_id);
@@ -93,6 +92,7 @@ export class UserController {
   }
 
   //Update User
+  @Public()
   @Put("updateUser/:id")
   async updateUser(
     @Param("id") _id: string,
@@ -102,18 +102,21 @@ export class UserController {
   }
 
   //Disable User
+  @Public()
   @Put("disableUser/:id")
   async deleteUser(@Param("id") _id: string) {
     await this.UserService.disableUser(_id);
   }
 
   //Accept teacher registration
+  @Public()
   @Put("acceptTeacher/:id")
   async acceptTeacher(@Param("id") _id: string) {
     await this.UserService.acceptTeacher(_id);
   }
 
   //Decline teacher registration
+  @Public()
   @Put("declineTeacher/:id")
   async declineTeacher(@Param("id") _id: string) {
     await this.UserService.declineTeacher(_id);
@@ -126,7 +129,15 @@ export class UserController {
     return await this.UserService.assignableStudents(_id);
   }
 
+  //Assignable teachers
+  @Public()
+  @Get("assignableTeachers/:id")
+  async assignableTeachers(@Param("id") _id: ObjectId) {
+    return await this.UserService.assignableTeachers(_id);
+  }
+
   //Find user by email
+  @Public()
   @Get("getByEmail")
   async getByEmail(@Body("Email") email: string) {
     return await this.UserService.findByEmail(email);

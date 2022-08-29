@@ -23,25 +23,6 @@ export default function AssignStudent() {
         }
     }
 
-    useEffect(() => {
-        //To get students who don't belong to the class
-        let url = BASE_URL + "/users/assignableStudents/" + _id;
-        fetch(url)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                setStudents(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.log(err.message);
-            })
-    }, [])
-
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.grey[300],
@@ -52,36 +33,74 @@ export default function AssignStudent() {
         },
     }));
 
+    useEffect(() => {
+        let url = BASE_URL + "/users/assignableStudents/" + _id;
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if(data.status === 404){
+                    setStudents([]);
+                    setLoading(false);
+                } else {
+                    setStudents(data);
+                    setLoading(false);
+                }
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
+    }, [])
+
+
+
     return (
         <Box>
-            <Button variant='contained' color='success' onClick={() => AssignStudents()}>Save</Button>
-            <TableContainer component={Paper} sx={{ marginTop: '25px' }}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Student ID</StyledTableCell>
-                            <StyledTableCell width={'15%'} align='center'>Student Name</StyledTableCell>
-                            <StyledTableCell width={'5%'} align='center'>Selection</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {students.map((student, index) => (
-                            <TableRow key={index}>
-                                <TableCell align='center'>{index + 1}</TableCell>
-                                <TableCell align='center'>{student._id}</TableCell>
-                                <TableCell align='center'>{student.FName + ' ' + student.LName}</TableCell>
-                                <TableCell align='center'>
-                                    <Checkbox
-                                        value={student._id}
-                                        checked={checks.includes(student._id)}
-                                        onChange={handleCheckboxes} />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            {loading && <h2>Loading...</h2>}
+            {!loading && students.length === 0 && (
+                <h2>No students available to assign to this class!</h2>
+            )}
+            {!loading && students.length > 0 && (
+                <>
+                    {checks.length > 0 && (
+                        <Button variant='contained' color='success' onClick={() => AssignStudents()}>Assign Students</Button>
+                    )}
+                    {checks.length === 0 && (
+                        <Button variant='contained' color='success' disabled>Assign Students</Button>
+                    )}
+                    <TableContainer component={Paper} sx={{ marginTop: '25px' }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Student ID</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Student Name</StyledTableCell>
+                                    <StyledTableCell width={'5%'} align='center'>Selection</StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {students.map((student, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{student._id}</TableCell>
+                                        <TableCell align='center'>{student.FName + ' ' + student.LName}</TableCell>
+                                        <TableCell align='center'>
+                                            <Checkbox
+                                                value={student._id}
+                                                checked={checks.includes(student._id)}
+                                                onChange={handleCheckboxes} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </>
+            )}
         </Box >
     )
 

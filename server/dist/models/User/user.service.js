@@ -19,6 +19,7 @@ const user_schema_1 = require("./user.schema");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
+const consts_1 = require("../../consts");
 function GeneratePassword() {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -76,6 +77,9 @@ let UserService = class UserService {
             FName: createStudentDto.FName,
             LName: createStudentDto.LName,
             Email: createStudentDto.Email,
+            MyClasses: createStudentDto.MyClasses,
+            Status: true,
+            Registered: true,
             AccountType: "62f38d97cafa8d86f57141c5",
             Password: await bcrypt.hash(pass, 10),
         });
@@ -90,6 +94,7 @@ let UserService = class UserService {
             FName: createTeacherDto.FName,
             LName: createTeacherDto.LName,
             Email: createTeacherDto.Email,
+            MyClasses: createTeacherDto.MyClasses,
             Password: await bcrypt.hash(createTeacherDto.Password, 10),
             Birthday: createTeacherDto.Birthday,
             AccountType: "62f38d8ccafa8d86f57141c3",
@@ -219,24 +224,44 @@ let UserService = class UserService {
         return;
     }
     async assignableStudents(_id) {
+        var _a;
         const students = await this.userModel.find({
-            AccountType: "62f38d97cafa8d86f57141c5",
+            AccountType: consts_1.student,
+            Status: true,
+            Registered: true,
         });
-        const astudents = [];
-        if (students) {
+        var assignable_students = [];
+        if (students.length > 0) {
             for (const student of students) {
-                const classes = student.MyClasses;
-                if (!(classes === null || classes === void 0 ? void 0 : classes.includes(_id))) {
-                    astudents.push(student);
+                if (!((_a = student.MyClasses) === null || _a === void 0 ? void 0 : _a.includes(_id))) {
+                    assignable_students.push(student);
                 }
             }
-            if (astudents) {
-                return astudents;
-            }
-            else {
-                throw new common_1.NotFoundException("No student is assignable to this class!");
+        }
+        else {
+            return new common_1.NotFoundException("No students are assignable to this class!");
+        }
+        return assignable_students;
+    }
+    async assignableTeachers(_id) {
+        var _a;
+        const teachers = await this.userModel.find({
+            AccountType: consts_1.teacher,
+            Status: true,
+            Registered: true,
+        });
+        var assignable_teachers = [];
+        if (teachers.length > 0) {
+            for (const teacher of teachers) {
+                if (!((_a = teacher.MyClasses) === null || _a === void 0 ? void 0 : _a.includes(_id))) {
+                    assignable_teachers.push(teacher);
+                }
             }
         }
+        else {
+            return new common_1.NotFoundException("No teachers are assignable for this class!");
+        }
+        return assignable_teachers;
     }
     async findByEmail(email) {
         const result = await this.userModel.findOne({

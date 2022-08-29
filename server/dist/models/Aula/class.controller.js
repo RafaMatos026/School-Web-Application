@@ -57,6 +57,7 @@ let ClassController = class ClassController {
     }
 };
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -85,6 +86,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "getClass", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Put)('updateClass/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -93,6 +95,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "updateClass", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Put)('deleteClass/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -100,6 +103,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "deleteClass", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Put)('assignTeachers/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -108,6 +112,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassController.prototype, "assignTeachers", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Put)('assignStudents/:id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
