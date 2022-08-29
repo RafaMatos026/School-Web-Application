@@ -14,16 +14,16 @@ const class_validator_1 = require("class-validator");
 class UpdateClassDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a name!' }),
-    (0, class_validator_1.Length)(6, 20, { message: 'Class name must be between 6 to 20 characters!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Class must have a name!" }),
+    (0, class_validator_1.Length)(6, 20, { message: "Class name must be between 6 to 20 characters!" }),
     __metadata("design:type", String)
 ], UpdateClassDto.prototype, "ClassName", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a headteacher!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Class must have a headteacher!" }),
     __metadata("design:type", Object)
 ], UpdateClassDto.prototype, "HeadTeacher", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Class must have a subject!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Class must have a subject!" }),
     __metadata("design:type", Object)
 ], UpdateClassDto.prototype, "Subject", void 0);
 exports.UpdateClassDto = UpdateClassDto;

@@ -33,6 +33,7 @@ export class ClassController {
   }
 
   //Get class by id
+  @Public()
   @Get("getClass/:id")
   async getClass(@Param("id") classId: string) {
     const clas = await this.ClassService.getClass(classId);
