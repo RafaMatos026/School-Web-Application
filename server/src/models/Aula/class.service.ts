@@ -23,13 +23,20 @@ export class ClassService {
       AssignedTeachers: CreateClassDto.AssignedTeachers,
     });
     const result = await newClass.save();
+    // if (result) {
+    //   let HeadTeacher = CreateClassDto.HeadTeacher;
+    //   let classId = result._id.toString();
+    //   await this.userService.updateMyClasses(HeadTeacher, classId);
+    // }
     return result;
   }
 
   //Get active classes
   async getActiveClasses(): Promise<Class[]> {
     const result = await this.classModel
-      .find({ Status: true }).populate('HeadTeacher').exec();
+      .find({ Status: true })
+      .populate("HeadTeacher")
+      .exec();
     if (result) {
       return result;
     } else {

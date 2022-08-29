@@ -72,7 +72,7 @@ export default function MyClasses() {
                                         <TableCell align='center'>{MyClass.HeadTeacher.FName + ' ' + MyClass.HeadTeacher.LName}</TableCell>
                                         <TableCell align='center'>{MyClass.Status ? "Active" : "Class not active"}</TableCell>
                                         <TableCell align='center'>
-                                            <Link to={'/student/myClasses/' + MyClass._id}>
+                                            <Link to={'/teacher/myClasses/' + MyClass._id}>
                                                 <IconButton >
                                                     <MoreHorizIcon />
                                                 </IconButton>

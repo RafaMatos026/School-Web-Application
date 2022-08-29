@@ -36,7 +36,9 @@ let ClassService = class ClassService {
     }
     async getActiveClasses() {
         const result = await this.classModel
-            .find({ Status: true }).populate('HeadTeacher').exec();
+            .find({ Status: true })
+            .populate("HeadTeacher")
+            .exec();
         if (result) {
             return result;
         }
