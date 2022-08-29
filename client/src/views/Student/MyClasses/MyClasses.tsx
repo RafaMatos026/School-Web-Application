@@ -35,7 +35,6 @@ export default function MyClasses() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setMyClasses(data.MyClasses);
                 setLoading(false);
             })

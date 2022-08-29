@@ -99,7 +99,7 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box>
+          <Box sx={{flexGrow: 1}}>
             <IconButton
               color='inherit'
               aria-label='go back'
