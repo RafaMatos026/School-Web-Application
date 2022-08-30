@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .env
-.vercel.json
+/vercel
 .pnp.js
 
 # testing
