@@ -8,7 +8,6 @@ import { CreateStudentDto } from "./dto/createStudent.dto";
 import { CreateTeacherDto } from "./dto/createTeacher.dto";
 import * as bcrypt from "bcrypt";
 import sgMail = require("@sendgrid/mail");
-import { student, teacher } from "src/consts";
 
 function GeneratePassword() {
   const length = 8;
@@ -79,7 +78,7 @@ export class UserService {
       MyClasses: createStudentDto.MyClasses,
       Status: true,
       Registered: true,
-      AccountType: student,
+      AccountType: "62f38d97cafa8d86f57141c5",
       Password: await bcrypt.hash(pass, 10),
     });
     const result = await newUser.save();
@@ -98,7 +97,7 @@ export class UserService {
       MyClasses: createTeacherDto.MyClasses,
       Password: await bcrypt.hash(createTeacherDto.Password, 10),
       Birthday: createTeacherDto.Birthday,
-      AccountType: teacher,
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     const result = await newUser.save();
     return result;
@@ -129,7 +128,7 @@ export class UserService {
     const teachers = await this.userModel.find({
       Status: true,
       Registered: true,
-      AccountType: teacher,
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (teachers) {
       return teachers;
@@ -141,7 +140,7 @@ export class UserService {
   //Get students
   async getStudents(): Promise<User[]> {
     const students = await this.userModel.find({
-      AccountType: student,
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (students) {
       return students;
@@ -154,7 +153,7 @@ export class UserService {
   async getActiveStudents(): Promise<User[]> {
     const result = await this.userModel.find({
       Status: true,
-      AccountType: student,
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (result) {
       return result;
@@ -168,7 +167,7 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: student,
+      AccountType: "62f38d97cafa8d86f57141c5",
     });
     if (result) {
       return result;
@@ -182,7 +181,7 @@ export class UserService {
     const result = await this.userModel.find({
       Status: false,
       Registered: true,
-      AccountType: teacher,
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (result) {
       return result;
@@ -196,7 +195,7 @@ export class UserService {
     const requests = await this.userModel.find({
       Status: false,
       Registered: false,
-      AccountType: teacher,
+      AccountType: "62f38d8ccafa8d86f57141c3",
     });
     if (requests) {
       return requests;
@@ -255,7 +254,7 @@ export class UserService {
   //Assignable students
   async assignableStudents(_id: ObjectId) {
     const students = await this.userModel.find({
-      AccountType: student,
+      AccountType: "62f38d97cafa8d86f57141c5",
       Status: true,
       Registered: true,
     });
@@ -275,7 +274,7 @@ export class UserService {
   //Assignable teachers
   async assignableTeachers(_id: ObjectId) {
     const teachers = await this.userModel.find({
-      AccountType: teacher,
+      AccountType: "62f38d8ccafa8d86f57141c3",
       Status: true,
       Registered: true,
     });

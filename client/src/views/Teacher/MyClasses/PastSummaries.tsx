@@ -84,7 +84,6 @@ export default function PastSummaries() {
                                         </TableCell>
                                     </TableRow>
                                 ))}
-
                             </TableBody>
                         </Table>
                     </TableContainer>
