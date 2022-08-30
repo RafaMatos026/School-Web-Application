@@ -55,7 +55,6 @@ export default function ResponsiveDrawer(props: Props) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setPic(data.ProfilePicture);
         setFName(data.FName);
         setLName(data.LName);

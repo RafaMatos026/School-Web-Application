@@ -4,5 +4,6 @@ export declare class CreateWorkDto {
     Description: string;
     DueDate: Date;
     classId: Class;
+    AddedDate: Date;
     fileUrl: string;
 }

@@ -24,9 +24,10 @@ let WorkService = class WorkService {
     async createWork(data) {
         const newWork = new this.workModel({
             WorkName: data.WorkName,
-            DueDate: data.DueDate,
-            classId: data.classId,
             Description: data.Description,
+            DueDate: data.DueDate,
+            AddedDate: data.AddedDate,
+            classId: data.classId,
             fileUrl: data.fileUrl,
         });
         const result = await newWork.save();

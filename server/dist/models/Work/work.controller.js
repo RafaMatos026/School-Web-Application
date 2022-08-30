@@ -21,7 +21,7 @@ let WorkController = class WorkController {
     constructor(WorkService) {
         this.WorkService = WorkService;
     }
-    async createWork(data, file) {
+    async createWork(data) {
         return await this.WorkService.createWork(data);
     }
     async getWork(classId) {
@@ -29,29 +29,23 @@ let WorkController = class WorkController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Post)("create"),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFile)(new common_1.ParseFilePipeBuilder()
-        .addFileTypeValidator({
-        fileType: 'pdf',
-    })
-        .build({
-        fileIsRequired: true,
-    }))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [createWork_dto_1.CreateWorkDto, Object]),
+    __metadata("design:paramtypes", [createWork_dto_1.CreateWorkDto]),
     __metadata("design:returntype", Promise)
 ], WorkController.prototype, "createWork", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getWork/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("getWork/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], WorkController.prototype, "getWork", null);
 WorkController = __decorate([
-    (0, common_1.Controller)('works'),
+    (0, common_1.Controller)("works"),
     __metadata("design:paramtypes", [work_service_1.WorkService])
 ], WorkController);
 exports.WorkController = WorkController;
