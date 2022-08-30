@@ -7,6 +7,7 @@ import Modal from '../../../shared/components/Modal';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const BASE_URL: string = "http://localhost:3001";
 
@@ -19,14 +20,25 @@ interface Summary {
 
 
 export default function PastSummaries() {
+    const { _id } = useParams();
     const [open, setOpen] = useState(false);
     const [loadingTable, setLoadingTable] = useState(true);
     const [loadingModal, setLoadingModal] = useState(true);
     const [summaries, setSummaries] = useState<Summary[]>([]);
     const [summary, setSummary] = useState<Summary>();
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.grey[300],
+            color: theme.palette.common.black,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
     useEffect(() => {
-        let url = BASE_URL + "/summaries/getSummaries"
+        let url = BASE_URL + "/summaries/getSummariesClass/" + _id;
         fetch(url, {})
             .then((response) => {
                 if (!response.ok) {
@@ -42,17 +54,6 @@ export default function PastSummaries() {
                 console.log(error.message)
             })
     }, [])
-
-
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.grey[300],
-            color: theme.palette.common.black,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
-        },
-    }));
 
     return (
         <>

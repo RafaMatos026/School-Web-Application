@@ -33,9 +33,14 @@ let SummaryController = class SummaryController {
         const summary = await this.SummaryService.getSummary(_id);
         return summary;
     }
+    async getSummariesClass(_id) {
+        const summaries = await this.SummaryService.getSummariesByClass(_id);
+        return summaries;
+    }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Post)("create"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createSummary_dto_1.CreateSummaryDto]),
@@ -43,20 +48,29 @@ __decorate([
 ], SummaryController.prototype, "createSummary", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getSummaries'),
+    (0, common_1.Get)("getSummaries"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], SummaryController.prototype, "getSummarys", null);
 __decorate([
-    (0, common_1.Get)('getSummary/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)("getSummary/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SummaryController.prototype, "getSummary", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)("getSummariesClass/:_id"),
+    __param(0, (0, common_1.Param)("_id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SummaryController.prototype, "getSummariesClass", null);
 SummaryController = __decorate([
-    (0, common_1.Controller)('summaries'),
+    (0, common_1.Controller)("summaries"),
     __metadata("design:paramtypes", [summary_service_1.SummaryService])
 ], SummaryController);
 exports.SummaryController = SummaryController;

@@ -31,12 +31,23 @@ let SummaryService = class SummaryService {
         return newSummary;
     }
     async getSummarys() {
-        const summarys = this.summaryModel.find({});
+        const summarys = await this.summaryModel.find({});
         if (summarys) {
             return summarys;
         }
         else {
-            throw new common_1.NotFoundException('No summarys found!');
+            throw new common_1.NotFoundException("No summarys found!");
+        }
+    }
+    async getSummariesByClass(classId) {
+        const summaries = await this.summaryModel
+            .find({ classId: classId })
+            .select("Date Description");
+        if (summaries) {
+            return summaries;
+        }
+        else {
+            throw new common_1.NotFoundException("No summaries found for this class!");
         }
     }
     async getSummary(_id) {
@@ -45,7 +56,7 @@ let SummaryService = class SummaryService {
             return summary;
         }
         else {
-            throw new common_1.NotFoundException('Summary not found!');
+            throw new common_1.NotFoundException("Summary not found!");
         }
     }
 };

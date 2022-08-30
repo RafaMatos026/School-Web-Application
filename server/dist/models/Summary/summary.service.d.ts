@@ -22,9 +22,9 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
-import { Summary } from './summary.schema';
-import { CreateSummaryDto } from './dto/createSummary.dto';
+import { Model, ObjectId } from "mongoose";
+import { Summary } from "./summary.schema";
+import { CreateSummaryDto } from "./dto/createSummary.dto";
 export declare class SummaryService {
     private readonly summaryModel;
     constructor(summaryModel: Model<Summary>);
@@ -32,6 +32,7 @@ export declare class SummaryService {
     getSummarys(): Promise<(import("mongoose").Document<unknown, any, Summary> & Summary & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
+    getSummariesByClass(classId: ObjectId): Promise<Summary[]>;
     getSummary(_id: string): Promise<import("mongoose").Document<unknown, any, Summary> & Summary & {
         _id: import("mongoose").Types.ObjectId;
     }>;

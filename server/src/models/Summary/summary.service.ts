@@ -1,13 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { Summary } from './summary.schema';
-import { CreateSummaryDto } from './dto/createSummary.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { Model, ObjectId } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { Summary } from "./summary.schema";
+import { CreateSummaryDto } from "./dto/createSummary.dto";
 
 @Injectable()
 export class SummaryService {
   constructor(
-    @InjectModel(Summary.name) private readonly summaryModel: Model<Summary>,
+    @InjectModel(Summary.name) private readonly summaryModel: Model<Summary>
   ) {}
 
   //Create summary
@@ -23,11 +23,23 @@ export class SummaryService {
 
   //Get all summarys
   async getSummarys() {
-    const summarys = this.summaryModel.find({});
+    const summarys = await this.summaryModel.find({});
     if (summarys) {
       return summarys;
     } else {
-      throw new NotFoundException('No summarys found!');
+      throw new NotFoundException("No summarys found!");
+    }
+  }
+
+  //Get summaries from a class
+  async getSummariesByClass(classId: ObjectId): Promise<Summary[]> {
+    const summaries = await this.summaryModel
+      .find({ classId: classId })
+      .select("Date Description");
+    if (summaries) {
+      return summaries;
+    } else {
+      throw new NotFoundException("No summaries found for this class!");
     }
   }
 
@@ -37,7 +49,7 @@ export class SummaryService {
     if (summary) {
       return summary;
     } else {
-      throw new NotFoundException('Summary not found!');
+      throw new NotFoundException("Summary not found!");
     }
   }
 }
