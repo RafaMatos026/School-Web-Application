@@ -84,6 +84,9 @@ let UserController = class UserController {
     async getMyClasses(_id) {
         return await this.UserService.getMyClasses(_id);
     }
+    async getProfilePic(_id) {
+        return await this.UserService.getProfilePic(_id);
+    }
 };
 __decorate([
     (0, isPublic_decorator_1.Public)(),
@@ -225,12 +228,20 @@ __decorate([
 ], UserController.prototype, "getByEmail", null);
 __decorate([
     (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('myClasses/:_id'),
-    __param(0, (0, common_1.Param)('_id')),
+    (0, common_1.Get)("myClasses/:_id"),
+    __param(0, (0, common_1.Param)("_id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getMyClasses", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Get)("getProfilePic/:_id"),
+    __param(0, (0, common_1.Param)("_id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getProfilePic", null);
 UserController = __decorate([
     (0, common_1.Controller)("users"),
     __metadata("design:paramtypes", [user_service_1.UserService])

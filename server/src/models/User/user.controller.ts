@@ -145,8 +145,15 @@ export class UserController {
 
   //Get classes the user is assigned to;
   @Public()
-  @Get('myClasses/:_id')
-  async getMyClasses(@Param('_id') _id: ObjectId){
-    return await this.UserService.getMyClasses(_id)
+  @Get("myClasses/:_id")
+  async getMyClasses(@Param("_id") _id: ObjectId) {
+    return await this.UserService.getMyClasses(_id);
+  }
+
+  //Get profile picture
+  @Public()
+  @Get("getProfilePic/:_id")
+  async getProfilePic(@Param("_id") _id: ObjectId) {
+    return await this.UserService.getProfilePic(_id);
   }
 }

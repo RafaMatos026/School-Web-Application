@@ -103,7 +103,7 @@ let UserService = class UserService {
         return result;
     }
     async getUser(_id) {
-        const user = this.userModel.find({ _id: _id });
+        const user = this.userModel.findById(_id).select("-Password -MyClasses");
         if (user) {
             return user;
         }
@@ -334,6 +334,9 @@ let UserService = class UserService {
             },
         })
             .exec();
+    }
+    async getProfilePic(_id) {
+        return await this.userModel.findById(_id).select("ProfilePicture FName LName");
     }
 };
 UserService = __decorate([

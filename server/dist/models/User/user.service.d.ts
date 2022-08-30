@@ -35,7 +35,7 @@ export declare class UserService {
     createUser(CreateUserDto: CreateUserDto): Promise<User>;
     createStudent(createStudentDto: CreateStudentDto): Promise<User>;
     createTeacher(createTeacherDto: CreateTeacherDto): Promise<User>;
-    getUser(_id: string): Promise<User[]>;
+    getUser(_id: string): Promise<User>;
     getUsers(): Promise<User[]>;
     getTeachers(): Promise<User[]>;
     getStudents(): Promise<User[]>;
@@ -67,6 +67,9 @@ export declare class UserService {
     addToMyClasses(_id: ObjectId, classId: ObjectId): Promise<void>;
     removeFromMyClasses(_id: ObjectId, classId: ObjectId): Promise<void>;
     getMyClasses(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, User> & User & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
+    getProfilePic(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
 }

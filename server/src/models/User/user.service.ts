@@ -105,8 +105,8 @@ export class UserService {
   }
 
   //Get user by id
-  async getUser(_id: string): Promise<User[]> {
-    const user = this.userModel.find({ _id: _id });
+  async getUser(_id: string): Promise<User> {
+    const user = this.userModel.findById(_id).select("-Password -MyClasses");
     if (user) {
       return user;
     } else {
@@ -375,5 +375,10 @@ export class UserService {
         },
       })
       .exec();
+  }
+
+  //get profile pic
+  async getProfilePic(_id: ObjectId) {
+    return await this.userModel.findById(_id).select("ProfilePicture FName LName");
   }
 }
