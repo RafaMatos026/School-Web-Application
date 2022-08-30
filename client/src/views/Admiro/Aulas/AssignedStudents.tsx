@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Checkbox from '@mui/material/Checkbox';
 import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { useParams } from "react-router-dom";
 import { BASE_URL } from '../../../shared/consts';
+import { AuthContext } from "../../../auth/AuthContext";
 
 export default function AssignedStudents() {
     const { _id } = useParams();
     const [checks, setChecks] = useState<string[]>([])
     const [students, setStudents] = useState([])
     const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem('token');
 
     const handleCheckboxes = (event: React.ChangeEvent<HTMLInputElement>) => {
         const index = checks.indexOf(event.target.value)
@@ -33,7 +35,11 @@ export default function AssignedStudents() {
 
     useEffect(() => {
         let url = BASE_URL + "/classes/assignedStudents/" + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

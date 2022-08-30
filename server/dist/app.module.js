@@ -22,6 +22,8 @@ const auth_module_1 = require("./auth/auth.module");
 const core_1 = require("@nestjs/core");
 const jwt_guard_1 = require("./auth/guards/jwt.guard");
 const config_1 = require("@nestjs/config");
+const evaluation_module_1 = require("./models/Evaluation/evaluation.module");
+const absence_justification_module_1 = require("./models/absence-justification/absence-justification.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -37,6 +39,8 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot(),
             mongoose_1.MongooseModule.forRoot(process.env.MONGOOSE_CONNECTION),
             auth_module_1.AuthModule,
+            evaluation_module_1.EvaluationModule,
+            absence_justification_module_1.AbsenceJustificationModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, { provide: core_1.APP_GUARD, useClass: jwt_guard_1.JwtAuthGuard }],

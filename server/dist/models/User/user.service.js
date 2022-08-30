@@ -19,7 +19,6 @@ const user_schema_1 = require("./user.schema");
 const mongoose_2 = require("mongoose");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
-const consts_1 = require("../../consts");
 function GeneratePassword() {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -80,7 +79,7 @@ let UserService = class UserService {
             MyClasses: createStudentDto.MyClasses,
             Status: true,
             Registered: true,
-            AccountType: consts_1.student,
+            AccountType: "62f38d97cafa8d86f57141c5",
             Password: await bcrypt.hash(pass, 10),
         });
         const result = await newUser.save();
@@ -97,7 +96,7 @@ let UserService = class UserService {
             MyClasses: createTeacherDto.MyClasses,
             Password: await bcrypt.hash(createTeacherDto.Password, 10),
             Birthday: createTeacherDto.Birthday,
-            AccountType: consts_1.teacher,
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         const result = await newUser.save();
         return result;
@@ -124,7 +123,7 @@ let UserService = class UserService {
         const teachers = await this.userModel.find({
             Status: true,
             Registered: true,
-            AccountType: consts_1.teacher,
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (teachers) {
             return teachers;
@@ -135,7 +134,7 @@ let UserService = class UserService {
     }
     async getStudents() {
         const students = await this.userModel.find({
-            AccountType: consts_1.student,
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (students) {
             return students;
@@ -147,7 +146,7 @@ let UserService = class UserService {
     async getActiveStudents() {
         const result = await this.userModel.find({
             Status: true,
-            AccountType: consts_1.student,
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (result) {
             return result;
@@ -160,7 +159,7 @@ let UserService = class UserService {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: consts_1.student,
+            AccountType: "62f38d97cafa8d86f57141c5",
         });
         if (result) {
             return result;
@@ -173,7 +172,7 @@ let UserService = class UserService {
         const result = await this.userModel.find({
             Status: false,
             Registered: true,
-            AccountType: consts_1.teacher,
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (result) {
             return result;
@@ -186,7 +185,7 @@ let UserService = class UserService {
         const requests = await this.userModel.find({
             Status: false,
             Registered: false,
-            AccountType: consts_1.teacher,
+            AccountType: "62f38d8ccafa8d86f57141c3",
         });
         if (requests) {
             return requests;
@@ -228,7 +227,7 @@ let UserService = class UserService {
     async assignableStudents(_id) {
         var _a;
         const students = await this.userModel.find({
-            AccountType: consts_1.student,
+            AccountType: "62f38d97cafa8d86f57141c5",
             Status: true,
             Registered: true,
         });
@@ -248,7 +247,7 @@ let UserService = class UserService {
     async assignableTeachers(_id) {
         var _a;
         const teachers = await this.userModel.find({
-            AccountType: consts_1.teacher,
+            AccountType: "62f38d8ccafa8d86f57141c3",
             Status: true,
             Registered: true,
         });

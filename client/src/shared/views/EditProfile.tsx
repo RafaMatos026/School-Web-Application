@@ -27,7 +27,6 @@ export default function EditProfile() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data)
                 setBirthday(data.Birthday);
                 setEmail(data.Email);
                 setFName(data.FName);

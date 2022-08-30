@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
                     console.log("Settei o user");
                     setUser(data.user);
                     setToken(data.access_token);
-                    return true;    
+                    return true;
                 }
                 return false;
             })
