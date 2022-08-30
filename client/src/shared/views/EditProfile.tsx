@@ -69,6 +69,10 @@ export default function EditProfile() {
                         <TextField type={'password'} size='small' fullWidth value={Password} onChange={(e) => setPassword(e.target.value)} />
                     </Grid>
                     <Grid xs={12} item>
+                        <Typography>Confirm Password</Typography>
+                        <TextField type={'password'} size='small' fullWidth value={Password} onChange={(e) => setPassword(e.target.value)} />
+                    </Grid>
+                    <Grid xs={12} item>
                         <Typography>Birthday</Typography>
                         <TextField type={'date'} size='small' fullWidth value={Birthday} onChange={(e) => setBirthday(e.target.value.toString())} />
                     </Grid>

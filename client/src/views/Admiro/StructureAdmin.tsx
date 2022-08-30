@@ -18,6 +18,7 @@ import { AuthContext } from '../../auth/AuthContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useContext } from 'react';
+import { BASE_URL } from '../../shared/consts';
 
 const drawerWidth = 240;
 
@@ -34,12 +35,35 @@ export default function ResponsiveDrawer(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const user = useContext(AuthContext).user;
   const auth = useContext(AuthContext);
+  const [pic, setPic] = React.useState("");
+  const [FName, setFName] = React.useState("");
+  const [LName, setLName] = React.useState("");
 
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  React.useEffect(() => {
+    let url = BASE_URL + '/users/getProfilePic/' + user?._id;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPic(data.ProfilePicture);
+        setFName(data.FName);
+        setLName(data.LName);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
+  }, [])
 
   const drawer = (
     <div>
@@ -48,7 +72,7 @@ export default function ResponsiveDrawer(props: Props) {
         display='flex'
         alignItems='center'
         justifyContent='center'>
-        <Avatar alt='Admin avatar' sx={{ width: 100, height: 100 }} />
+        {pic === "" ? <Avatar sx={{ width: 100, height: 100, fontSize: 35 }}>{FName.slice(0, 1) + LName.slice(0, 1)}</Avatar> : <Avatar alt='profile picture' src={pic} />}
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={26}>

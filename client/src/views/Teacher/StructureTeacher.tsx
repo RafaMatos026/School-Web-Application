@@ -11,13 +11,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { AuthContext } from '../../auth/AuthContext';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { BASE_URL } from '../../shared/consts';
 
 const drawerWidth = 240;
 
@@ -34,12 +35,35 @@ export default function ResponsiveDrawer(props: Props) {
   const user = useContext(AuthContext).user;
   const auth = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [pic, setPic] = useState("");
+  const [FName, setFName] = useState("");
+  const [LName, setLName] = useState("");
 
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    let url = BASE_URL + '/users/getProfilePic/' + user?._id;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setPic(data.ProfilePicture);
+        setFName(data.FName);
+        setLName(data.LName);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
+  }, [])
 
   const drawer = (
     <div>
@@ -48,7 +72,7 @@ export default function ResponsiveDrawer(props: Props) {
         alignItems='center'
         justifyContent='center'
         marginTop={3}>
-        <Avatar alt='Admin avatar' sx={{ width: 100, height: 100 }} />
+        {pic === "" ? <Avatar sx={{ width: 100, height: 100, fontSize: 35 }}>{FName.slice(0, 1) + LName.slice(0, 1)}</Avatar> : <Avatar alt='profile picture' src={pic} />}
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={26}>
@@ -99,7 +123,7 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{flexGrow: 1}}>
+          <Box sx={{ flexGrow: 1 }}>
             <IconButton
               color='inherit'
               aria-label='go back'
