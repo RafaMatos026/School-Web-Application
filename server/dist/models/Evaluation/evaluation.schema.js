@@ -15,6 +15,10 @@ const mongoose_2 = require("mongoose");
 let Evaluation = class Evaluation {
 };
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Evaluation.prototype, "EvaluationName", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }),
     __metadata("design:type", Object)
 ], Evaluation.prototype, "teacherId", void 0);
@@ -22,6 +26,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: "Class" }),
     __metadata("design:type", Object)
 ], Evaluation.prototype, "classId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], Evaluation.prototype, "Description", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Date)

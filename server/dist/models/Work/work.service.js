@@ -34,12 +34,12 @@ let WorkService = class WorkService {
         return result;
     }
     async getClassWork(_id) {
-        const work = await this.workModel.find({ classId: _id });
-        if (!work) {
+        const works = await this.workModel.find({ classId: _id });
+        if (!works) {
             throw new common_1.NotFoundException("No work associated with the class!");
         }
         else {
-            return work;
+            return works;
         }
     }
 };

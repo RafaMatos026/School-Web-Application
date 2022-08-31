@@ -26,11 +26,11 @@ export class WorkService {
 
   //get all work associated with a class
   async getClassWork(_id: string): Promise<Work[]> {
-    const work = await this.workModel.find({ classId: _id });
-    if (!work) {
+    const works = await this.workModel.find({ classId: _id });
+    if (!works) {
       throw new NotFoundException("No work associated with the class!");
     } else {
-      return work;
+      return works;
     }
   }
 }

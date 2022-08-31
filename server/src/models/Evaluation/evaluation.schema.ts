@@ -4,11 +4,17 @@ export type EvaluationDocument = Evaluation & Document;
 
 @Schema()
 export class Evaluation {
+  @Prop({ required: true })
+  EvaluationName: string;
+
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "User" })
   teacherId: ObjectId;
 
   @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: "Class" })
   classId: ObjectId;
+
+  @Prop()
+  Description: string;
 
   @Prop()
   DateAdded: Date;

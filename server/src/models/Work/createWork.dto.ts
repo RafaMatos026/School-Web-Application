@@ -16,6 +16,6 @@ export class CreateWorkDto {
 
   AddedDate: Date;
 
-  @IsNotEmpty({message: "Work must hava a url associated with!"})
+  @IsNotEmpty({message: "Work must have a url associated with!"})
   fileUrl: string;
 }

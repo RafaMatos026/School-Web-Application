@@ -1,17 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipeBuilder,
-} from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { diskStorage } from "multer";
-import { extname } from "path";
-import { Public } from "../../auth/decorators/isPublic.decorator";
+import { Controller, Post, Body, Get, Param } from "@nestjs/common";
 import { CreateWorkDto } from "./createWork.dto";
 import { WorkService } from "./work.service";
 
