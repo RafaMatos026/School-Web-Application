@@ -23,6 +23,7 @@ let SummaryService = class SummaryService {
     }
     async createSummary(CreateSummaryDto) {
         const newSummary = new this.summaryModel({
+            SummaryName: CreateSummaryDto.SummaryName,
             Date: CreateSummaryDto.Date,
             Description: CreateSummaryDto.Description,
             classId: CreateSummaryDto.classId,
@@ -40,9 +41,7 @@ let SummaryService = class SummaryService {
         }
     }
     async getSummariesByClass(classId) {
-        const summaries = await this.summaryModel
-            .find({ classId: classId })
-            .select("Date Description");
+        const summaries = await this.summaryModel.find({ classId: classId });
         if (summaries) {
             return summaries;
         }

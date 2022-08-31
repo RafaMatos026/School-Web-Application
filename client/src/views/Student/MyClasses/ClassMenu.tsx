@@ -35,7 +35,7 @@ export default function ClassMenu() {
                 </Grid>
                 <Grid item xs={12} md={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
-                        <CardActionArea onClick={() => navigate('/student/myClasses/classId/past-summaries')}>
+                        <CardActionArea onClick={() => navigate('/student/myClasses/' + _id +'/past-summaries')}>
                             <CardHeader title='View Past Summaries' />
                         </CardActionArea>
                     </Card>

@@ -31,8 +31,8 @@ export class SummaryController {
 
   //Get summaries from class
   @Get("getSummariesClass/:_id")
-  async getSummariesClass(@Param("_id") _id: ObjectId) {
-    const summaries = await this.SummaryService.getSummariesByClass(_id);
+  async getSummariesClass(@Param("_id") classId: ObjectId) {
+    const summaries = await this.SummaryService.getSummariesByClass(classId);
     return summaries;
   }
 }

@@ -7,10 +7,12 @@ import Modal from '../../../shared/components/Modal';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const BASE_URL: string = "http://localhost:3001";
 
 interface Summary {
+    SummaryName: string;
     Date: Date;
     Description: string;
     classId: string;
@@ -18,6 +20,7 @@ interface Summary {
 }
 
 export default function PastSummaries() {
+    const { _id } = useParams();
     const [open, setOpen] = useState(false);
     const [loadingTable, setLoadingTable] = useState(true);
     const [loadingModal, setLoadingModal] = useState(true);
@@ -25,7 +28,7 @@ export default function PastSummaries() {
     const [summary, setSummary] = useState<Summary>();
 
     useEffect(() => {
-        let url = BASE_URL + "/summaries/getSummaries"
+        let url = BASE_URL + "/summaries/getSummariesClass/" + _id;
         fetch(url, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -66,6 +69,7 @@ export default function PastSummaries() {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'15%'} align='center'>Title</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Date</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Submitted at</StyledTableCell>
                                     <StyledTableCell width={'10%'} align='center'>More</StyledTableCell>
@@ -75,6 +79,7 @@ export default function PastSummaries() {
                                 {summaries.map((summary, index) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{summary.SummaryName}</TableCell>
                                         <TableCell align='center'>{summary.Date.toString().slice(0, 10)}</TableCell>
                                         <TableCell align='center'>{summary.Date.toString().slice(11, 16)}</TableCell>
                                         <TableCell align='center'>

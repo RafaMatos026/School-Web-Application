@@ -11,14 +11,18 @@ interface Props {
 }
 
 export default function AddSummary(props: Props) {
-    const { id } = useParams();
+    const { _id } = useParams();
     const { open, setOpen } = props;
     const [Description, setDescription] = useState("");
-
+    const [SummaryName, setSummaryName] = useState("");
     return (
         <Modal open={open} title={"Add Summary"} setOpen={setOpen}>
             <form>
                 <Grid container spacing={1}>
+                    <Grid xs={12} item>
+                        <Typography>Title:</Typography>
+                        <TextField value={SummaryName} onChange={(e) => setSummaryName(e.target.value)} type={'text'} fullWidth />
+                    </Grid>
                     <Grid xs={12} item>
                         <Typography>Summary:</Typography>
                         <TextField multiline value={Description} onChange={(e) => setDescription(e.target.value)} rows={5} type={'text'} fullWidth />
@@ -38,8 +42,9 @@ export default function AddSummary(props: Props) {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
+                SummaryName: SummaryName,
                 Description: Description,
-                classId: id,
+                classId: _id,
                 Date: Date.now()
             }),
             headers: {

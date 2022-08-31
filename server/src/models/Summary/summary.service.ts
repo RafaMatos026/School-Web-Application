@@ -13,6 +13,7 @@ export class SummaryService {
   //Create summary
   async createSummary(CreateSummaryDto: CreateSummaryDto): Promise<Summary> {
     const newSummary = new this.summaryModel({
+      SummaryName: CreateSummaryDto.SummaryName,
       Date: CreateSummaryDto.Date,
       Description: CreateSummaryDto.Description,
       classId: CreateSummaryDto.classId,
@@ -33,9 +34,7 @@ export class SummaryService {
 
   //Get summaries from a class
   async getSummariesByClass(classId: ObjectId): Promise<Summary[]> {
-    const summaries = await this.summaryModel
-      .find({ classId: classId })
-      .select("Date Description");
+    const summaries = await this.summaryModel.find({ classId: classId });
     if (summaries) {
       return summaries;
     } else {

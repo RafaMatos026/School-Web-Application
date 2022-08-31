@@ -16,16 +16,20 @@ let Summary = class Summary {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", Date)
-], Summary.prototype, "Date", void 0);
+    __metadata("design:type", String)
+], Summary.prototype, "SummaryName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Summary.prototype, "Description", void 0);
+    __metadata("design:type", Date)
+], Summary.prototype, "Date", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
     __metadata("design:type", Object)
 ], Summary.prototype, "classId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Summary.prototype, "Description", void 0);
 Summary = __decorate([
     (0, mongoose_1.Schema)()
 ], Summary);

@@ -86,7 +86,6 @@ export default function MarkPresence(props: Props) {
         let url = BASE_URL + "/presences/markPresence"
         fetch(url, {
             method: 'POST',
-
             body: JSON.stringify({
                 _id: _id,
                 studentId: user_id,

@@ -35,5 +35,5 @@ export declare class SummaryController {
     getSummary(_id: string): Promise<import("mongoose").Document<unknown, any, import("./summary.schema").Summary> & import("./summary.schema").Summary & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getSummariesClass(_id: ObjectId): Promise<import("./summary.schema").Summary[]>;
+    getSummariesClass(classId: ObjectId): Promise<import("./summary.schema").Summary[]>;
 }

@@ -32,8 +32,8 @@ let SummaryController = class SummaryController {
         const summary = await this.SummaryService.getSummary(_id);
         return summary;
     }
-    async getSummariesClass(_id) {
-        const summaries = await this.SummaryService.getSummariesByClass(_id);
+    async getSummariesClass(classId) {
+        const summaries = await this.SummaryService.getSummariesByClass(classId);
         return summaries;
     }
 };

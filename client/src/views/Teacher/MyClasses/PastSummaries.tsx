@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 const BASE_URL: string = "http://localhost:3001";
 
 interface Summary {
+    SummaryName: string;
     Date: Date;
     Description: string;
     classId: string;
@@ -69,6 +70,7 @@ export default function PastSummaries() {
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell width={'5%'} align='center'>#</StyledTableCell>
+                                    <StyledTableCell width={'5%'} align='center'>Title</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Date</StyledTableCell>
                                     <StyledTableCell width={'15%'} align='center'>Submitted at</StyledTableCell>
                                     <StyledTableCell width={'10%'} align='center'>More</StyledTableCell>
@@ -79,6 +81,7 @@ export default function PastSummaries() {
                                 {summaries.map((summary, index) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
+                                        <TableCell align='center'>{summary.SummaryName}</TableCell>
                                         <TableCell align='center'>{summary.Date.toString().slice(0, 10)}</TableCell>
                                         <TableCell align='center'>{summary.Date.toString().slice(11, 16)}</TableCell>
                                         <TableCell align='center'>
@@ -94,7 +97,7 @@ export default function PastSummaries() {
                 </Box>
             )}
 
-            <Modal open={open} title={summary ? summary._id : "Error"} setOpen={setOpen}>
+            <Modal open={open} title={summary ? summary.SummaryName : "Error"} setOpen={setOpen}>
                 {loadingModal && <h1>Loading summary...</h1>}
                 {!loadingModal && (
                     <>
