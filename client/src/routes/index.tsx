@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Register from '../views/Register/Register';
 import StructureAdmin from '../views/Admiro/StructureAdmin';
 import RegistrationRequests from '../views/Admiro/Teachers/AcceptRegistrations';
@@ -31,6 +31,8 @@ import DisabledTeachers from '../views/Admiro/Teachers/DisabledTeachers';
 import Portal from '../views/others/Portal';
 import EditProfile from '../shared/views/EditProfile';
 import RequireAuth from '../auth/RequireAuth';
+import { admin, student, teacher } from '../shared/consts';
+import Unathorized from '../shared/views/Unauthorized';
 export const AppRoutes = () => {
 
 
@@ -44,15 +46,12 @@ export const AppRoutes = () => {
             {/** Portal */}
             <Route path='/' element={<Portal />} />
 
-            {/**Homes*/}
-            <Route element={<RequireAuth />}>
-                <Route path='/admin' element={<StructureAdmin child={<h1>Hello Admin</h1>} />} />
-                <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
-                <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
-            </Route>
+            {/* UNAUTHORIZED */}
+            <Route path='/unauthorized' element={<Unathorized />} />
 
             {/** ADMIN */}
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRole={admin} />}>
+                <Route path='/admin' element={<StructureAdmin child={<h1>Hello Admin</h1>} />} />
                 <Route path='/admin/registration-requests' element={<StructureAdmin child={<RegistrationRequests />} />} />
                 <Route path='/admin/create-student' element={<StructureAdmin child={<CreateStudent />} />} />
                 <Route path='/admin/create-class' element={<StructureAdmin child={<CreateClass />} />} />
@@ -80,7 +79,8 @@ export const AppRoutes = () => {
             </Route>
 
             {/** TEACHER */}
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRole={teacher} />}>
+                <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
                 <Route path='/teacher/create-class' element={
                     <StructureTeacher child={<CreateClass />} />} />
                 <Route path='/teacher/myClasses' element={
@@ -96,7 +96,8 @@ export const AppRoutes = () => {
             </Route>
 
             {/** STUDENT */}
-            <Route element={<RequireAuth />}>
+            <Route element={<RequireAuth allowedRole={student} />}>
+                <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
                 <Route path='/student/myClasses' element={
                     <StructureStudent child={<MyClassesStudent />} />} />
                 <Route path='/student/myClasses/:_id' element={

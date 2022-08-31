@@ -1,14 +1,27 @@
+import { useContext } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { AuthContext } from "./AuthContext";
 
-const RequireAuth = () => {
-    const auth = useAuth();
+interface Props {
+    allowedRole?: string;
+}
+
+const RequireAuth = (Props: Props) => {
+    const user = useContext(AuthContext).user;
     const location = useLocation();
+    const { allowedRole } = Props;
+    var aux: boolean = false;
+    if (user) {
+        aux = true;
+    }
+    console.log(aux);
 
-    return(
-        auth?.user
-        ? <Outlet/>
-        : <Navigate to={'/login'} state={{from: location}} replace/>
+    return (
+        user?.AccountType === allowedRole
+            ? <Outlet />
+            : aux
+                ? <Navigate to={'/unauthorized'} state={{ from: location }} replace />
+                : <Navigate to={'/login'} state={{ from: location }} replace />
     );
 }
 
