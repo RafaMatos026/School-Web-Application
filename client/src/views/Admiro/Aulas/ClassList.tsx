@@ -27,7 +27,11 @@ export default function ClassList() {
 
     useEffect(() => {
         let url: string = BASE_URL + '/classes/getActiveClasses';
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

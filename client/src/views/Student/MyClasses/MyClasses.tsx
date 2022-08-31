@@ -27,7 +27,11 @@ export default function MyClasses() {
 
     useEffect(() => {
         let url = BASE_URL + "/users/myClasses/" + user_id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

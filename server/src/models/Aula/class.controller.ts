@@ -1,6 +1,5 @@
 import { Controller, Post, Body, Get, Param, Put } from "@nestjs/common";
 import { ObjectId } from "mongoose";
-import { Public } from "src/auth/decorators/isPublic.decorator";
 import { ClassService } from "./class.service";
 import { CreateClassDto } from "./dto/createClass.dto";
 import { UpdateClassDto } from "./dto/updateClass.dto";
@@ -10,14 +9,12 @@ export class ClassController {
   constructor(private readonly ClassService: ClassService) {}
 
   //Create class
-  @Public()
   @Post("create")
   async createClass(@Body() createClassDto: CreateClassDto) {
     return await this.ClassService.createClass(createClassDto);
   }
 
   //Get active classes
-  @Public()
   @Get("getActiveClasses")
   async getActiveClasses() {
     const classes = await this.ClassService.getActiveClasses();
@@ -25,7 +22,6 @@ export class ClassController {
   }
 
   //Get disabled classes
-  @Public()
   @Get("getDisabledClasses")
   async getDisabledClasses() {
     const classes = await this.ClassService.getDisabledClasses();
@@ -33,7 +29,6 @@ export class ClassController {
   }
 
   //Get class by id
-  @Public()
   @Get("getClass/:id")
   async getClass(@Param("id") classId: string) {
     const clas = await this.ClassService.getClass(classId);
@@ -41,7 +36,6 @@ export class ClassController {
   }
 
   //Update class
-  @Public()
   @Put("updateClass/:id")
   async updateClass(
     @Param("id") _id: string,
@@ -51,21 +45,21 @@ export class ClassController {
   }
 
   //Disable class
-  @Public()
   @Put("deleteClass/:id")
   async deleteClass(@Param("id") classId: string) {
     await this.ClassService.disableClass(classId);
   }
 
   //Assign teachers
-  @Public()
   @Put("assignTeachers/:id")
-  async assignTeachers(@Param("id") _id: ObjectId, @Body() teachers: ObjectId[]) {
+  async assignTeachers(
+    @Param("id") _id: ObjectId,
+    @Body() teachers: ObjectId[]
+  ) {
     await this.ClassService.assignTeachers(_id, teachers);
   }
 
   //Assign students
-  @Public()
   @Put("assignStudents/:id")
   async assignStudents(
     @Param("id") _id: ObjectId,
@@ -75,14 +69,12 @@ export class ClassController {
   }
 
   //Assigned Students
-  @Public()
   @Get("assignedStudents/:id")
   async assignedStudents(@Param("id") _id: string) {
     return await this.ClassService.assignedStudents(_id);
   }
 
   //Assigned Teachers
-  @Public()
   @Get("assignedTeachers/:id")
   async assignedTeachers(@Param("id") _id: string) {
     return await this.ClassService.assignedTeachers(_id);

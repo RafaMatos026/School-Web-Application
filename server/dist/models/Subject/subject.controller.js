@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubjectController = void 0;
 const common_1 = require("@nestjs/common");
-const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 const subject_service_1 = require("./subject.service");
 let SubjectController = class SubjectController {
     constructor(SubjectService) {
@@ -38,38 +37,34 @@ let SubjectController = class SubjectController {
     }
 };
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)('Description')),
+    (0, common_1.Post)("create"),
+    __param(0, (0, common_1.Body)("Description")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "createSubject", null);
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getSubjects'),
+    (0, common_1.Get)("getSubjects"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "getSubjects", null);
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Get)('getSubject/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("getSubject/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "getSubject", null);
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
-    (0, common_1.Put)('deleteSubject/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Put)("deleteSubject/:id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "deleteSubject", null);
 SubjectController = __decorate([
-    (0, common_1.Controller)('subjects'),
+    (0, common_1.Controller)("subjects"),
     __metadata("design:paramtypes", [subject_service_1.SubjectService])
 ], SubjectController);
 exports.SubjectController = SubjectController;

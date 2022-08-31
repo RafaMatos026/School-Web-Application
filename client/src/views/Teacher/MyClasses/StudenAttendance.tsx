@@ -7,7 +7,7 @@ import { ISurvey } from '../../../shared/Interfaces/interfaces';
 import MoreHoriz from '@mui/icons-material/MoreHoriz';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '../../../shared/components/Modal';
-import {BASE_URL } from '../../../shared/consts'
+import { BASE_URL } from '../../../shared/consts'
 
 export default function StudentAttendance() {
     const { _id } = useParams();
@@ -34,7 +34,11 @@ export default function StudentAttendance() {
 
     function LoadSurveys() {
         let url = BASE_URL + "/presences/getSurveys/" + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -149,7 +153,11 @@ export default function StudentAttendance() {
         let urlA = BASE_URL + '/presences/getAbsents/' + _id;
         let urlP = BASE_URL + '/presences/getPresents/' + _id;
 
-        fetch(urlA)
+        fetch(urlA, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -164,7 +172,11 @@ export default function StudentAttendance() {
                 console.log(err.message);
             })
 
-        fetch(urlP)
+        fetch(urlP, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

@@ -42,7 +42,11 @@ export default function CreateClass() {
 
     function getTeachers() {
         let url = BASE_URL + "/users/getTeachers";
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -119,7 +123,8 @@ export default function CreateClass() {
                 HeadTeacher: HeadTeacher,
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         })
             .then((response) => {

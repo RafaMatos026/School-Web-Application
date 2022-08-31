@@ -22,9 +22,9 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { PresenceService } from './presence.service';
+import { PresenceService } from "./presence.service";
 import { newSurveyDto } from "./dto's/newSurvey.dto";
-import { ObjectId } from 'mongoose';
+import { ObjectId } from "mongoose";
 export declare class PresenceController {
     private readonly PresenceService;
     constructor(PresenceService: PresenceService);

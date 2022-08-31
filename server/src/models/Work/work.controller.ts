@@ -20,14 +20,12 @@ export class WorkController {
   constructor(private readonly WorkService: WorkService) {}
 
   //Add work
-  @Public()
   @Post("create")
   async createWork(@Body() data: CreateWorkDto) {
     return await this.WorkService.createWork(data);
   }
 
   //Get works submitted from a class
-  @Public()
   @Get("getWork/:id")
   async getWork(@Param("id") classId: string) {
     return await this.WorkService.getClassWork(classId);

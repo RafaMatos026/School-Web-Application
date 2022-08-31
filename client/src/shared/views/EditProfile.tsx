@@ -19,7 +19,11 @@ export default function EditProfile() {
 
     useEffect(() => {
         let url = BASE_URL + "/users/getUser/" + user?._id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -89,10 +93,15 @@ export default function EditProfile() {
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
-
+                ProfilePicture: ProfilePicture,
+                FName: FName,
+                LName: LName,
+                Password: Password,
+                Birthday: Birthday,
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {

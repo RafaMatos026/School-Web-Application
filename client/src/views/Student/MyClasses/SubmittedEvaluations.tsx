@@ -2,9 +2,9 @@ import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, Tabl
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useState } from 'react';
 import DownloadIcon from '@mui/icons-material/Download';
+//take an eye icon here;
 
 export default function PastSummaries() {
     const [evaluations, setEvaluations] = useState<Object>([]);
@@ -43,7 +43,7 @@ export default function PastSummaries() {
                                     <TableCell align='center'>26/04/2022</TableCell>
                                     <TableCell align='center'>
                                         <IconButton>
-                                           <DownloadIcon/>
+                                            <DownloadIcon />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>

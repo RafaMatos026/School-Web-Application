@@ -36,7 +36,11 @@ export default function AssignTeacher() {
 
     useEffect(() => {
         let url = BASE_URL + '/users/assignableTeachers/' + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -107,7 +111,8 @@ export default function AssignTeacher() {
             method: 'PUT',
             body: JSON.stringify(checks),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {

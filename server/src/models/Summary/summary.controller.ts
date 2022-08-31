@@ -9,7 +9,6 @@ export class SummaryController {
   constructor(private readonly SummaryService: SummaryService) {}
 
   //Create summary
-  @Public()
   @Post("create")
   async createSummary(@Body() CreateSummaryDto: CreateSummaryDto) {
     const summary = await this.SummaryService.createSummary(CreateSummaryDto);
@@ -17,21 +16,20 @@ export class SummaryController {
   }
 
   //Get all summarys
-  @Public()
   @Get("getSummaries")
   async getSummarys() {
     const summarys = await this.SummaryService.getSummarys();
     return summarys;
   }
 
-  @Public()
+  //Get summary
   @Get("getSummary/:id")
   async getSummary(@Param("id") _id: string) {
     const summary = await this.SummaryService.getSummary(_id);
     return summary;
   }
 
-  @Public()
+  //Get summaries from class
   @Get("getSummariesClass/:_id")
   async getSummariesClass(@Param("_id") _id: ObjectId) {
     const summaries = await this.SummaryService.getSummariesByClass(_id);

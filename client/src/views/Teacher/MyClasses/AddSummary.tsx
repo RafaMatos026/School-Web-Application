@@ -1,6 +1,5 @@
 import Grid from "@mui/material/Grid";
-import Box from '@mui/material/Box';
-import { Card, CardContent, TextField, Typography, Button } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import Modal from '../../../shared/components/Modal';
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -44,7 +43,8 @@ export default function AddSummary(props: Props) {
                 Date: Date.now()
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {

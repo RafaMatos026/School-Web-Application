@@ -23,8 +23,8 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Subject } from './subject.schema';
-import { SubjectService } from './subject.service';
+import { Subject } from "./subject.schema";
+import { SubjectService } from "./subject.service";
 export declare class SubjectController {
     private readonly SubjectService;
     constructor(SubjectService: SubjectService);

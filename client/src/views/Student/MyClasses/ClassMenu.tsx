@@ -6,7 +6,7 @@ import SubmitJustification from './SubmitJustification';
 import { ISurvey } from '../../../shared/Interfaces/interfaces';
 import Modal from '../../../shared/components/Modal';
 import { AuthContext } from '../../../auth/AuthContext';
-import {BASE_URL } from '../../../shared/consts'
+import { BASE_URL } from '../../../shared/consts'
 
 export default function ClassMenu() {
     const { _id } = useParams();
@@ -109,7 +109,8 @@ export default function ClassMenu() {
                 Present: value,
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {
@@ -131,7 +132,11 @@ export default function ClassMenu() {
 
     function LoadSurvey() {
         let url = BASE_URL + '/presences/latestSurvey/' + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

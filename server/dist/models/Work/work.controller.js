@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkController = void 0;
 const common_1 = require("@nestjs/common");
-const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 const createWork_dto_1 = require("./createWork.dto");
 const work_service_1 = require("./work.service");
 let WorkController = class WorkController {
@@ -29,7 +28,6 @@ let WorkController = class WorkController {
     }
 };
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Post)("create"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -37,7 +35,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkController.prototype, "createWork", null);
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Get)("getWork/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),

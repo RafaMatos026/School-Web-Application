@@ -30,7 +30,11 @@ export default function MarkPresence(props: Props) {
 
     useEffect(() => {
         let url = BASE_URL + '/presences/latestSurvey/' + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -89,7 +93,8 @@ export default function MarkPresence(props: Props) {
                 Present: value,
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {

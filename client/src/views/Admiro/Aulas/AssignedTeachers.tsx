@@ -33,7 +33,11 @@ export default function AssignedTeachers() {
 
     useEffect(() => {
         let url = BASE_URL + '/classes/assignedTeachers/' + _id
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

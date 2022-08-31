@@ -26,7 +26,11 @@ export default function PastSummaries() {
 
     useEffect(() => {
         let url = BASE_URL + "/summaries/getSummaries"
-        fetch(url, {})
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -101,7 +105,11 @@ export default function PastSummaries() {
 
     function OpenSummary(id: string) {
         let url: string = BASE_URL + "/summaries/getSummary/" + id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

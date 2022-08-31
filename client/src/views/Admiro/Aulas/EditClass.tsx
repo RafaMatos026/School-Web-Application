@@ -30,7 +30,11 @@ export default function EditClass() {
 
     function getClass() {
         let url = BASE_URL + "/classes/getClass/" + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -70,7 +74,11 @@ export default function EditClass() {
 
     function getTeachers() {
         let url = BASE_URL + "/users/getTeachers";
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -152,7 +160,8 @@ export default function EditClass() {
                     HeadTeacher: HeadTeacher,
                 }),
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8"
+                    "Content-type": "application/json; charset=UTF-8",
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             })
                 .then((response) => {
