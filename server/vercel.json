@@ -1,11 +1,5 @@
 {
     "version": 2,
-    "env": {
-        "MONGOOSE_CONNECTION": "mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority",
-        "JWT_SECRET": "verysecretkey",
-        "JWT_EXP_TIME": "3600"
-    },
-
     "builds": [
         {
             "src": "src/main.ts",
