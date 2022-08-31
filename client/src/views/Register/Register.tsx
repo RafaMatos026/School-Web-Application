@@ -18,7 +18,7 @@ export default function Register() {
 
     return (
         <Box marginTop={5}>
-            <Typography variant="h3" align="center" gutterBottom>Sing Up</Typography>
+            <Typography variant="h3" align="center" gutterBottom>Sign Up</Typography>
             <Card sx={{ maxWidth: 450, margin: '0 auto' }} variant='outlined'>
                 <CardContent>
                     <form>

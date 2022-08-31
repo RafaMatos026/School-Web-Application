@@ -24,8 +24,8 @@ function SendEmail(Email: string, Password: string) {
   const link_img = "https://i.postimg.cc/xCH6ng8z/Guy-computer.png";
   const message = {
     to: Email,
-    from: "hardtinsa@gmail.com",
-    subject: "Password to accesss your school account",
+    from: "school.web.app.top@gmail.com",
+    subject: "Password to access your school account",
     text: "Welcome to the new management web application of our school!",
     html:
       '<img src="' +
@@ -34,6 +34,34 @@ function SendEmail(Email: string, Password: string) {
       "<h2>Bem-vindo<h2/>" +
       "<p>Start using the web application today!<p/>" +
       '<p>Your password: "' +
+      Password +
+      '" <p/>',
+  };
+
+  sgMail
+    .send(message)
+    .then((res) => {
+      console.log("Email has been sent!");
+    })
+    .catch((error) => {
+      console.log("Error: " + error);
+    });
+}
+
+function ResendNewPassword(Email: string, Password: string) {
+  const link_img = "https://i.postimg.cc/xCH6ng8z/Guy-computer.png";
+  const message = {
+    to: Email,
+    from: "school.web.app.top@gmail.com",
+    subject: "Password reset",
+    text: "Your password is beeing reset.",
+    html:
+      '<img src="' +
+      link_img +
+      '" />' +
+      "<h2>Password reset<h2/>" +
+      "<p>Here's your new password!<p/>" +
+      '<p>Your new password: "' +
       Password +
       '" <p/>',
   };
@@ -378,6 +406,22 @@ export class UserService {
 
   //get profile pic
   async getProfilePic(_id: ObjectId) {
-    return await this.userModel.findById(_id).select("ProfilePicture FName LName");
+    return await this.userModel
+      .findById(_id)
+      .select("ProfilePicture FName LName");
+  }
+
+  //forgot password
+  async forgotPassword(Email: string) {
+    const user = this.userModel.findOne({ Email: Email });
+    if (user) {
+      let pwd = GeneratePassword();
+      user.update({
+        Password: await bcrypt.hash(pwd, 10),
+      });
+      ResendNewPassword((await user).Email, pwd);
+    } else {
+      return new NotFoundException("No user was found");
+    }
   }
 }

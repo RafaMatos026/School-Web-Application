@@ -63,4 +63,5 @@ export declare class UserController {
     getProfilePic(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, import("./user.schema").User> & import("./user.schema").User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    forgotPassword(Email: string): Promise<void>;
 }

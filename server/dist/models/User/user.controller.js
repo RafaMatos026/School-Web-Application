@@ -87,6 +87,9 @@ let UserController = class UserController {
     async getProfilePic(_id) {
         return await this.UserService.getProfilePic(_id);
     }
+    async forgotPassword(Email) {
+        await this.UserService.forgotPassword(Email);
+    }
 };
 __decorate([
     (0, isPublic_decorator_1.Public)(),
@@ -242,6 +245,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getProfilePic", null);
+__decorate([
+    (0, isPublic_decorator_1.Public)(),
+    (0, common_1.Post)("forgotPassword"),
+    __param(0, (0, common_1.Body)("Email")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "forgotPassword", null);
 UserController = __decorate([
     (0, common_1.Controller)("users"),
     __metadata("design:paramtypes", [user_service_1.UserService])

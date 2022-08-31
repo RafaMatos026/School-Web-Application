@@ -33,15 +33,18 @@ import EditProfile from '../shared/views/EditProfile';
 import RequireAuth from '../auth/RequireAuth';
 import { admin, student, teacher } from '../shared/consts';
 import Unathorized from '../shared/views/Unauthorized';
-export const AppRoutes = () => {
+import ForgotPassword from '../views/others/ForgotPassword';
 
+
+export const AppRoutes = () => {
 
     return (
         <Routes>
 
-            {/** LOGIN - REGISTER */}
+            {/** LOGIN - REGISTER - FORGOT PASSWORD*/}
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/forgotPassword' element={<ForgotPassword />} />
 
             {/** Portal */}
             <Route path='/' element={<Portal />} />

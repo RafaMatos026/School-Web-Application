@@ -72,4 +72,5 @@ export declare class UserService {
     getProfilePic(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
+    forgotPassword(Email: string): Promise<NotFoundException>;
 }

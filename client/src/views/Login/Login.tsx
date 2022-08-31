@@ -54,6 +54,14 @@ export default function Login() {
                                         </Typography>
                                     </Link>
                                 </Typography>
+
+                                <Typography variant="caption" marginLeft={13}>
+                                    <Link to={'/forgotPassword'} style={{ textDecoration: 'none', color: '#000000' }}>
+                                        <Typography variant="caption" sx={{ textDecoration: 'underline' }}>
+                                            Forgot your password?
+                                        </Typography>
+                                    </Link>
+                                </Typography>
                             </Grid>
                             <Grid xs={12} item textAlign={'center'}>
                                 <Button variant="contained" onClick={handleLogin}>Login</Button>

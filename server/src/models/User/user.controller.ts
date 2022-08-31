@@ -156,4 +156,11 @@ export class UserController {
   async getProfilePic(@Param("_id") _id: ObjectId) {
     return await this.UserService.getProfilePic(_id);
   }
+
+  //Forgot my password
+  @Public()
+  @Post("forgotPassword")
+  async forgotPassword(@Body("Email") Email: string) {
+    await this.UserService.forgotPassword(Email);
+  }
 }
