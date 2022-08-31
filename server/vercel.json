@@ -3,8 +3,7 @@
     "env": {
         "MONGOOSE_CONNECTION": "mongodb+srv://mongo:mongo@schoolwebapplication.oocykko.mongodb.net/Schooldb?retryWrites=true&w=majority",
         "JWT_SECRET": "verysecretkey",
-        "JWT_EXP_TIME": "3600",
-        "SENDGRID_API_KEY": "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"
+        "JWT_EXP_TIME": "3600"
     },
 
     "builds": [
