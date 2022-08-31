@@ -16,7 +16,11 @@ export default function RegistrationForm() {
 
     useEffect(() => {
         let url = BASE_URL + "/users/getUser/" + _id;
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -75,7 +79,10 @@ export default function RegistrationForm() {
     function AcceptRegister() {
         let url = BASE_URL + "/users/acceptTeacher/" + _id;
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then((response) => {
                 if (response.ok) {

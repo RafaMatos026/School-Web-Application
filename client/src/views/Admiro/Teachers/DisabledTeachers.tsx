@@ -12,7 +12,11 @@ export default function DisabledTeachers() {
 
     useEffect(() => {
         let url = BASE_URL + '/users/getDisabledTeachers';
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

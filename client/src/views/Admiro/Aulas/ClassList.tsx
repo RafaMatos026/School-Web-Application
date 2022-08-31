@@ -97,7 +97,10 @@ export default function ClassList() {
     function DisableClass(_id: string) {
         let url = BASE_URL + "/classes/deleteClass/" + _id;
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then((response) => {
                 if (response.ok) {

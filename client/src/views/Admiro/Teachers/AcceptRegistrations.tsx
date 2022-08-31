@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
-import {BASE_URL } from '../../../shared/consts'
+import { BASE_URL } from '../../../shared/consts'
 export default function AcceptRegistration() {
     const navigate = useNavigate();
     const [requests, setRequests] = useState<ITeacher[]>([]);
@@ -13,7 +13,11 @@ export default function AcceptRegistration() {
 
     useEffect(() => {
         let url = BASE_URL + "/users/registrationRequests";
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

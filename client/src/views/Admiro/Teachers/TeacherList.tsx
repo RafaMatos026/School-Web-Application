@@ -24,7 +24,11 @@ export default function StudentList() {
 
     useEffect(() => {
         let url = BASE_URL + '/users/getTeachers';
-        fetch(url)
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -87,7 +91,10 @@ export default function StudentList() {
     function DisableTeacher(_id: string) {
         let url = BASE_URL + "/users/disableUser/" + _id;
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then((response) => {
                 if (response.ok) {
