@@ -26,7 +26,7 @@ AuthModule = __decorate([
             config_1.ConfigModule.forRoot(),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_SECRET,
-                signOptions: { expiresIn: "10h" },
+                signOptions: { expiresIn: "1h" },
             }),
         ],
         controllers: [auth_controller_1.AuthController],
