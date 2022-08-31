@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, Put } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  UseGuards,
+} from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/createUser.dto";
 import { UpdateUserDto } from "./dto/updateUser.dto";
@@ -6,6 +14,7 @@ import { CreateStudentDto } from "./dto/createStudent.dto";
 import { CreateTeacherDto } from "./dto/createTeacher.dto";
 import { ObjectId } from "mongoose";
 import { Public } from "src/auth/decorators/isPublic.decorator";
+import { JwtAuthGuard } from "src/auth/guards/jwt.guard";
 
 @Controller("users")
 export class UserController {

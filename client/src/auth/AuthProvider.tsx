@@ -65,13 +65,13 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
                     setUser(data.user);
                     setToken(data.access_token);
-                    return true;
+                    return data.user;
                 }
-                return false;
+                return null;
             })
             .catch(erro => {
                 alert("Login failed: " + erro.message);
-                return false;
+                return null;
             })
     }
 
@@ -81,7 +81,6 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
         localStorage.removeItem('token');
     }
 
-    console.log({ user });
     return (
         <AuthContext.Provider value={{ user, signin, signout, validateToken }}>
             {children}

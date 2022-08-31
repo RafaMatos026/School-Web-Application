@@ -21,6 +21,7 @@ let AuthService = class AuthService {
     }
     async login(Email) {
         const user = await this.userService.getId(Email);
+        console.log();
         if (user) {
             const payload = {
                 _id: user._id.toString(),
@@ -63,7 +64,7 @@ let AuthService = class AuthService {
                 throw new common_1.UnauthorizedException("Account disabled or your registration request hasn't been accepted yet!");
             }
         }
-        throw new common_1.UnauthorizedException('Email address or password incorrect!');
+        throw new common_1.UnauthorizedException("Email address or password incorrect!");
     }
 };
 AuthService = __decorate([

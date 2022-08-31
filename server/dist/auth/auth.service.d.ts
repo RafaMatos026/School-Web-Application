@@ -1,7 +1,7 @@
-import { UserService } from 'src/models/User/user.service';
-import { JwtService } from '@nestjs/jwt';
-import { UserToken } from './models/UserToken';
-import { UserPayload } from './models/UserPayload';
+import { UserService } from "src/models/User/user.service";
+import { JwtService } from "@nestjs/jwt";
+import { UserToken } from "./models/UserToken";
+import { UserPayload } from "./models/UserPayload";
 export declare class AuthService {
     private userService;
     private readonly jwtService;

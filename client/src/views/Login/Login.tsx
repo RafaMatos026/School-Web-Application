@@ -26,18 +26,18 @@ export default function Login() {
 
     const handleLogin = async () => {
         if (Email && Password) {
-            const isLogged = await signin(Email, Password);
+            const userLogged = await signin(Email, Password);
 
-            if (isLogged) {
-                if (user?.AccountType === admin) {
+            if (userLogged) {
+                if (userLogged?.AccountType === admin) {
                     navigate('/admin');
-                } else if (user?.AccountType === student) {
+                } else if (userLogged?.AccountType === student) {
                     navigate('/student')
-                } else if (user?.AccountType === teacher) {
+                } else if (userLogged?.AccountType === teacher) {
                     navigate('/teacher');
-                } else {
-                    alert('Something went wrong! Try again')
                 }
+            } else {
+                alert('No user authenticated!');
             }
         }
     }
