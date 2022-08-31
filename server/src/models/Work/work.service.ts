@@ -19,6 +19,7 @@ export class WorkService {
       AddedDate: data.AddedDate,
       classId: data.classId,
       fileUrl: data.fileUrl,
+      userId: data.userId
     });
     const result = await newWork.save();
     return result;
@@ -33,4 +34,7 @@ export class WorkService {
       return works;
     }
   }
+
+  //Delete submitted work
+
 }

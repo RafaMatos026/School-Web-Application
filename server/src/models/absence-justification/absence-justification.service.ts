@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
 import { AbsenceJustification } from "./absence-justification.schema";
+import { CreateAbsenceJustificationDto } from "./createAbsenceJustification.dto";
 
 @Injectable()
 export class AbsenceJustificationService {
@@ -11,22 +12,17 @@ export class AbsenceJustificationService {
   ) {}
 
   //add absence justification
-  async addAbsenceJustification(
-    DateAdded: Date,
-    classId: ObjectId,
-    studentId: ObjectId
-  ) {
+  async addAbsenceJustification(data: CreateAbsenceJustificationDto) {
     const newAbsenceJustification = new this.absencejustificationModel({
-      classId: classId,
-      studentId: studentId,
-      DateAdded: DateAdded,
+      classId: data.classId,
+      studentId: data.studentId,
+      DateAdded: data.DateAdded,
+      fileUrl: data.fileUrl
     });
 
     const result = await newAbsenceJustification.save();
     return result;
   }
-
-  //get absence justification
 
   //get absence justification from a class
   async getJustificationsByClass(classId: ObjectId) {

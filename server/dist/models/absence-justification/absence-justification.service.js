@@ -21,11 +21,12 @@ let AbsenceJustificationService = class AbsenceJustificationService {
     constructor(absencejustificationModel) {
         this.absencejustificationModel = absencejustificationModel;
     }
-    async addAbsenceJustification(DateAdded, classId, studentId) {
+    async addAbsenceJustification(data) {
         const newAbsenceJustification = new this.absencejustificationModel({
-            classId: classId,
-            studentId: studentId,
-            DateAdded: DateAdded,
+            classId: data.classId,
+            studentId: data.studentId,
+            DateAdded: data.DateAdded,
+            fileUrl: data.fileUrl
         });
         const result = await newAbsenceJustification.save();
         return result;

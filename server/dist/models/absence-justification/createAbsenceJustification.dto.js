@@ -9,27 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateWorkDto = void 0;
+exports.CreateAbsenceJustificationDto = void 0;
 const class_validator_1 = require("class-validator");
-const class_schema_1 = require("../Aula/class.schema");
-class CreateWorkDto {
+class CreateAbsenceJustificationDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "Class must have a name!" }),
-    (0, class_validator_1.Length)(6, 20, { message: "Class name must be between 6 to 20 characters!" }),
-    __metadata("design:type", String)
-], CreateWorkDto.prototype, "WorkName", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "Work must be associated to a class!" }),
-    __metadata("design:type", class_schema_1.Class)
-], CreateWorkDto.prototype, "classId", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "Work must be associated to a user!" }),
+    (0, class_validator_1.IsNotEmpty)({
+        message: "Absence justification must be associated to a student!",
+    }),
     __metadata("design:type", Object)
-], CreateWorkDto.prototype, "userId", void 0);
+], CreateAbsenceJustificationDto.prototype, "studentId", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: "Work must have a url associated with!" }),
+    (0, class_validator_1.IsNotEmpty)({
+        message: "Absence justification must be associated to a class!",
+    }),
+    __metadata("design:type", Object)
+], CreateAbsenceJustificationDto.prototype, "classId", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({
+        message: "A file url must be associated to the absence justification!",
+    }),
     __metadata("design:type", String)
-], CreateWorkDto.prototype, "fileUrl", void 0);
-exports.CreateWorkDto = CreateWorkDto;
-//# sourceMappingURL=createWork.dto.js.map
+], CreateAbsenceJustificationDto.prototype, "fileUrl", void 0);
+exports.CreateAbsenceJustificationDto = CreateAbsenceJustificationDto;
+//# sourceMappingURL=createAbsenceJustification.dto.js.map

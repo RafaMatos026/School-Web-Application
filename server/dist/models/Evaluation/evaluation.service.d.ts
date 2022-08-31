@@ -32,7 +32,7 @@ export declare class EvaluationService {
     createEvaluation(data: CreateEvaluationDto): Promise<import("mongoose").Document<unknown, any, Evaluation> & Evaluation & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getEvaluationsByClass(classId: ObjectId): Promise<NotFoundException | (import("mongoose").Document<unknown, any, Evaluation> & Evaluation & {
+    getEvaluationsByClass(classId: ObjectId): Promise<(import("mongoose").Document<unknown, any, Evaluation> & Evaluation & {
         _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    })[] | NotFoundException>;
 }

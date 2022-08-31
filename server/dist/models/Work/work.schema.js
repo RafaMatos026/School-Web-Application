@@ -31,9 +31,13 @@ __decorate([
     __metadata("design:type", Date)
 ], Work.prototype, "AddedDate", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId }),
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: "Class" }),
     __metadata("design:type", Object)
 ], Work.prototype, "classId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }),
+    __metadata("design:type", Object)
+], Work.prototype, "userId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

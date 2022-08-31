@@ -24,10 +24,11 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { Model, ObjectId } from "mongoose";
 import { AbsenceJustification } from "./absence-justification.schema";
+import { CreateAbsenceJustificationDto } from "./createAbsenceJustification.dto";
 export declare class AbsenceJustificationService {
     private readonly absencejustificationModel;
     constructor(absencejustificationModel: Model<AbsenceJustification>);
-    addAbsenceJustification(DateAdded: Date, classId: ObjectId, studentId: ObjectId): Promise<import("mongoose").Document<unknown, any, AbsenceJustification> & AbsenceJustification & {
+    addAbsenceJustification(data: CreateAbsenceJustificationDto): Promise<import("mongoose").Document<unknown, any, AbsenceJustification> & AbsenceJustification & {
         _id: import("mongoose").Types.ObjectId;
     }>;
     getJustificationsByClass(classId: ObjectId): Promise<(import("mongoose").Document<unknown, any, AbsenceJustification> & AbsenceJustification & {

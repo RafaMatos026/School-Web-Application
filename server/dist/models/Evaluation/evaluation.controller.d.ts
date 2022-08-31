@@ -31,7 +31,7 @@ export declare class EvaluationController {
     createEvaluation(data: CreateEvaluationDto): Promise<import("mongoose").Document<unknown, any, import("./evaluation.schema").Evaluation> & import("./evaluation.schema").Evaluation & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    getEvaluationsByClass(classId: ObjectId): Promise<import("@nestjs/common").NotFoundException | (import("mongoose").Document<unknown, any, import("./evaluation.schema").Evaluation> & import("./evaluation.schema").Evaluation & {
+    getEvaluationsByClass(classId: ObjectId): Promise<(import("mongoose").Document<unknown, any, import("./evaluation.schema").Evaluation> & import("./evaluation.schema").Evaluation & {
         _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    })[] | import("@nestjs/common").NotFoundException>;
 }
