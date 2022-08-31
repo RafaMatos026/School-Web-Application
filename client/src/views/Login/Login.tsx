@@ -32,7 +32,7 @@ export default function Login() {
 
     return (
         <Box marginTop={5}>
-            <Typography variant="h3" align="center" gutterBottom>Sing In</Typography>
+            <Typography variant="h3" align="center" gutterBottom>Sign In</Typography>
             <Card sx={{ maxWidth: 450, margin: '0 auto' }} variant='outlined'>
                 <CardContent>
                     <form>

@@ -8,14 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AbsenceJustificationModule = void 0;
 const common_1 = require("@nestjs/common");
+const mongoose_1 = require("@nestjs/mongoose");
 const absence_justification_controller_1 = require("./absence-justification.controller");
+const absence_justification_schema_1 = require("./absence-justification.schema");
 const absence_justification_service_1 = require("./absence-justification.service");
 let AbsenceJustificationModule = class AbsenceJustificationModule {
 };
 AbsenceJustificationModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: absence_justification_schema_1.AbsenceJustification.name, schema: absence_justification_schema_1.AbsenceJustificationSchema },
+            ]),
+        ],
         controllers: [absence_justification_controller_1.AbsenceJustificationController],
-        providers: [absence_justification_service_1.AbsenceJustificationService]
+        providers: [absence_justification_service_1.AbsenceJustificationService],
     })
 ], AbsenceJustificationModule);
 exports.AbsenceJustificationModule = AbsenceJustificationModule;
