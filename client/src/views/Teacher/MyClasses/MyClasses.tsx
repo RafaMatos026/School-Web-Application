@@ -13,7 +13,7 @@ export default function MyClasses() {
 
     const [loading, setLoading] = useState(true);
     const [MyClasses, setMyClasses] = useState<any[]>([]);
-    const user_id = useContext(AuthContext).user?._id;
+    const { user } = useContext(AuthContext);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -26,8 +26,12 @@ export default function MyClasses() {
     }));
 
     useEffect(() => {
-        let url = BASE_URL + "/users/myClasses/" + user_id;
-        fetch(url)
+        let url = BASE_URL + "/users/myClasses/" + user?._id;
+        fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

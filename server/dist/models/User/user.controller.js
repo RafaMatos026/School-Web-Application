@@ -230,7 +230,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getByEmail", null);
 __decorate([
-    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Get)("myClasses/:_id"),
     __param(0, (0, common_1.Param)("_id")),
     __metadata("design:type", Function),

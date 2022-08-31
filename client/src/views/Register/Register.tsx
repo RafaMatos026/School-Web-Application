@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CardContent, Card } from "@mui/material";
-import { useState } from "react";
-import { BASE_URL } from "../../shared/consts";
+import { useContext, useEffect, useState } from "react";
+import { admin, BASE_URL, student, teacher } from "../../shared/consts";
+import { AuthContext } from "../../auth/AuthContext";
 
 export default function Register() {
 
@@ -15,6 +16,20 @@ export default function Register() {
     const [Birthday, setBirthday] = useState("");
     const [Password, setPassword] = useState("");
     const [Email, setEmail] = useState("");
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (user) {
+            if (user?.AccountType === admin) {
+                navigate('/admin');
+            } else if (user?.AccountType === student) {
+                navigate('/student')
+            } else if (user?.AccountType === teacher) {
+                navigate('/teacher');
+            }
+        }
+    }, [navigate, user]);
 
     return (
         <Box marginTop={5}>

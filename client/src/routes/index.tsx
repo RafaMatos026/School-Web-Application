@@ -34,13 +34,17 @@ import RequireAuth from '../auth/RequireAuth';
 import { admin, student, teacher } from '../shared/consts';
 import Unathorized from '../shared/views/Unauthorized';
 import ForgotPassword from '../views/others/ForgotPassword';
+import { useContext } from 'react';
+import { AuthContext } from '../auth/AuthContext';
 
 
 export const AppRoutes = () => {
 
+    const { user } = useContext(AuthContext);
+    console.log({ user });
+
     return (
         <Routes>
-
             {/** LOGIN - REGISTER - FORGOT PASSWORD*/}
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
@@ -53,7 +57,7 @@ export const AppRoutes = () => {
             <Route path='/unauthorized' element={<Unathorized />} />
 
             {/** ADMIN */}
-            <Route element={<RequireAuth allowedRole={admin} />}>
+            <Route element={user && <RequireAuth allowedRole={admin} user={user} />}>
                 <Route path='/admin' element={<StructureAdmin child={<h1>Hello Admin</h1>} />} />
                 <Route path='/admin/registration-requests' element={<StructureAdmin child={<RegistrationRequests />} />} />
                 <Route path='/admin/create-student' element={<StructureAdmin child={<CreateStudent />} />} />
@@ -82,7 +86,7 @@ export const AppRoutes = () => {
             </Route>
 
             {/** TEACHER */}
-            <Route element={<RequireAuth allowedRole={teacher} />}>
+            <Route element={user && <RequireAuth allowedRole={teacher} user={user} />}>
                 <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
                 <Route path='/teacher/create-class' element={
                     <StructureTeacher child={<CreateClass />} />} />
@@ -99,7 +103,7 @@ export const AppRoutes = () => {
             </Route>
 
             {/** STUDENT */}
-            <Route element={<RequireAuth allowedRole={student} />}>
+            <Route element={user && <RequireAuth allowedRole={student} user={user} />}>
                 <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
                 <Route path='/student/myClasses' element={
                     <StructureStudent child={<MyClassesStudent />} />} />
@@ -116,6 +120,6 @@ export const AppRoutes = () => {
             {/* 404 create a new component here*/}
             <Route path='*' element={<h2>You seem somewhat lost...</h2>} />
 
-        </Routes>
+        </Routes >
     );
 }

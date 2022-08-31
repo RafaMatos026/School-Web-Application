@@ -144,7 +144,7 @@ export class UserController {
   }
 
   //Get classes the user is assigned to;
-  @Public()
+  // @Public()
   @Get("myClasses/:_id")
   async getMyClasses(@Param("_id") _id: ObjectId) {
     return await this.UserService.getMyClasses(_id);

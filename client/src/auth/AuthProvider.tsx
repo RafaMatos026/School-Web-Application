@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
                     return response.json();
                 })
                 .then((data) => {
+
                     if (data) {
                         setUser(data);
                     }
@@ -59,8 +60,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
                 return response.json();
             })
             .then((data) => {
+
                 if (data.access_token && data.user) {
-                    console.log("Settei o user");
+
                     setUser(data.user);
                     setToken(data.access_token);
                     return true;
@@ -74,14 +76,14 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
 
     const signout = async () => {
-        console.log("signout está sendo executada.");
         setUser(null);
         setToken('');
         localStorage.removeItem('token');
     }
 
+    console.log({ user });
     return (
-        <AuthContext.Provider value={{ user, signin, signout }}>
+        <AuthContext.Provider value={{ user, signin, signout, validateToken }}>
             {children}
         </AuthContext.Provider>
     );

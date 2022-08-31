@@ -1,11 +1,26 @@
 import { Box, Button, Card, CardContent, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { BASE_URL } from "../../shared/consts";
+import { AuthContext } from "../../auth/AuthContext";
+import { admin, BASE_URL, student, teacher } from "../../shared/consts";
 
 export default function ForgotPassword() {
     const [Email, setEmail] = useState("");
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (user) {
+            if (user?.AccountType === admin) {
+                navigate('/admin');
+            } else if (user?.AccountType === student) {
+                navigate('/student')
+            } else if (user?.AccountType === teacher) {
+                navigate('/teacher');
+            }
+        }
+    }, [navigate, user]);
+
     return (
         <Box marginTop={5}>
             <Typography variant="h3" align="center" gutterBottom>Forgot Password</Typography>

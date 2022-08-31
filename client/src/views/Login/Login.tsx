@@ -2,26 +2,38 @@ import Grid from "@mui/material/Grid";
 import Box from '@mui/material/Box';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, TextField, Typography, Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import { admin, student, teacher } from "../../shared/consts";
 
 export default function Login() {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
-    const auth = useContext(AuthContext);
+    const { signin, user } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            if (user?.AccountType === admin) {
+                navigate('/admin');
+            } else if (user?.AccountType === student) {
+                navigate('/student')
+            } else if (user?.AccountType === teacher) {
+                navigate('/teacher');
+            }
+        }
+    }, [navigate, user]);
 
     const handleLogin = async () => {
         if (Email && Password) {
-            const isLogged = await auth.signin(Email, Password);
+            const isLogged = await signin(Email, Password);
 
             if (isLogged) {
-                if (auth.user?.AccountType === admin) {
+                if (user?.AccountType === admin) {
                     navigate('/admin');
-                } else if (auth.user?.AccountType === student) {
+                } else if (user?.AccountType === student) {
                     navigate('/student')
-                } else if (auth.user?.AccountType === teacher) {
+                } else if (user?.AccountType === teacher) {
                     navigate('/teacher');
                 } else {
                     alert('Something went wrong! Try again')
