@@ -70,10 +70,10 @@ let PresenceService = class PresenceService {
             throw new common_1.NotFoundException("No presence forms for this class yet!");
         }
     }
-    async getAbsents(_id) {
+    async getPresences(_id) {
         return await this.presenceModel
             .findById(_id)
-            .select("absentStudents presentStudents");
+            .select("absentStudents presentStudents justifiedAbsences");
     }
     async getLatestSurvey(classId) {
         const survey = await this.presenceModel

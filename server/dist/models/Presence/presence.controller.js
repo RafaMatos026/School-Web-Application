@@ -25,7 +25,7 @@ let PresenceController = class PresenceController {
         return survey;
     }
     async getAbsents(_id) {
-        const absents = await this.PresenceService.getAbsents(_id);
+        const absents = await this.PresenceService.getPresences(_id);
         return absents;
     }
     async getSurveys(classId) {
@@ -92,7 +92,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "lastestSurvey", null);
 __decorate([
-    (0, common_1.Put)("markAbsenceJustified/:_id"),
+    (0, common_1.Put)("justify/:_id"),
     __param(0, (0, common_1.Param)("_id")),
     __param(1, (0, common_1.Body)("studentId")),
     __metadata("design:type", Function),

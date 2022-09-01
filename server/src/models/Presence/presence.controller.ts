@@ -17,7 +17,7 @@ export class PresenceController {
   //Get present and absent students from a presence instance
   @Get("getPresences/:_id")
   async getAbsents(@Param("_id") _id: string) {
-    const absents = await this.PresenceService.getAbsents(_id);
+    const absents = await this.PresenceService.getPresences(_id);
     return absents;
   }
 
@@ -52,7 +52,7 @@ export class PresenceController {
     return survey;
   }
 
-  @Put("markAbsenceJustified/:_id")
+  @Put("justify/:_id")
   async markPresenceJustified(
     @Param("_id") _id: ObjectId,
     @Body("studentId") studentId: ObjectId

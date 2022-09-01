@@ -35,7 +35,7 @@ export default function ClassMenu() {
                 </Grid>
                 <Grid item xs={12} md={4} textAlign='center'>
                     <Card variant='outlined' component={Paper}>
-                        <CardActionArea onClick={() => navigate('/student/myClasses/' + _id +'/past-summaries')}>
+                        <CardActionArea onClick={() => navigate('/student/myClasses/' + _id + '/past-summaries')}>
                             <CardHeader title='View Past Summaries' />
                         </CardActionArea>
                     </Card>
@@ -104,7 +104,7 @@ export default function ClassMenu() {
         fetch(url, {
             method: 'PUT',
             body: JSON.stringify({
-                _id: _id,
+                _id: survey?._id,
                 studentId: user_id,
                 Present: value,
             }),
@@ -118,7 +118,7 @@ export default function ClassMenu() {
                     setOpenPresence(false);
                     alert("Presence status saved!");
                 }
-                console.log(response.body)
+                console.log(response)
                 response.json();
             })
             .then((data) => {

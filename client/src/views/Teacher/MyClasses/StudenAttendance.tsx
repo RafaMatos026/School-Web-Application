@@ -18,6 +18,8 @@ export default function StudentAttendance() {
     const [open, setOpen] = useState<boolean>(false);
     const [presents, setPresents] = useState([]);
     const [absents, setAbsents] = useState([]);
+    const [justifiedAbsences, setJustifiedAbsences] = useState<string[]>([]);
+    const [survey, setSurvey] = useState("");
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -120,10 +122,10 @@ export default function StudentAttendance() {
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>#</TableCell>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Justified</TableCell>
+                                    <TableCell align="center">#</TableCell>
+                                    <TableCell align="center">Name</TableCell>
+                                    <TableCell align="center">Status</TableCell>
+                                    <TableCell align="center">Justified</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -132,15 +134,19 @@ export default function StudentAttendance() {
                                         <TableCell align="center">{index + 1}</TableCell>
                                         <TableCell align="center">{present}</TableCell>
                                         <TableCell align="center">Present</TableCell>
-                                        <TableCell align="center">find a way to know</TableCell>
+                                        <TableCell align="center">N/A</TableCell>
                                     </TableRow>
                                 ))}
                                 {absents.map((absent, index) => (
-                                    <TableRow>
-                                        <TableCell align="center">{index + 1}</TableCell>
+                                    <TableRow key={index}>
+                                        <TableCell align="center">{index + 2}</TableCell>
                                         <TableCell align="center">{absent}</TableCell>
                                         <TableCell align="center">Absent</TableCell>
-                                        <TableCell align="center">find a way to know</TableCell>
+                                        <TableCell align="center">{
+                                            isJustified(absent)
+                                                ? 'Justified'
+                                                : <Button variant='outlined' size='small' color='success' onClick={() => Justify(absent)}>Justify</Button>
+                                        }</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -166,9 +172,10 @@ export default function StudentAttendance() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
+                setSurvey(data._id);
                 setAbsents(data.absentStudents);
                 setPresents(data.presentStudents)
+                setJustifiedAbsences(data.justifiedAbsences)
                 setLoadingModal(false);
             })
             .catch(err => {
@@ -216,6 +223,39 @@ export default function StudentAttendance() {
             })
             .catch(err => {
                 alert('Error: ' + err.message);
+            })
+    }
+
+    function isJustified(_id: string): boolean {
+        if (justifiedAbsences.includes(_id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function Justify(_id: string) {
+        let url = BASE_URL + '/presences/justify/' + survey;
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify({
+                studentId: _id,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert('Student absence has been justified!');
+                } else {
+                    alert('It was not possible justify the absence... Try again later');
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
             })
     }
 }

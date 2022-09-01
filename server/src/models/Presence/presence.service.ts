@@ -80,11 +80,11 @@ export class PresenceService {
     }
   }
 
-  //get present/absence students from a survey
-  async getAbsents(_id: string) {
+  //get present/absence/justifieds students from a survey
+  async getPresences(_id: string) {
     return await this.presenceModel
       .findById(_id)
-      .select("absentStudents presentStudents");
+      .select("absentStudents presentStudents justifiedAbsences");
   }
 
   //Get the lastest attendance form from a class
