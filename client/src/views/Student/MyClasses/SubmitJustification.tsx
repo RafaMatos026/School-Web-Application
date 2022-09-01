@@ -50,7 +50,7 @@ export default function SubmitJustification(props: Props) {
     function CreateJustification() {
         if (file && _id && user) {
             uploadCloudnary();
-            let url = BASE_URL + '/absence-justificatio/create';
+            let url = BASE_URL + '/absence-justification/create';
             fetch(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -68,7 +68,7 @@ export default function SubmitJustification(props: Props) {
                     if (response.ok) {
                         alert('Absence justification has been submitted successfully!');
                     } else {
-                        alert('Absen justification hasn´t been submitted!');
+                        alert('Absence justification hasn´t been submitted!');
                     }
                     return response.json();
                 })
