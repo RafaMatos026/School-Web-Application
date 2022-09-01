@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AssignStudent() {
     const { _id } = useParams();
@@ -64,7 +65,11 @@ export default function AssignStudent() {
 
     return (
         <Box>
-            {loading && <h2>Loading...</h2>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && students.length === 0 && (
                 <h2>No students available to assign to this class!</h2>
             )}

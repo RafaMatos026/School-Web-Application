@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { useParams } from "react-router-dom";
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AssignedStudents() {
     const { _id } = useParams();
@@ -55,7 +56,11 @@ export default function AssignedStudents() {
 
     return (
         <>
-            {loading && <h2>Loading...</h2>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress/>
+                </Box>
+            )}
             {!loading && students.length === 0 && (<h2>No students are assigned to this class yet...</h2>)}
             {!loading && students.length > 0 && (
                 <Box width={'100%'}>

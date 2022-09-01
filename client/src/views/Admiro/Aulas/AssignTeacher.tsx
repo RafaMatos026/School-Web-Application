@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { BASE_URL } from '../../../shared/consts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AssignTeacher() {
 
@@ -64,7 +65,11 @@ export default function AssignTeacher() {
 
     return (
         <Box width={'100%'}>
-            {loading && (<h2>Loading...</h2>)}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && teachers.length === 0 && (<h2>No teachers available to be assigned to this class!</h2>)}
             {!loading && teachers.length > 0 && (
                 <>

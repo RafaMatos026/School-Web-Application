@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { IClass } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function DisabledClasses() {
 
@@ -49,8 +50,12 @@ export default function DisabledClasses() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
-            {classes.length === 0 && <h1>No Classes are disabled</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loading && classes.length === 0 && <h1>No Classes are disabled</h1>}
             {(!loading && classes.length !== 0) && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>

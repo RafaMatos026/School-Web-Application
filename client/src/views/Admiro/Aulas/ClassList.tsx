@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { IClass } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ClassList() {
 
@@ -49,7 +50,11 @@ export default function ClassList() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && classes.length === 0 && (
                 <h2>No classes were created yet!</h2>
             )}

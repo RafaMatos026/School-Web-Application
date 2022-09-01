@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { BASE_URL } from "../../../shared/consts";
 import { useParams } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function AssignedTeachers() {
     const [checks, setChecks] = useState<string[]>([])
@@ -55,7 +56,11 @@ export default function AssignedTeachers() {
 
     return (
         <Box width={'100%'}>
-            {loading && (<h2>Loading...</h2>)}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && teachers.length === 0 && (<h2>No teachers assigned to this class yet...</h2>)}
             {!loading && teachers.length > 0 && (
                 <TableContainer component={Paper}>

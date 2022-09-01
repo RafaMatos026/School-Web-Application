@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { IClass, ISubject, ITeacher } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
 import { useNavigate, useParams } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function EditClass() {
     const { _id } = useParams();
@@ -95,7 +96,11 @@ export default function EditClass() {
 
     return (
         <>
-            {loading && (<h2>Loading...</h2>)}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && (
                 <>
                     <form noValidate autoComplete="false">

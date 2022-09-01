@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ISubject, ITeacher } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function CreateClass() {
     const [subjects, setSubjects] = useState<ISubject[]>([])
@@ -16,6 +17,8 @@ export default function CreateClass() {
     const [ClassName, setClassName] = useState<string>("");
     const [Subject, setSubject] = useState<string>("");
     const [HeadTeacher, setHeadTeacher] = useState<string>("");
+    const [loadingSubjects, setLoadingSubjects] = useState(true);
+    const [loadingTeachers, setLoadingTeachers] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,6 +41,7 @@ export default function CreateClass() {
             })
             .then((data) => {
                 setSubjects(data);
+                setLoadingSubjects(false);
             })
             .catch(err => {
                 console.log(err.message);
@@ -59,6 +63,7 @@ export default function CreateClass() {
             })
             .then((data) => {
                 setTeachers(data);
+                setLoadingTeachers(false);
             })
             .catch(err => {
                 console.log(err.message);
@@ -67,52 +72,61 @@ export default function CreateClass() {
 
     return (
         <>
-            <form noValidate autoComplete="false">
-                <Box display={'flex'} justifyContent='center' flexDirection={'column'} alignItems='center' marginTop={5}>
-                    <Box width={'30%'} display={'flex'} flexDirection='column' justifyContent={'center'}>
-                        <Typography textAlign={'start'}>Class Name</Typography>
-                        <TextField size="small" type='text' variant="outlined" value={ClassName} onChange={(e) => setClassName(e.target.value)} />
-                    </Box>
-                    <Box width={'30%'} marginTop={3}>
-                        <Typography textAlign={'start'}>Subject</Typography>
-                        <Select fullWidth size='small' value={Subject} onChange={(e) => setSubject(e.target.value)}>
-                            <MenuItem disabled value=''>
-                                Select a subject...
-                            </MenuItem>
-                            {subjects.map((subject, index) => (
-                                <MenuItem key={index} value={subject._id} >{subject.Description}</MenuItem>
-                            ))}
-                        </Select>
-                    </Box>
-                    <Box width={'30%'} marginTop={3}>
-                        <Typography textAlign={'start'}>Head Teacher</Typography>
-                        <Select fullWidth size='small' value={HeadTeacher} onChange={(e) => setHeadTeacher(e.target.value)}>
-                            <MenuItem disabled value=''>
-                                <em>Select the head teacher...</em>
-                            </MenuItem>
-                            {teachers.map((teacher, index) => (
-                                <MenuItem key={index} value={teacher._id} >{
-                                    teacher.FName + ' ' + teacher.LName
-                                }</MenuItem>
-                            ))}
-                        </Select>
-                    </Box>
+            {loadingSubjects && loadingTeachers && (
+                <Box display={'flex'}>
+                    <CircularProgress />
                 </Box>
-            </form>
-            <Grid
-                container
-                display={'flex'}
-                columnSpacing={3}
-                alignItems='center'
-                justifyContent='center'
-                marginTop={3}>
-                <Grid item>
-                    <Button variant="contained" color="error">Cancel</Button>
-                </Grid>
-                <Grid item>
-                    <Button variant="contained" onClick={() => CreateClass()}>Create</Button>
-                </Grid>
-            </Grid>
+            )}
+            {!loadingSubjects && !loadingTeachers && (
+                <>
+                    <form noValidate autoComplete="false">
+                        <Box display={'flex'} justifyContent='center' flexDirection={'column'} alignItems='center' marginTop={5}>
+                            <Box width={'30%'} display={'flex'} flexDirection='column' justifyContent={'center'}>
+                                <Typography textAlign={'start'}>Class Name</Typography>
+                                <TextField size="small" type='text' variant="outlined" value={ClassName} onChange={(e) => setClassName(e.target.value)} />
+                            </Box>
+                            <Box width={'30%'} marginTop={3}>
+                                <Typography textAlign={'start'}>Subject</Typography>
+                                <Select fullWidth size='small' value={Subject} onChange={(e) => setSubject(e.target.value)}>
+                                    <MenuItem disabled value=''>
+                                        Select a subject...
+                                    </MenuItem>
+                                    {subjects.map((subject, index) => (
+                                        <MenuItem key={index} value={subject._id} >{subject.Description}</MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                            <Box width={'30%'} marginTop={3}>
+                                <Typography textAlign={'start'}>Head Teacher</Typography>
+                                <Select fullWidth size='small' value={HeadTeacher} onChange={(e) => setHeadTeacher(e.target.value)}>
+                                    <MenuItem disabled value=''>
+                                        <em>Select the head teacher...</em>
+                                    </MenuItem>
+                                    {teachers.map((teacher, index) => (
+                                        <MenuItem key={index} value={teacher._id} >{
+                                            teacher.FName + ' ' + teacher.LName
+                                        }</MenuItem>
+                                    ))}
+                                </Select>
+                            </Box>
+                        </Box>
+                    </form>
+                    <Grid
+                        container
+                        display={'flex'}
+                        columnSpacing={3}
+                        alignItems='center'
+                        justifyContent='center'
+                        marginTop={3}>
+                        <Grid item>
+                            <Button variant="contained" color="error">Cancel</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" onClick={() => CreateClass()}>Create</Button>
+                        </Grid>
+                    </Grid>
+                </>
+            )}
         </>
     )
 
