@@ -31,5 +31,9 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "Work must have a url associated with!" }),
     __metadata("design:type", String)
 ], CreateWorkDto.prototype, "fileUrl", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: "Work must have an added date!" }),
+    __metadata("design:type", Date)
+], CreateWorkDto.prototype, "AddedDate", void 0);
 exports.CreateWorkDto = CreateWorkDto;
 //# sourceMappingURL=createWork.dto.js.map

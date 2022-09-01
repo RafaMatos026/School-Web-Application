@@ -7,18 +7,19 @@ export class CreateWorkDto {
   @Length(6, 20, { message: "Class name must be between 6 to 20 characters!" })
   WorkName: string;
 
-  Description: string;
-
-  DueDate: Date;
-
   @IsNotEmpty({ message: "Work must be associated to a class!" })
   classId: Class;
 
   @IsNotEmpty({ message: "Work must be associated to a user!" })
   userId: ObjectId;
 
-  AddedDate: Date;
-
   @IsNotEmpty({ message: "Work must have a url associated with!" })
   fileUrl: string;
+
+  Description: string;
+
+  DueDate: Date;
+
+  @IsNotEmpty({ message: "Work must have an added date!" })
+  AddedDate: Date;
 }

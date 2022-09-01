@@ -11,7 +11,7 @@ export class Work {
   @Prop()
   Description: string;
 
-  @Prop({ required: true })
+  @Prop()
   DueDate: Date;
 
   @Prop({ default: Date.now() })

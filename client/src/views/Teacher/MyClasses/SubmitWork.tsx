@@ -1,9 +1,10 @@
 import Modal from "../../../shared/components/Modal"
 import { Button, ButtonGroup, TextField } from "@mui/material"
 import Typography from '@mui/material/Typography';
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { BASE_URL, CLOUDNARY_BASE_URL } from "../../../shared/consts";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../../auth/AuthContext";
 
 interface Props {
     open: boolean;
@@ -13,6 +14,7 @@ interface Props {
 export default function SubmitWork(props: Props) {
     const { _id } = useParams();
     const { open, setOpen } = props;
+    const { user } = useContext(AuthContext);
     const [WorkName, setWorkName] = useState("");
     const [Description, setDescription] = useState("");
     const [DueDate, setDueDate] = useState("");
@@ -56,7 +58,7 @@ export default function SubmitWork(props: Props) {
     )
 
     function CreateWork() {
-        if (file && WorkName && DueDate) {
+        if (file && WorkName && DueDate && user) {
             uploadCloudnary()
             let url = BASE_URL + '/works/create';
             fetch(url, {
@@ -67,7 +69,8 @@ export default function SubmitWork(props: Props) {
                     DueDate: DueDate,
                     AddedDate: Date.now(),
                     classId: _id,
-                    fileUrl: fileUrl
+                    fileUrl: fileUrl,
+                    userId: user._id,
                 }),
                 headers: {
                     "Content-type": "application/json; charset=UTF-8",
@@ -106,14 +109,12 @@ export default function SubmitWork(props: Props) {
                 body: data,
             })
                 .then((response) => {
-                    console.log(response);
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(data)
                     setFileUrl(data.url);
                 })
                 .catch((error) => {
