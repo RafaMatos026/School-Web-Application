@@ -43,6 +43,9 @@ let PresenceController = class PresenceController {
         const survey = await this.PresenceService.getLatestSurvey(classId);
         return survey;
     }
+    async markPresenceJustified(_id, studentId) {
+        await this.PresenceService.markAbsenceJustified(_id, studentId);
+    }
 };
 __decorate([
     (0, common_1.Post)("create"),
@@ -88,6 +91,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "lastestSurvey", null);
+__decorate([
+    (0, common_1.Put)("markAbsenceJustified/:_id"),
+    __param(0, (0, common_1.Param)("_id")),
+    __param(1, (0, common_1.Body)("studentId")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", Promise)
+], PresenceController.prototype, "markPresenceJustified", null);
 PresenceController = __decorate([
     (0, common_1.Controller)("presences"),
     __metadata("design:paramtypes", [presence_service_1.PresenceService])

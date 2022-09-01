@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, ObjectId } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose, { Document, ObjectId } from "mongoose";
 export type PresenceDocument = Presence & Document;
 
 @Schema()
@@ -12,15 +12,21 @@ export class Presence {
 
   @Prop({
     required: true,
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   })
   absentStudents: ObjectId[];
 
   @Prop({
     required: true,
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   })
   presentStudents: ObjectId[];
+
+  @Prop({
+    required: true,
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  })
+  justifiedAbsences: ObjectId[];
 
   @Prop({ default: true })
   open: boolean;

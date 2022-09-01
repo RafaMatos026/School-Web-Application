@@ -38,4 +38,5 @@ export declare class PresenceController {
     markPresence(studentId: ObjectId, _id: string, Present: boolean): Promise<boolean>;
     closeSurvey(_id: string): Promise<void>;
     lastestSurvey(classId: string): Promise<import("./presence.schema").Presence>;
+    markPresenceJustified(_id: ObjectId, studentId: ObjectId): Promise<void>;
 }

@@ -25,17 +25,24 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
-        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }],
+        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }],
     }),
     __metadata("design:type", Array)
 ], Presence.prototype, "absentStudents", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
-        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }],
+        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }],
     }),
     __metadata("design:type", Array)
 ], Presence.prototype, "presentStudents", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        required: true,
+        type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }],
+    }),
+    __metadata("design:type", Array)
+], Presence.prototype, "justifiedAbsences", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: true }),
     __metadata("design:type", Boolean)

@@ -1,1 +1,1 @@
-{"version":3,"file":"newSurvey.dto.js","sourceRoot":"","sources":["../../../../src/models/Presence/dto's/newSurvey.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAA6C;AAG7C,MAAa,YAAY;CAQxB;AAJC;IADC,IAAA,4BAAU,EAAC,EAAE,OAAO,EAAE,gDAAgD,EAAE,CAAC;;6CAC1D;AAJlB,oCAQC"}
+{"version":3,"file":"newSurvey.dto.js","sourceRoot":"","sources":["../../../../src/models/Presence/dto's/newSurvey.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAA6C;AAG7C,MAAa,YAAY;CASxB;AALC;IADC,IAAA,4BAAU,EAAC,EAAE,OAAO,EAAE,gDAAgD,EAAE,CAAC;;6CAC1D;AAJlB,oCASC"}

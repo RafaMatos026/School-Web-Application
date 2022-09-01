@@ -67,11 +67,13 @@ let PresenceService = class PresenceService {
             return surveys;
         }
         else {
-            throw new common_1.NotFoundException('No presence forms for this class yet!');
+            throw new common_1.NotFoundException("No presence forms for this class yet!");
         }
     }
     async getAbsents(_id) {
-        return await this.presenceModel.findById(_id).select('absentStudents presentStudents');
+        return await this.presenceModel
+            .findById(_id)
+            .select("absentStudents presentStudents");
     }
     async getLatestSurvey(classId) {
         const survey = await this.presenceModel
@@ -82,8 +84,13 @@ let PresenceService = class PresenceService {
             return survey;
         }
         else {
-            throw new common_1.NotFoundException('No presence forms for this class yet!');
+            throw new common_1.NotFoundException("No presence forms for this class yet!");
         }
+    }
+    async markAbsenceJustified(_id, studenId) {
+        const survey = await this.presenceModel.findByIdAndUpdate({ _id: _id }, {
+            $push: { justifiedAbsences: studenId },
+        });
     }
 };
 PresenceService = __decorate([

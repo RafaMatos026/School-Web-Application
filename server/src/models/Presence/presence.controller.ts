@@ -51,4 +51,12 @@ export class PresenceController {
     const survey = await this.PresenceService.getLatestSurvey(classId);
     return survey;
   }
+
+  @Put("markAbsenceJustified/:_id")
+  async markPresenceJustified(
+    @Param("_id") _id: ObjectId,
+    @Body("studentId") studentId: ObjectId
+  ) {
+    await this.PresenceService.markAbsenceJustified(_id, studentId);
+  }
 }

@@ -22,8 +22,8 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { Model, ObjectId } from 'mongoose';
-import { Presence } from './presence.schema';
+import { Model, ObjectId } from "mongoose";
+import { Presence } from "./presence.schema";
 import { newSurveyDto } from "./dto's/newSurvey.dto";
 export declare class PresenceService {
     private readonly presenceModel;
@@ -38,4 +38,5 @@ export declare class PresenceService {
         _id: import("mongoose").Types.ObjectId;
     }>;
     getLatestSurvey(classId: string): Promise<Presence>;
+    markAbsenceJustified(_id: ObjectId, studenId: ObjectId): Promise<void>;
 }

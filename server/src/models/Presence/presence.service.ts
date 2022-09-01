@@ -1,13 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Model, ObjectId } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { Presence } from './presence.schema';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { Model, ObjectId } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { Presence } from "./presence.schema";
 import { newSurveyDto } from "./dto's/newSurvey.dto";
 
 @Injectable()
 export class PresenceService {
   constructor(
-    @InjectModel(Presence.name) private readonly presenceModel: Model<Presence>,
+    @InjectModel(Presence.name) private readonly presenceModel: Model<Presence>
   ) {}
 
   //create new presence survey
@@ -26,7 +26,7 @@ export class PresenceService {
   async markPresence(
     _id: string,
     studenId: ObjectId,
-    Present: boolean,
+    Present: boolean
   ): Promise<boolean> {
     const survey = await this.presenceModel.findById(_id);
     if (survey) {
@@ -39,14 +39,14 @@ export class PresenceService {
           { _id: _id },
           {
             $push: { presentStudents: studenId },
-          },
+          }
         );
       } else {
         await this.presenceModel.findByIdAndUpdate(
           { _id: _id },
           {
             $push: { absentStudents: studenId },
-          },
+          }
         );
       }
       return true;
@@ -63,7 +63,7 @@ export class PresenceService {
       },
       {
         open: false,
-      },
+      }
     );
   }
 
@@ -76,13 +76,15 @@ export class PresenceService {
     if (surveys) {
       return surveys;
     } else {
-      throw new NotFoundException('No presence forms for this class yet!');
+      throw new NotFoundException("No presence forms for this class yet!");
     }
   }
 
   //get present/absence students from a survey
   async getAbsents(_id: string) {
-    return await this.presenceModel.findById(_id).select('absentStudents presentStudents');
+    return await this.presenceModel
+      .findById(_id)
+      .select("absentStudents presentStudents");
   }
 
   //Get the lastest attendance form from a class
@@ -94,7 +96,17 @@ export class PresenceService {
     if (survey) {
       return survey;
     } else {
-      throw new NotFoundException('No presence forms for this class yet!');
+      throw new NotFoundException("No presence forms for this class yet!");
     }
+  }
+
+  //Mark absence justified
+  async markAbsenceJustified(_id: ObjectId, studenId: ObjectId) {
+    const survey = await this.presenceModel.findByIdAndUpdate(
+      { _id: _id },
+      {
+        $push: { justifiedAbsences: studenId },
+      }
+    );
   }
 }

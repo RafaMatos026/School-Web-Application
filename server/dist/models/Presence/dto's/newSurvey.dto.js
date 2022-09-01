@@ -14,7 +14,7 @@ const class_validator_1 = require("class-validator");
 class newSurveyDto {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Presence survey must be associated to a class!' }),
+    (0, class_validator_1.IsNotEmpty)({ message: "Presence survey must be associated to a class!" }),
     __metadata("design:type", String)
 ], newSurveyDto.prototype, "classId", void 0);
 exports.newSurveyDto = newSurveyDto;
