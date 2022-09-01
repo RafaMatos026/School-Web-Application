@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface Summary {
     SummaryName: string;
@@ -60,8 +61,13 @@ export default function PastSummaries() {
 
     return (
         <>
-            {loadingTable && <h1>Loading...</h1>}
-            {!loadingTable && (
+            {loadingTable && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loadingTable && summaries.length === 0 && (<h2>No summaries were added to this class!</h2>)}
+            {!loadingTable && summaries.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>
@@ -96,8 +102,13 @@ export default function PastSummaries() {
             )}
 
             <Modal open={open} title={summary ? summary.SummaryName : "Error"} setOpen={setOpen}>
-                {loadingModal && <h1>Loading summary...</h1>}
-                {!loadingModal && (
+                {loadingModal && (
+                    <Box display={'flex'}>
+                        <CircularProgress />
+                    </Box>
+                )}
+                {!loadingModal && !summary && (<h2>Something went wrong... Try again later!</h2>)}
+                {!loadingModal && summary && (
                     <>
                         <Typography gutterBottom>Summary:</Typography>
                         <TextField InputProps={{ readOnly: true, }} multiline rows={5} value={summary?.Description} fullWidth />

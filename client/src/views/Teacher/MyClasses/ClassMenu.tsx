@@ -5,8 +5,6 @@ import SubmitWork from './SubmitWork';
 import SubmitEvaluation from './SubmitEvaluation';
 import AddSummary from './AddSummary';
 
-
-
 export default function ClassMenu() {
     const [workModal, setOpenWork] = useState(false);
     const [evaluationModal, setOpenEvaluation] = useState(false);
@@ -60,7 +58,7 @@ export default function ClassMenu() {
                     <Card
                         variant='outlined'
                         component={Paper}>
-                        <CardActionArea onClick={() => navigate('/teacher/myClasses/' + _id +'/evaluations')}>
+                        <CardActionArea onClick={() => navigate('/teacher/myClasses/' + _id + '/evaluations')}>
                             <CardHeader title='Evaluations' />
                         </CardActionArea>
                     </Card>

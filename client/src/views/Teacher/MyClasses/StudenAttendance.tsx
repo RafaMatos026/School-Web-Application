@@ -8,6 +8,7 @@ import MoreHoriz from '@mui/icons-material/MoreHoriz';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '../../../shared/components/Modal';
 import { BASE_URL } from '../../../shared/consts'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function StudentAttendance() {
     const { _id } = useParams();
@@ -29,10 +30,6 @@ export default function StudentAttendance() {
     }));
 
     useEffect(() => {
-        LoadSurveys();
-    }, [])
-
-    function LoadSurveys() {
         let url = BASE_URL + "/presences/getSurveys/" + _id;
         fetch(url, {
             headers: {
@@ -52,14 +49,19 @@ export default function StudentAttendance() {
             .catch((error) => {
                 console.log(error.message);
             })
-    }
+    }, [_id])
 
     return (
         <>
-            {loadingTable && <h1>Loading...</h1>}
-            {!loadingTable && (
+            <Button color='success' variant='contained' sx={{ marginBottom: 2 }} onClick={() => createSurvey()}>New Survey</Button>
+            {loadingTable && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loadingTable && surveys.length === 0 && (<h2>No student attendance surveys were created for this class!</h2>)}
+            {!loadingTable && surveys.length > 0 && (
                 <Box width={'100%'}>
-                    <Button color='success' variant='contained' onClick={() => createSurvey()}>New Survey</Button>
                     <TableContainer sx={{ marginTop: 2 }} component={Paper}>
                         <Table>
                             <TableHead>
@@ -112,8 +114,8 @@ export default function StudentAttendance() {
 
             <Modal open={open} setOpen={setOpen} title={'Class Attedance'}>
                 {loadingModal && (<h2>Loading...</h2>)}
-                {absents.length == 0 && presents.length == 0 && (<h2>No info about student attendance to this class attendance survey!</h2>)}
-                {(absents.length > 0 || presents.length > 0) && (
+                {!loadingModal && absents.length === 0 && presents.length === 0 && (<h2>No student have attended the class!</h2>)}
+                {!loadingModal && (absents.length > 0 || presents.length > 0) && (
                     <TableContainer>
                         <Table>
                             <TableHead>
@@ -150,10 +152,9 @@ export default function StudentAttendance() {
     )
 
     function openAttendance(_id: string) {
-        let urlA = BASE_URL + '/presences/getAbsents/' + _id;
-        let urlP = BASE_URL + '/presences/getPresents/' + _id;
+        let url = BASE_URL + '/presences/getPresences/' + _id;
 
-        fetch(urlA, {
+        fetch(url, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -166,29 +167,11 @@ export default function StudentAttendance() {
             })
             .then((data) => {
                 console.log(data);
-                setAbsents(data);
+                setAbsents(data.absentStudents);
+                setPresents(data.presentStudents)
+                setLoadingModal(false);
             })
             .catch(err => {
-                console.log(err.message);
-            })
-
-        fetch(urlP, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                setLoadingModal(false);
-                setPresents(data);
-            })
-            .catch((err) => {
                 console.log(err.message);
             })
         setOpen(true);
@@ -202,7 +185,8 @@ export default function StudentAttendance() {
                 classId: _id
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then((response) => {
@@ -214,13 +198,15 @@ export default function StudentAttendance() {
             .catch(err => {
                 alert('Error: ' + err.message);
             })
-        LoadSurveys();
     }
 
     function closeSurvey(_id: string) {
         let url = BASE_URL + '/presences/closeSurvey/' + _id;
         fetch(url, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then((response) => {
                 if (response.ok) {
@@ -231,6 +217,5 @@ export default function StudentAttendance() {
             .catch(err => {
                 alert('Error: ' + err.message);
             })
-        LoadSurveys();
     }
 }

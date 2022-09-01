@@ -15,6 +15,7 @@ export default function AddSummary(props: Props) {
     const { open, setOpen } = props;
     const [Description, setDescription] = useState("");
     const [SummaryName, setSummaryName] = useState("");
+
     return (
         <Modal open={open} title={"Add Summary"} setOpen={setOpen}>
             <form>

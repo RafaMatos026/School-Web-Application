@@ -8,6 +8,7 @@ import { BASE_URL } from '../../../shared/consts';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IEvaluation } from '../../../shared/Interfaces/interfaces';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Evaluations() {
     const { _id } = useParams()
@@ -52,8 +53,15 @@ export default function Evaluations() {
 
     return (
         <>
-            {loading && (<h2>Loading...</h2>)}
-            {!loading && (
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loading && evaluations.length === 0 && (<h2>
+                No evaluations submitted to this class!
+            </h2>)}
+            {!loading && evaluations.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>

@@ -8,6 +8,7 @@ import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../../auth/AuthContext';
 import { BASE_URL } from '../../../shared/consts';
 import { IMyClasses } from '../../../shared/Interfaces/interfaces';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function MyClasses() {
 
@@ -49,7 +50,11 @@ export default function MyClasses() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && MyClasses.length === 0 && (<h2>You are not assigned to any class yet!</h2>)}
             {!loading && MyClasses.length > 0 && (
                 <Box width={'100%'}>

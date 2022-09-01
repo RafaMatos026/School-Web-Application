@@ -8,8 +8,9 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
-const BASE_URL: string = "http://localhost:3001";
 
 interface Summary {
     SummaryName: string;
@@ -61,7 +62,12 @@ export default function PastSummaries() {
 
     return (
         <>
-            {loadingTable && <h1>Loading</h1>}
+            {loadingTable && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loadingTable && summaries.length === 0}
             {!loadingTable && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
@@ -95,9 +101,16 @@ export default function PastSummaries() {
                 </Box>
             )}
 
-            <Modal open={open} title={summary ? summary._id : "Error"} setOpen={setOpen}>
-                {loadingModal && <h1>Loading summary...</h1>}
-                {!loadingModal && (
+            <Modal open={open} title={summary ? summary.SummaryName : "Error"} setOpen={setOpen}>
+                {loadingModal && (
+                    <Box display={'flex'}>
+                        <CircularProgress />
+                    </Box>
+                )}
+                {!loadingModal && !summary && (<h2>
+                    Something went wrong... Try again later!
+                </h2>)}
+                {!loadingModal && summary && (
                     <>
                         <Typography gutterBottom>Summary:</Typography>
                         <TextField InputProps={{ readOnly: true, }} multiline rows={5} value={summary?.Description} fullWidth />

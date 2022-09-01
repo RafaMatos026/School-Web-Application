@@ -7,13 +7,12 @@ import { BASE_URL } from '../../../shared/consts';
 import { useParams } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IEvaluation } from '../../../shared/Interfaces/interfaces';
-//take an eye icon here;
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function PastSummaries() {
     const { _id } = useParams();
     const [evaluations, setEvaluations] = useState<IEvaluation[]>([]);
-    const [loading, setLoading] = useState(false); //Change here to true
-
+    const [loading, setLoading] = useState(true);
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -53,8 +52,13 @@ export default function PastSummaries() {
 
     return (
         <>
-            {loading && <h1>Loading</h1>}
-            {!loading && (
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loading && evaluations.length === 0 && (<h2>No evaluations submitted to this class!</h2>)}
+            {!loading && evaluations.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>
