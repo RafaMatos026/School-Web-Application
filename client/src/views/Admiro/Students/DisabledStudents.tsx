@@ -4,6 +4,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { useState, useEffect } from 'react';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function DisabledStudents() {
 
@@ -44,7 +45,11 @@ export default function DisabledStudents() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>

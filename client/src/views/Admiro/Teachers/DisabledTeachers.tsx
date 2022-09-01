@@ -3,7 +3,8 @@ import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { useState, useEffect } from 'react';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
-import { BASE_URL } from '../../../shared/consts';
+import { BASE_URL, teacher } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function DisabledTeachers() {
 
@@ -44,8 +45,13 @@ export default function DisabledTeachers() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
-            {!loading && (
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loading && teachers.length === 0 && (<h2>No teachers are disabled!</h2>)}
+            {!loading && teachers.length > 0 && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
                         <Table>

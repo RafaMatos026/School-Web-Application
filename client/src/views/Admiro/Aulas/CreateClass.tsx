@@ -17,13 +17,13 @@ export default function CreateClass() {
     const [ClassName, setClassName] = useState<string>("");
     const [Subject, setSubject] = useState<string>("");
     const [HeadTeacher, setHeadTeacher] = useState<string>("");
-    const [loadingSubjects, setLoadingSubjects] = useState(true);
-    const [loadingTeachers, setLoadingTeachers] = useState(true);
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         getSubjects();
         getTeachers();
+        setLoading(false);
     }, [])
 
     function getSubjects() {
@@ -41,7 +41,6 @@ export default function CreateClass() {
             })
             .then((data) => {
                 setSubjects(data);
-                setLoadingSubjects(false);
             })
             .catch(err => {
                 console.log(err.message);
@@ -63,7 +62,6 @@ export default function CreateClass() {
             })
             .then((data) => {
                 setTeachers(data);
-                setLoadingTeachers(false);
             })
             .catch(err => {
                 console.log(err.message);
@@ -72,12 +70,12 @@ export default function CreateClass() {
 
     return (
         <>
-            {loadingSubjects && loadingTeachers && (
+            {loading && (
                 <Box display={'flex'}>
                     <CircularProgress />
                 </Box>
             )}
-            {!loadingSubjects && !loadingTeachers && (
+            {!loading && (
                 <>
                     <form noValidate autoComplete="false">
                         <Box display={'flex'} justifyContent='center' flexDirection={'column'} alignItems='center' marginTop={5}>

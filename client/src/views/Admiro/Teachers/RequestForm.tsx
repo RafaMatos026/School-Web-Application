@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function RegistrationForm() {
     let { _id } = useParams();
@@ -38,7 +39,11 @@ export default function RegistrationForm() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && (
                 <>
                     <Box display={'flex'} justifyContent='center' flexDirection={'column'} alignItems='center'>

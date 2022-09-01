@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ITeacher } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts'
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function AcceptRegistration() {
     const navigate = useNavigate();
     const [requests, setRequests] = useState<ITeacher[]>([]);
@@ -35,9 +37,13 @@ export default function AcceptRegistration() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
-            {!requests && <h1>No requests...</h1>}
-            {!loading && (
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!loading && requests.length === 0 && <h2>No requests are available!</h2>}
+            {!loading && requests.length > 0 && (
                 <Box width={'100%'}>
                     <Grid container rowSpacing={2} columnSpacing={2} display={'flex'} justifyContent='start'
                         alignItems={'center'}>

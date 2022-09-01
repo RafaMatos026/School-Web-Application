@@ -6,6 +6,7 @@ import PersonOffIcon from '@mui/icons-material/PersonOff';
 import { useState, useEffect } from 'react';
 import { IStudent } from '../../../shared/Interfaces/interfaces';
 import { BASE_URL } from '../../../shared/consts';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function StudentList() {
 
@@ -46,7 +47,11 @@ export default function StudentList() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && (
+                <Box display={'flex'}>
+                    <CircularProgress />
+                </Box>
+            )}
             {!loading && students.length === 0 && (
                 <h2>No students were created yet!</h2>
             )}
