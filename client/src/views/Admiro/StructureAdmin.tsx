@@ -242,6 +242,6 @@ export default function ResponsiveDrawer(props: Props) {
 
   function logout(): void {
     auth.signout();
-    navigate('/login');
+    navigate('/');
   }
 }
