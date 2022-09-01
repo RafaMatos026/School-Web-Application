@@ -56,6 +56,15 @@ export default function ClassMenu() {
                         </CardActionArea>
                     </Card>
                 </Grid>
+                <Grid item xs={12} md={4} textAlign='center'>
+                    <Card
+                        variant='outlined'
+                        component={Paper}>
+                        <CardActionArea onClick={() => navigate('/teacher/myClasses/' + _id +'/evaluations')}>
+                            <CardHeader title='Evaluations' />
+                        </CardActionArea>
+                    </Card>
+                </Grid>
             </Grid>
             <SubmitWork open={workModal} setOpen={setOpenWork} />
             <SubmitEvaluation open={evaluationModal} setOpen={setOpenEvaluation} />

@@ -63,6 +63,13 @@ interface ISurvey {
   open: boolean;
 }
 
+interface IEvaluation {
+  EvaluationName: string;
+  DateAdded: Date;
+  teacherId: string;
+  fileUrl: string;
+}
+
 export type {
   IClass,
   ISummary,
@@ -72,4 +79,5 @@ export type {
   IAddSummary,
   ISurvey,
   IMyClasses,
+  IEvaluation,
 };

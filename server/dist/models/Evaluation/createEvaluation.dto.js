@@ -21,6 +21,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateEvaluationDto.prototype, "EvaluationName", void 0);
 __decorate([
+    (0, class_validator_1.IsNotEmpty)({ message: "Evaluation must be submitted by a teacher!" }),
+    __metadata("design:type", Object)
+], CreateEvaluationDto.prototype, "teacherId", void 0);
+__decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "Evaluation must be associated to a class!" }),
     __metadata("design:type", Object)
 ], CreateEvaluationDto.prototype, "classId", void 0);

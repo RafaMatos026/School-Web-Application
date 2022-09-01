@@ -2,18 +2,17 @@ import { Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, Tabl
 import { styled } from '@mui/material/styles';
 import { tableCellClasses } from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
-import { useEffect, useState } from 'react';
-import { BASE_URL } from '../../../shared/consts';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BASE_URL } from '../../../shared/consts';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IEvaluation } from '../../../shared/Interfaces/interfaces';
-//take an eye icon here;
 
-export default function PastSummaries() {
-    const { _id } = useParams();
+export default function Evaluations() {
+    const { _id } = useParams()
+    const [loading, setLoading] = useState(true);
     const [evaluations, setEvaluations] = useState<IEvaluation[]>([]);
-    const [loading, setLoading] = useState(false); //Change here to true
-
 
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -53,7 +52,7 @@ export default function PastSummaries() {
 
     return (
         <>
-            {loading && <h1>Loading</h1>}
+            {loading && (<h2>Loading...</h2>)}
             {!loading && (
                 <Box width={'100%'}>
                     <TableContainer component={Paper}>
@@ -67,6 +66,7 @@ export default function PastSummaries() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
+
                                 {evaluations.map((evaluation, index) => (
                                     <TableRow key={index}>
                                         <TableCell align='center'>{index + 1}</TableCell>
@@ -76,6 +76,9 @@ export default function PastSummaries() {
                                         <TableCell align='center'>
                                             <IconButton onClick={() => openInNewTab(evaluation.fileUrl)}>
                                                 <VisibilityIcon />
+                                            </IconButton>
+                                            <IconButton onClick={() => console.log('Remove file from db and cloudnary')}>
+                                                <DeleteIcon />
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>

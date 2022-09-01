@@ -24,7 +24,6 @@ let EvaluationService = class EvaluationService {
     async createEvaluation(data) {
         const newEvaluation = new this.evaluationModel({
             EvaluationName: data.EvaluationName,
-            Description: data.Description,
             DateAdded: data.DateAdded,
             classId: data.classId,
             teacherId: data.teacherId,

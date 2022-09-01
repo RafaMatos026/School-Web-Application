@@ -4,7 +4,6 @@ export declare class Evaluation {
     EvaluationName: string;
     teacherId: ObjectId;
     classId: ObjectId;
-    Description: string;
     DateAdded: Date;
     fileUrl: string;
 }

@@ -36,6 +36,7 @@ import Unathorized from '../shared/views/Unauthorized';
 import ForgotPassword from '../views/others/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
+import Evaluations from '../views/Teacher/MyClasses/Evaluations';
 
 
 export const AppRoutes = () => {
@@ -99,6 +100,8 @@ export const AppRoutes = () => {
                     <StructureTeacher child={<StudentAttendance />} />} />
                 <Route path='/teacher/settings/:_id/' element={
                     <StructureTeacher child={<EditProfile />} />} />
+                <Route path='/teacher/myClasses/:_id/evaluations' element={
+                    <StructureTeacher child={<Evaluations />} />} />
             </Route>
 
             {/** STUDENT */}

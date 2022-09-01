@@ -28,10 +28,6 @@ __decorate([
 ], Evaluation.prototype, "classId", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
-    __metadata("design:type", String)
-], Evaluation.prototype, "Description", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
     __metadata("design:type", Date)
 ], Evaluation.prototype, "DateAdded", void 0);
 __decorate([

@@ -14,9 +14,6 @@ export class Evaluation {
   classId: ObjectId;
 
   @Prop()
-  Description: string;
-
-  @Prop()
   DateAdded: Date;
 
   @Prop({ required: true })

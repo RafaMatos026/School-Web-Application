@@ -11,8 +11,7 @@ export class CreateEvaluationDto {
 
   DateAdded: Date;
 
-  Description: string;
-
+  @IsNotEmpty({ message: "Evaluation must be submitted by a teacher!" })
   teacherId: ObjectId;
 
   @IsNotEmpty({ message: "Evaluation must be associated to a class!" })

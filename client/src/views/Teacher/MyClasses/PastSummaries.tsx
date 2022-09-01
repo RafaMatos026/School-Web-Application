@@ -8,8 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
-const BASE_URL: string = "http://localhost:3001";
+import { BASE_URL } from '../../../shared/consts';
 
 interface Summary {
     SummaryName: string;
@@ -18,7 +17,6 @@ interface Summary {
     classId: string;
     _id: string;
 }
-
 
 export default function PastSummaries() {
     const { _id } = useParams();
