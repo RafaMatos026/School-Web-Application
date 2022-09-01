@@ -37,6 +37,7 @@ import ForgotPassword from '../views/others/ForgotPassword';
 import { useContext } from 'react';
 import { AuthContext } from '../auth/AuthContext';
 import Evaluations from '../views/Teacher/MyClasses/Evaluations';
+import Lost from '../shared/views/404';
 
 
 export const AppRoutes = () => {
@@ -59,68 +60,68 @@ export const AppRoutes = () => {
             {/** ADMIN */}
             <Route element={user && <RequireAuth allowedRole={admin} user={user} />}>
                 <Route path='/admin' element={<StructureAdmin active={true} page_title='Homepage' child={<h1>Hello Admin</h1>} />} />
-                <Route path='/admin/registration-requests' element={<StructureAdmin child={<RegistrationRequests />} />} />
-                <Route path='/admin/create-student' element={<StructureAdmin child={<CreateStudent />} />} />
-                <Route path='/admin/create-class' element={<StructureAdmin child={<CreateClass />} />} />
-                <Route path='/admin/class-list' element={<StructureAdmin child={<ClassList />} />} />
-                <Route path='/admin/student-list' element={<StructureAdmin child={<StudentList />} />} />
-                <Route path='/admin/teacher-list' element={<StructureAdmin child={<TeacherList />} />} />
-                <Route path='/admin/request/:_id' element={<StructureAdmin child={<RequestForm />} />} />
-                <Route path='/admin/class/:_id' element={<StructureAdmin child={<ClassMenuAdmin />} />} />
+                <Route path='/admin/registration-requests' element={<StructureAdmin page_title='Registration Requests' child={<RegistrationRequests />} />} />
+                <Route path='/admin/create-student' element={<StructureAdmin page_title='Create Student' child={<CreateStudent />} />} />
+                <Route path='/admin/create-class' element={<StructureAdmin page_title='Create Class' child={<CreateClass />} />} />
+                <Route path='/admin/class-list' element={<StructureAdmin page_title='Class List' child={<ClassList />} />} />
+                <Route path='/admin/student-list' element={<StructureAdmin page_title='Student List' child={<StudentList />} />} />
+                <Route path='/admin/teacher-list' element={<StructureAdmin page_title='Teacher List' child={<TeacherList />} />} />
+                <Route path='/admin/request/:_id' element={<StructureAdmin active={true} page_title='Request' child={<RequestForm />} />} />
+                <Route path='/admin/class/:_id' element={<StructureAdmin active={true} page_title='Class' child={<ClassMenuAdmin />} />} />
                 <Route path='/admin/class/:_id/assign-students' element={
-                    <StructureAdmin child={<AssignStudent />} />} />
+                    <StructureAdmin active={true} page_title='Assign Students to Class' child={<AssignStudent />} />} />
                 <Route path='/admin/class/:_id/assigned-students' element={
-                    <StructureAdmin child={<AssignedStudents />} />} />
+                    <StructureAdmin active={true} page_title='Assigned Students' child={<AssignedStudents />} />} />
                 <Route path='/admin/class/:_id/assign-teachers' element={
-                    <StructureAdmin child={<AssignTeacher />} />} />
+                    <StructureAdmin active={true} page_title='Assign Teachers' child={<AssignTeacher />} />} />
                 <Route path='/admin/class/:_id/assigned-teachers' element={
-                    <StructureAdmin child={<AssignedTeachers />} />} />
-                <Route path='/admin/class/:_id/edit' element={<StructureAdmin child={<EditClass />} />} />
-                <Route path='/admin/disabled-class-list' element={<StructureAdmin child={<DisabledClasses />} />} />
+                    <StructureAdmin active={true} page_title='Assigned Teachers' child={<AssignedTeachers />} />} />
+                <Route path='/admin/class/:_id/edit' element={<StructureAdmin active={true} page_title='Edit Class' child={<EditClass />} />} />
+                <Route path='/admin/disabled-class-list' element={<StructureAdmin page_title='Disabled Classes' child={<DisabledClasses />} />} />
                 <Route path='/admin/disabled-student-list' element={
-                    <StructureAdmin child={<DisabledStudents />} />} />
+                    <StructureAdmin page_title='Disabled Students' child={<DisabledStudents />} />} />
                 <Route path='/admin/disabled-teacher-list' element={
-                    <StructureAdmin child={<DisabledTeachers />} />} />
+                    <StructureAdmin page_title='Disabled Teachers' child={<DisabledTeachers />} />} />
                 <Route path='/admin/settings/:_id/' element={
-                    <StructureAdmin child={<EditProfile />} />} />
+                    <StructureAdmin page_title='Edit profile' child={<EditProfile />} />} />
             </Route>
 
             {/** TEACHER */}
             <Route element={user && <RequireAuth allowedRole={teacher} user={user} />}>
                 <Route path='/teacher' element={<StructureTeacher page_title='Homepage' child={<h1>Hello Teacher</h1>} />} />
                 <Route path='/teacher/create-class' element={
-                    <StructureTeacher child={<CreateClass />} />} />
+                    <StructureTeacher page_title='Create Class' child={<CreateClass />} />} />
                 <Route path='/teacher/myClasses' element={
-                    <StructureTeacher child={<MyClasses />} />} />
+                    <StructureTeacher page_title='My Classes' child={<MyClasses />} />} />
                 <Route path='/teacher/myClasses/:_id' element={
-                    <StructureTeacher child={<ClassMenuTeacher />} />} />
+                    <StructureTeacher active={true} page_title='Class' child={<ClassMenuTeacher />} />} />
                 <Route path='/teacher/myClasses/:_id/past-summaries' element={
-                    <StructureTeacher child={<PastSummaries />} />} />
+                    <StructureTeacher page_title='Past Summaries' active={true} child={<PastSummaries />} />} />
                 <Route path='/teacher/myClasses/:_id/student-attendance' element={
-                    <StructureTeacher child={<StudentAttendance />} />} />
+                    <StructureTeacher page_title='Student Attendance' active={true} child={<StudentAttendance />} />} />
                 <Route path='/teacher/settings/:_id/' element={
-                    <StructureTeacher child={<EditProfile />} />} />
+                    <StructureTeacher page_title='Edit Profile' child={<EditProfile />} />} />
                 <Route path='/teacher/myClasses/:_id/evaluations' element={
-                    <StructureTeacher child={<Evaluations />} />} />
+                    <StructureTeacher page_title='Evaluations' active={true} child={<Evaluations />} />} />
             </Route>
 
             {/** STUDENT */}
             <Route element={user && <RequireAuth allowedRole={student} user={user} />}>
                 <Route path='/student' element={<StructureStudent page_title='Homepage' child={<h1>Hello Student!</h1>} />} />
                 <Route path='/student/myClasses' element={
-                    <StructureStudent child={<MyClassesStudent />} />} />
+                    <StructureStudent page_title='My Classes' child={<MyClassesStudent />} />} />
                 <Route path='/student/myClasses/:_id' element={
-                    <StructureStudent child={<ClassMenuStudent />} />} />
+                    <StructureStudent page_title='Class' active={true} child={<ClassMenuStudent />} />} />
                 <Route path='/student/myClasses/:_id/submitted-evaluations' element={
-                    <StructureStudent child={<SubmittedEvaluations />} />} />
+                    <StructureStudent page_title='Submitted Evaluations' active={true} child={<SubmittedEvaluations />} />} />
                 <Route path='/student/myClasses/:_id/past-summaries' element={
-                    <StructureStudent child={<PastSummariesStudent />} />} />
+                    <StructureStudent page_title='Past Summaries' active={true} child={<PastSummariesStudent />} />} />
                 <Route path='/student/settings/:_id/' element={
-                    <StructureStudent child={<EditProfile />} />} />
+                    <StructureStudent page_title='Edit Profile' child={<EditProfile />} />} />
             </Route>
 
             {/* 404 create a new component here*/}
-            <Route path='*' element={<h2>You seem somewhat lost...</h2>} />
+            <Route path='*' element={<Lost />} />
 
         </Routes >
     );
