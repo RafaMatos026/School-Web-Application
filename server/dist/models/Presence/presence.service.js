@@ -71,18 +71,7 @@ let PresenceService = class PresenceService {
         }
     }
     async getAbsents(_id) {
-        const survey = await this.presenceModel.findById(_id);
-        if (survey) {
-            const absentStudents = survey.absentStudents;
-            return absentStudents;
-        }
-    }
-    async getPresents(_id) {
-        const survey = await this.presenceModel.findById(_id);
-        if (survey) {
-            const presentStudents = survey.presentStudents;
-            return presentStudents;
-        }
+        return await this.presenceModel.findById(_id).select('absentStudents presentStudents');
     }
     async getLatestSurvey(classId) {
         const survey = await this.presenceModel

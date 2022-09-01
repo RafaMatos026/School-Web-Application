@@ -28,10 +28,6 @@ let PresenceController = class PresenceController {
         const absents = await this.PresenceService.getAbsents(_id);
         return absents;
     }
-    async getPresents(_id) {
-        const presents = await this.PresenceService.getPresents(_id);
-        return presents;
-    }
     async getSurveys(classId) {
         const surveys = await this.PresenceService.getSurveys(classId);
         return surveys;
@@ -56,19 +52,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "createPresence", null);
 __decorate([
-    (0, common_1.Get)("getAbsents/:_id"),
+    (0, common_1.Get)("getPresences/:_id"),
     __param(0, (0, common_1.Param)("_id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], PresenceController.prototype, "getAbsents", null);
-__decorate([
-    (0, common_1.Get)("getPresents/:_id"),
-    __param(0, (0, common_1.Param)("_id")),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], PresenceController.prototype, "getPresents", null);
 __decorate([
     (0, common_1.Get)("getSurveys/:classId"),
     __param(0, (0, common_1.Param)("classId")),

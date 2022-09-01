@@ -14,16 +14,11 @@ export class PresenceController {
     return survey;
   }
 
-  @Get("getAbsents/:_id")
+  //Get present and absent students from a presence instance
+  @Get("getPresences/:_id")
   async getAbsents(@Param("_id") _id: string) {
     const absents = await this.PresenceService.getAbsents(_id);
     return absents;
-  }
-
-  @Get("getPresents/:_id")
-  async getPresents(@Param("_id") _id: string) {
-    const presents = await this.PresenceService.getPresents(_id);
-    return presents;
   }
 
   @Get("getSurveys/:classId")

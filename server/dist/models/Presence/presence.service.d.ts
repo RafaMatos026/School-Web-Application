@@ -34,7 +34,8 @@ export declare class PresenceService {
     getSurveys(classId: string): Promise<(import("mongoose").Document<unknown, any, Presence> & Presence & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
-    getAbsents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
-    getPresents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    getAbsents(_id: string): Promise<import("mongoose").Document<unknown, any, Presence> & Presence & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     getLatestSurvey(classId: string): Promise<Presence>;
 }

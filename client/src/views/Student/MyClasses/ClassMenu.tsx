@@ -147,7 +147,7 @@ export default function ClassMenu() {
                 setSurvey(data);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             })
         setOpenPresence(true)
     }

@@ -100,7 +100,6 @@ export default function SubmitJustification(props: Props) {
                     return response.json();
                 })
                 .then((data) => {
-                    console.log(data)
                     setFileUrl(data.url);
                 })
                 .catch((error) => {

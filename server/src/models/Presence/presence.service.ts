@@ -82,20 +82,7 @@ export class PresenceService {
 
   //get present/absence students from a survey
   async getAbsents(_id: string) {
-    const survey: Presence = await this.presenceModel.findById(_id);
-    if (survey) {
-      const absentStudents = survey.absentStudents;
-      return absentStudents;
-    }
-  }
-
-  //get present/absence students from a survey
-  async getPresents(_id: string) {
-    const survey: Presence = await this.presenceModel.findById(_id);
-    if (survey) {
-      const presentStudents = survey.presentStudents;
-      return presentStudents;
-    }
+    return await this.presenceModel.findById(_id).select('absentStudents presentStudents');
   }
 
   //Get the lastest attendance form from a class

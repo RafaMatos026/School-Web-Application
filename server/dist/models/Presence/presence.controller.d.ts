@@ -29,8 +29,9 @@ export declare class PresenceController {
     private readonly PresenceService;
     constructor(PresenceService: PresenceService);
     createPresence(newSurveyDto: newSurveyDto): Promise<import("./presence.schema").Presence>;
-    getAbsents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
-    getPresents(_id: string): Promise<import("mongoose").Schema.Types.ObjectId[]>;
+    getAbsents(_id: string): Promise<import("mongoose").Document<unknown, any, import("./presence.schema").Presence> & import("./presence.schema").Presence & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
     getSurveys(classId: string): Promise<(import("mongoose").Document<unknown, any, import("./presence.schema").Presence> & import("./presence.schema").Presence & {
         _id: import("mongoose").Types.ObjectId;
     })[]>;
