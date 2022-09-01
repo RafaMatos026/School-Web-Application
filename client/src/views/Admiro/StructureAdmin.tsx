@@ -26,12 +26,11 @@ interface Props {
   window?: () => Window;
   child?: React.ReactNode;
   page_title?: string;
+  active?: boolean;
 }
 
 export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
-  const { child } = props;
-  const { page_title } = props;
+  const { child, page_title, active, window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const user = useContext(AuthContext).user;
   const auth = useContext(AuthContext);
@@ -176,14 +175,16 @@ export default function ResponsiveDrawer(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{ flexGrow: 1 }}>
-            <IconButton
-              color='inherit'
-              aria-label='go back'
-              edge="start"
-              onClick={() => navigate(-1)}>
-              <ArrowBackIcon />
-            </IconButton>
+          <Box sx={{ flexGrow: 1 }} display='flex' alignItems={'center'}>
+            {active && (
+              <IconButton
+                color='inherit'
+                aria-label='go back'
+                edge="start"
+                onClick={() => navigate(-1)}>
+                <ArrowBackIcon />
+              </IconButton>
+            )}
             <Typography marginLeft={2} variant="h6" noWrap component="div">
               {page_title}
             </Typography>

@@ -58,7 +58,7 @@ export const AppRoutes = () => {
 
             {/** ADMIN */}
             <Route element={user && <RequireAuth allowedRole={admin} user={user} />}>
-                <Route path='/admin' element={<StructureAdmin child={<h1>Hello Admin</h1>} />} />
+                <Route path='/admin' element={<StructureAdmin active={true} page_title='Homepage' child={<h1>Hello Admin</h1>} />} />
                 <Route path='/admin/registration-requests' element={<StructureAdmin child={<RegistrationRequests />} />} />
                 <Route path='/admin/create-student' element={<StructureAdmin child={<CreateStudent />} />} />
                 <Route path='/admin/create-class' element={<StructureAdmin child={<CreateClass />} />} />
@@ -87,7 +87,7 @@ export const AppRoutes = () => {
 
             {/** TEACHER */}
             <Route element={user && <RequireAuth allowedRole={teacher} user={user} />}>
-                <Route path='/teacher' element={<StructureTeacher child={<h1>Hello Teacher</h1>} />} />
+                <Route path='/teacher' element={<StructureTeacher page_title='Homepage' child={<h1>Hello Teacher</h1>} />} />
                 <Route path='/teacher/create-class' element={
                     <StructureTeacher child={<CreateClass />} />} />
                 <Route path='/teacher/myClasses' element={
@@ -106,7 +106,7 @@ export const AppRoutes = () => {
 
             {/** STUDENT */}
             <Route element={user && <RequireAuth allowedRole={student} user={user} />}>
-                <Route path='/student' element={<StructureStudent child={<h1>Hello Student!</h1>} />} />
+                <Route path='/student' element={<StructureStudent page_title='Homepage' child={<h1>Hello Student!</h1>} />} />
                 <Route path='/student/myClasses' element={
                     <StructureStudent child={<MyClassesStudent />} />} />
                 <Route path='/student/myClasses/:_id' element={
