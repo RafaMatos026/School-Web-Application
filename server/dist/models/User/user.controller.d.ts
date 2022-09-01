@@ -42,7 +42,8 @@ export declare class UserController {
     getDisabledTeachers(): Promise<import("./user.schema").User[]>;
     getActiveStudents(): Promise<import("./user.schema").User[]>;
     getRequests(): Promise<import("./user.schema").User[]>;
-    updateUser(_id: string, updateUserDto: UpdateUserDto): Promise<void>;
+    updateUser(_id: string, updateUserDto: UpdateUserDto): Promise<import("./user.schema").User>;
+    changePassword(_id: string, Password: string): Promise<void>;
     deleteUser(_id: string): Promise<void>;
     acceptTeacher(_id: string): Promise<void>;
     declineTeacher(_id: string): Promise<void>;

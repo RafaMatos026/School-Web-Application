@@ -95,7 +95,16 @@ export class UserController {
     @Param("id") _id: string,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    await this.UserService.updateUser(_id, updateUserDto);
+    return await this.UserService.updateUser(_id, updateUserDto);
+  }
+
+  //ChangePassword
+  @Put("changePassword/:_id")
+  async changePassword(
+    @Param("_id") _id: string,
+    @Body("Password") Password: string
+  ) {
+    return await this.UserService.changePassword(_id, Password);
   }
 
   //Disable User
@@ -148,6 +157,7 @@ export class UserController {
   }
 
   //Forgot my password
+  @Public()
   @Post("forgotPassword")
   async forgotPassword(@Body("Email") Email: string) {
     await this.UserService.forgotPassword(Email);

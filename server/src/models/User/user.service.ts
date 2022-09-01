@@ -44,7 +44,7 @@ function SendEmail(Email: string, Password: string) {
       console.log("Email has been sent!");
     })
     .catch((error) => {
-      console.log("Error: " + error);
+      console.log(error);
     });
 }
 
@@ -72,7 +72,7 @@ function ResendNewPassword(Email: string, Password: string) {
       console.log("Email has been sent!");
     })
     .catch((error) => {
-      console.log("Error: " + error);
+      console.log(error);
     });
 }
 
@@ -232,7 +232,7 @@ export class UserService {
     }
   }
 
-  //Update user
+  //Update user information
   async updateUser(_id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.userModel.findByIdAndUpdate(
       { _id: _id },
@@ -241,10 +241,25 @@ export class UserService {
         LName: updateUserDto.LName,
         ProfilePicture: updateUserDto.ProfilePicture,
         Birthday: updateUserDto.Birthday,
-        Password: await bcrypt.hash(updateUserDto.Password, 10),
+      },
+      {
+        new: true,
       }
     );
     return user;
+  }
+
+  //Change password
+  async changePassword(_id: string, Password: string) {
+    const user = await this.userModel.findByIdAndUpdate(
+      { _id: _id },
+      {
+        Password: await bcrypt.hash(Password, 10),
+      },
+      {
+        new: true,
+      }
+    );
   }
 
   //Disable user
@@ -413,15 +428,16 @@ export class UserService {
 
   //forgot password
   async forgotPassword(Email: string) {
-    const user = this.userModel.findOne({ Email: Email });
-    if (user) {
-      let pwd = GeneratePassword();
-      user.update({
+    let pwd = GeneratePassword();
+    const user = await this.userModel.findOneAndUpdate(
+      { Email: Email },
+      {
         Password: await bcrypt.hash(pwd, 10),
-      });
-      ResendNewPassword((await user).Email, pwd);
-    } else {
-      return new NotFoundException("No user was found");
-    }
+      },
+      {
+        new: true,
+      }
+    );
+    ResendNewPassword(user.Email, pwd);
   }
 }

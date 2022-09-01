@@ -50,7 +50,7 @@ function SendEmail(Email, Password) {
         console.log("Email has been sent!");
     })
         .catch((error) => {
-        console.log("Error: " + error);
+        console.log(error);
     });
 }
 function ResendNewPassword(Email, Password) {
@@ -75,7 +75,7 @@ function ResendNewPassword(Email, Password) {
         console.log("Email has been sent!");
     })
         .catch((error) => {
-        console.log("Error: " + error);
+        console.log(error);
     });
 }
 let UserService = class UserService {
@@ -225,9 +225,17 @@ let UserService = class UserService {
             LName: updateUserDto.LName,
             ProfilePicture: updateUserDto.ProfilePicture,
             Birthday: updateUserDto.Birthday,
-            Password: await bcrypt.hash(updateUserDto.Password, 10),
+        }, {
+            new: true,
         });
         return user;
+    }
+    async changePassword(_id, Password) {
+        const user = await this.userModel.findByIdAndUpdate({ _id: _id }, {
+            Password: await bcrypt.hash(Password, 10),
+        }, {
+            new: true,
+        });
     }
     async disableUser(_id) {
         await this.userModel.findByIdAndUpdate({
@@ -365,17 +373,13 @@ let UserService = class UserService {
             .select("ProfilePicture FName LName");
     }
     async forgotPassword(Email) {
-        const user = this.userModel.findOne({ Email: Email });
-        if (user) {
-            let pwd = GeneratePassword();
-            user.update({
-                Password: await bcrypt.hash(pwd, 10),
-            });
-            ResendNewPassword((await user).Email, pwd);
-        }
-        else {
-            return new common_1.NotFoundException("No user was found");
-        }
+        let pwd = GeneratePassword();
+        const user = await this.userModel.findOneAndUpdate({ Email: Email }, {
+            Password: await bcrypt.hash(pwd, 10),
+        }, {
+            new: true,
+        });
+        ResendNewPassword(user.Email, pwd);
     }
 };
 UserService = __decorate([

@@ -11,7 +11,6 @@ import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../../shared/consts';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
 interface Summary {
     SummaryName: string;
     Date: Date;

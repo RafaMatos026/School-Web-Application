@@ -19,6 +19,7 @@ const createUser_dto_1 = require("./dto/createUser.dto");
 const updateUser_dto_1 = require("./dto/updateUser.dto");
 const createStudent_dto_1 = require("./dto/createStudent.dto");
 const createTeacher_dto_1 = require("./dto/createTeacher.dto");
+const isPublic_decorator_1 = require("../../auth/decorators/isPublic.decorator");
 let UserController = class UserController {
     constructor(UserService) {
         this.UserService = UserService;
@@ -60,7 +61,10 @@ let UserController = class UserController {
         return await this.UserService.getRequests();
     }
     async updateUser(_id, updateUserDto) {
-        await this.UserService.updateUser(_id, updateUserDto);
+        return await this.UserService.updateUser(_id, updateUserDto);
+    }
+    async changePassword(_id, Password) {
+        return await this.UserService.changePassword(_id, Password);
     }
     async deleteUser(_id) {
         await this.UserService.disableUser(_id);
@@ -169,6 +173,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
 __decorate([
+    (0, common_1.Put)("changePassword/:_id"),
+    __param(0, (0, common_1.Param)("_id")),
+    __param(1, (0, common_1.Body)("Password")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "changePassword", null);
+__decorate([
     (0, common_1.Put)("disableUser/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
@@ -225,6 +237,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getProfilePic", null);
 __decorate([
+    (0, isPublic_decorator_1.Public)(),
     (0, common_1.Post)("forgotPassword"),
     __param(0, (0, common_1.Body)("Email")),
     __metadata("design:type", Function),

@@ -44,6 +44,7 @@ export declare class UserService {
     getDisabledTeachers(): Promise<User[]>;
     getRequests(): Promise<User[]>;
     updateUser(_id: string, updateUserDto: UpdateUserDto): Promise<User>;
+    changePassword(_id: string, Password: string): Promise<void>;
     disableUser(_id: string): Promise<void>;
     acceptTeacher(_id: string): Promise<void>;
     declineTeacher(_id: string): Promise<void>;
@@ -72,5 +73,5 @@ export declare class UserService {
     getProfilePic(_id: ObjectId): Promise<import("mongoose").Document<unknown, any, User> & User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    forgotPassword(Email: string): Promise<NotFoundException>;
+    forgotPassword(Email: string): Promise<void>;
 }
