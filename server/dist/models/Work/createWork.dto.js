@@ -16,7 +16,7 @@ class CreateWorkDto {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: "Class must have a name!" }),
-    (0, class_validator_1.Length)(6, 20, { message: "Class name must be between 6 to 20 characters!" }),
+    (0, class_validator_1.Length)(6, 20, { message: "Work title should have between 6-20 characters" }),
     __metadata("design:type", String)
 ], CreateWorkDto.prototype, "WorkName", void 0);
 __decorate([

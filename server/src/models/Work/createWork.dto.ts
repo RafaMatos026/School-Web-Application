@@ -4,7 +4,7 @@ import { Class } from "../Aula/class.schema";
 
 export class CreateWorkDto {
   @IsNotEmpty({ message: "Class must have a name!" })
-  @Length(6, 20, { message: "Class name must be between 6 to 20 characters!" })
+  @Length(6, 20, { message: "Work title should have between 6-20 characters" })
   WorkName: string;
 
   @IsNotEmpty({ message: "Work must be associated to a class!" })
