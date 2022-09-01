@@ -94,7 +94,7 @@ export default function Portal(props: Props) {
                                 Welcome to the new school plataform!
                             </Typography>
                             <Typography textAlign={'center'} variant="h4">
-                                Easier than ever to be in school.
+                                It's easier than ever to be in school.
                             </Typography>
                         </Grid>
                         <Grid item xs={12} md={12}>
