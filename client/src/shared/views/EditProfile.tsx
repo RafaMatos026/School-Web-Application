@@ -1,7 +1,6 @@
-import { Avatar, Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useContext, useState, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import { BASE_URL } from "../consts";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -17,7 +16,6 @@ export default function EditProfile() {
     const [Conf, setConf] = useState("");
     const [Birthday, setBirthday] = useState("");
     const [file, setFile] = useState<File | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         let url = BASE_URL + "/users/getUser/" + user?._id;
