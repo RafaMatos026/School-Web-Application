@@ -25,7 +25,7 @@ function SendEmail(Email: string, Password: string) {
   const message = {
     to: Email,
     from: "school.web.app.top@gmail.com",
-    subject: "Password to access your school account",
+    subject: "Welcome to SWP(School Web App)",
     text: "Welcome to the new management web application of our school!",
     html:
       '<img src="' +
