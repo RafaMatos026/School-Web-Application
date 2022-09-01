@@ -46,7 +46,7 @@ export default function MyClasses() {
             .catch((error) => {
                 console.log(error.message)
             })
-    }, [])
+    }, [user_id])
 
     return (
         <>
